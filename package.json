@@ -1,15 +1,20 @@
 {
-  "name": "artograd-web",
+  "name": "artograd_fe",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@epam/assets": "^5.4.1",
+    "@epam/promo": "^5.4.1",
+    "@epam/uui": "^5.4.1",
+    "@epam/uui-components": "^5.4.1",
+    "@epam/uui-core": "^5.4.1",
+    "history": "^4.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-router-dom": "^5.3.4",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.69.5",
+    "typescript": "^4.9.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +39,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@epam/uui-test-utils": "^5.4.1",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@types/history": "^4.7.11",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.4",
+    "@types/react": "^18.2.21",
+    "@types/react-router-dom": "^5.3.3"
+  },
+  "resolutions": {
+    "@types/react": "18.2.21"
   }
 }

@@ -1,6 +1,22 @@
-# Getting Started with Create React App
+# Getting started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Recommended software:
+- Node 16.x or newer (https://nodejs.org/en/)
+- VSCode (https://code.visualstudio.com/), or other IDE with typescript support (like WebStorm)
+- yarn package manager (https://yarnpkg.com/en/)
+- Any GIT client (standalone, or embedded into your IDE)
+
+## Running the project with template
+
+Clone the repository.
+
+To build and then start the project use:
+```
+yarn
+yarn start
+```
+Then open your browser on http://localhost:3000/
+
 
 ## Available Scripts
 
@@ -9,10 +25,10 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
 ### `npm test`
 
@@ -29,42 +45,65 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+# Build configuration
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## CSS/SCSS Modules
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+We build styles using SCSS in combination with CSS modules.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+If you have the following MyComponent.module.scss file:
+```
+.my-header {
+    color: red;
+}
+```
+You can import and use selectors from it from your tsx file:
+```
+import * as React from 'react';
+import css from './MainPage.module.scss';
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+export const MyComponent = <div className={ css.mainPanel }>
+```
+css.mainPanel will be equal to auto-generated class name, which is guaranteed to be unique across the project. In development mode, selector will contain the name of the file and hash, like "MainPage_mainPanel__140Pj". In production mode, selectors will be made short to reduce size.
 
-## Learn More
+If you need an usual global selector, use:
+```
+:global(.my-selector)
+```
+
+Read more on CSS Modules here: https://github.com/css-modules/css-modules 
+
+Read more on SCSS here: https://sass-lang.com/ 
+
+## SVG icons
+
+SVG files can be imported like this:
+```
+import { ReactComponent as myIcon } from 'icons/myIcon.svg'
+```
+
+After this, myIcon.svg will be included in SVG sprite as a symbol, and myIcon variable will contain and object with meta-information about the SVG file, like { id, url, viewBox } or like React.SFC.
+
+[comment]: <> (## Working the .NET/Java server)
+
+[comment]: <> (By default, the project is configured to run without the server &#40;like .NET/Java-based REST APIs&#41;.)
+
+[comment]: <> (Usually, back-end project serves static assets as well as it's REST APIs. Considering this, when you'll get back-end server running, you need to change some settings:)
+
+[comment]: <> (- make sure your server can serve static files from /built path.)
+
+[comment]: <> (- the app uses Single Page Application approach, so routing is done at client-side. To support this, you'll need to tweak your server-side routing so any unknown path &#40;like /home&#41; serves the /built/index.html file content)
+
+[comment]: <> (- on developers machines, setup the server to run on some spare port &#40;like 44301&#41;)
+
+[comment]: <> (- Back-end developers can use "yarn build" after getting the source, to get recent version of UI scripts)
+
+[comment]: <> (- On your build/CI script use "yarn prod" command to build the bundle.js.)
+
+# Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
+To learn about UII, visit [UUI documentation website](https://uui.epam.com/)
+
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
