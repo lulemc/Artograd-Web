@@ -2,7 +2,7 @@ import { Panel, Text, FlexRow } from '@epam/uui';
 import { FlexCell } from '@epam/uui-components';
 
 export const MainPage = () => {
-  const testVar = 0;
+                        const testVar = 0;
   return (
     <Panel>
       <FlexRow padding="24">
