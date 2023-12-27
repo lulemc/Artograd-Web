@@ -1,14 +1,16 @@
-import { Tender } from "../model/Tender";
+import { Tender } from '../model/Tender';
 
-export const mockTenders: Tender[] = [{
-	id: 1,
+export const mockTenders: Tender[] = [
+  {
+    id: 1,
     city: 'Budva',
     voting_end_date: '2023-12-15',
     proposals_end_date: '2023-12-10',
     donations_amount: 0,
     impl_progress: 0,
     shortDescription: 'Urban Art Project',
-    fullDescription: 'A large-scale mural project in the city center, involving local and international artists to transform the urban landscape.',
+    fullDescription:
+      'A large-scale mural project in the city center, involving local and international artists to transform the urban landscape.',
     status: 'voting',
     budgetTotal: 10000,
     budgetGathered: 5000,
@@ -17,16 +19,18 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '6 months',
     opened_by_org: 'City Art Initiative',
     category: 'mural',
-    attachments: ['mural1.jpg', 'mural2.jpg']
-  },{
-	id: 2,  
+    attachments: ['mural1.jpg', 'mural2.jpg'],
+  },
+  {
+    id: 2,
     city: 'Herceg Novi',
     donations_amount: 0,
     impl_progress: 0,
     voting_end_date: '2023-12-15',
     proposals_end_date: '2023-12-10',
     shortDescription: 'Sculpture Installation',
-    fullDescription: 'Modern sculptures are to be installed in the main park, enhancing its appeal and artistic value. The project aims to attract more visitors and promote local culture.',
+    fullDescription:
+      'Modern sculptures are to be installed in the main park, enhancing its appeal and artistic value. The project aims to attract more visitors and promote local culture.',
     status: 'investing',
     budgetTotal: 15000,
     budgetGathered: 10500,
@@ -35,17 +39,18 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '4 months',
     opened_by_org: 'Artistic Minds',
     category: 'sculpture',
-    attachments: ['sculpture1.jpg', 'sculpture2.jpg']
+    attachments: ['sculpture1.jpg', 'sculpture2.jpg'],
   },
   {
-	id: 3,
+    id: 3,
     city: 'Budva',
     donations_amount: 0,
     voting_end_date: '2023-12-15',
     proposals_end_date: '2023-12-10',
     impl_progress: 10,
     shortDescription: 'Historical Monument Restoration',
-    fullDescription: 'This project focuses on the restoration of historical monuments in the old town, preserving the heritage and history for future generations.',
+    fullDescription:
+      'This project focuses on the restoration of historical monuments in the old town, preserving the heritage and history for future generations.',
     status: 'implementing',
     budgetTotal: 20000,
     budgetGathered: 18000,
@@ -54,16 +59,18 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '1 year',
     opened_by_org: 'Heritage Preservers',
     category: 'restoration',
-    attachments: ['restoration1.jpg', 'restoration2.jpg']
-  }, {
-	id: 4,  
+    attachments: ['restoration1.jpg', 'restoration2.jpg'],
+  },
+  {
+    id: 4,
     city: 'Herceg Novi',
     donations_amount: 7200,
     voting_end_date: '2023-12-15',
     proposals_end_date: '2023-12-10',
     shortDescription: 'Street Art Festival',
     impl_progress: 100,
-    fullDescription: 'The annual street art festival showcases works from local and international artists, turning the city into a vibrant canvas of creativity and color.',
+    fullDescription:
+      'The annual street art festival showcases works from local and international artists, turning the city into a vibrant canvas of creativity and color.',
     status: 'done',
     budgetTotal: 5000,
     budgetGathered: 5000,
@@ -72,16 +79,17 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '2 weeks',
     opened_by_org: 'Festival of Colors',
     category: 'festival',
-    attachments: ['festival1.jpg', 'festival2.jpg']
+    attachments: ['festival1.jpg', 'festival2.jpg'],
   },
   {
-	id: 5,
+    id: 5,
     city: 'Budva',
     donations_amount: 0,
     voting_end_date: '2023-12-15',
     proposals_end_date: '2023-12-10',
     shortDescription: 'Community Art Workshop',
-    fullDescription: 'Interactive workshops for community members of all ages to create public art, fostering creativity and community spirit.',
+    fullDescription:
+      'Interactive workshops for community members of all ages to create public art, fostering creativity and community spirit.',
     status: 'gathering',
     impl_progress: 0,
     budgetTotal: 8000,
@@ -91,15 +99,17 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '3 months',
     opened_by_org: 'Creative Budva',
     category: 'workshop',
-    attachments: ['workshop1.jpg', 'workshop2.jpg']
-  },{
-	id: 6,  
+    attachments: ['workshop1.jpg', 'workshop2.jpg'],
+  },
+  {
+    id: 6,
     city: 'Kotor',
     donations_amount: 0,
     voting_end_date: '2023-12-15',
     proposals_end_date: '2023-12-10',
     shortDescription: 'Interactive Street Mural',
-    fullDescription: 'An interactive mural project in the heart of Kotor, involving community participation to create a dynamic and engaging street art piece.',
+    fullDescription:
+      'An interactive mural project in the heart of Kotor, involving community participation to create a dynamic and engaging street art piece.',
     status: 'gathering',
     impl_progress: 0,
     budgetTotal: 12000,
@@ -109,16 +119,17 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '2 months',
     opened_by_org: 'Kotor Art Collective',
     category: 'mural',
-    attachments: ['mural_kotor1.jpg', 'mural_kotor2.jpg']
+    attachments: ['mural_kotor1.jpg', 'mural_kotor2.jpg'],
   },
   {
-	id: 7,
+    id: 7,
     city: 'Tivat',
     donations_amount: 0,
     voting_end_date: '2023-12-15',
     proposals_end_date: '2023-12-10',
     shortDescription: 'Outdoor Sculpture Gallery',
-    fullDescription: 'A new outdoor sculpture gallery along the Tivat coastline, showcasing contemporary works by renowned national and international sculptors.',
+    fullDescription:
+      'A new outdoor sculpture gallery along the Tivat coastline, showcasing contemporary works by renowned national and international sculptors.',
     status: 'investing',
     impl_progress: 0,
     budgetTotal: 25000,
@@ -128,16 +139,17 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '5 months',
     opened_by_org: 'Tivat Art Space',
     category: 'sculpture',
-    attachments: ['sculpture_tivat1.jpg', 'sculpture_tivat2.jpg']
+    attachments: ['sculpture_tivat1.jpg', 'sculpture_tivat2.jpg'],
   },
   {
-	id: 8,
+    id: 8,
     city: 'Podgorica',
     donations_amount: 0,
     voting_end_date: '2023-12-15',
     proposals_end_date: '2023-12-10',
     shortDescription: 'Cultural Heritage Exhibition',
-    fullDescription: 'An exhibition dedicated to the cultural heritage of Podgorica, featuring multimedia installations, art pieces, and historical artifacts.',
+    fullDescription:
+      'An exhibition dedicated to the cultural heritage of Podgorica, featuring multimedia installations, art pieces, and historical artifacts.',
     status: 'implementing',
     impl_progress: 80,
     budgetTotal: 18000,
@@ -147,16 +159,17 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '8 months',
     opened_by_org: 'Podgorica Cultural Center',
     category: 'exhibition',
-    attachments: ['exhibition_podgorica1.jpg', 'exhibition_podgorica2.jpg']
+    attachments: ['exhibition_podgorica1.jpg', 'exhibition_podgorica2.jpg'],
   },
   {
-	id: 9,
+    id: 9,
     city: 'Cetinje',
     donations_amount: 0,
     voting_end_date: '2024-01-15',
     proposals_end_date: '2023-12-10',
     shortDescription: 'Public Art Initiative',
-    fullDescription: 'A public art initiative in Cetinje, involving the creation of several large-scale installations across the city to boost cultural engagement.',
+    fullDescription:
+      'A public art initiative in Cetinje, involving the creation of several large-scale installations across the city to boost cultural engagement.',
     status: 'voting',
     impl_progress: 0,
     budgetTotal: 9000,
@@ -166,16 +179,17 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '4 months',
     opened_by_org: 'Cetinje Art Council',
     category: 'installation',
-    attachments: ['art_initiative_cetinje1.jpg', 'art_initiative_cetinje2.jpg']
+    attachments: ['art_initiative_cetinje1.jpg', 'art_initiative_cetinje2.jpg'],
   },
   {
-	id: 10,
+    id: 10,
     city: 'Bar',
     donations_amount: 0,
     voting_end_date: '2023-12-15',
     proposals_end_date: '2023-12-10',
     shortDescription: 'Historical Art Restoration',
-    fullDescription: 'A project focused on the restoration and preservation of historical artworks located in the city of Bar, including paintings and frescoes.',
+    fullDescription:
+      'A project focused on the restoration and preservation of historical artworks located in the city of Bar, including paintings and frescoes.',
     status: 'investing',
     impl_progress: 0,
     budgetTotal: 22000,
@@ -185,6 +199,6 @@ export const mockTenders: Tender[] = [{
     expected_implementation_time: '1 year',
     opened_by_org: 'Bar Heritage Society',
     category: 'restoration',
-    attachments: ['restoration_bar1.jpg', 'restoration_bar2.jpg']
-  }
+    attachments: ['restoration_bar1.jpg', 'restoration_bar2.jpg'],
+  },
 ];

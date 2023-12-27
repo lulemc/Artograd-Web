@@ -1,6 +1,7 @@
 # Getting started
 
 ## Recommended software:
+
 - Node 16.x or newer (https://nodejs.org/en/)
 - VSCode (https://code.visualstudio.com/), or other IDE with typescript support (like WebStorm)
 - yarn package manager (https://yarnpkg.com/en/)
@@ -11,12 +12,13 @@
 Clone the repository.
 
 To build and then start the project use:
+
 ```
 yarn
 yarn start
 ```
-Then open your browser on http://localhost:3000/
 
+Then open your browser on http://localhost:3000/
 
 ## Available Scripts
 
@@ -52,32 +54,38 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 We build styles using SCSS in combination with CSS modules.
 
 If you have the following MyComponent.module.scss file:
+
 ```
 .my-header {
     color: red;
 }
 ```
+
 You can import and use selectors from it from your tsx file:
+
 ```
 import * as React from 'react';
 import css from './MainPage.module.scss';
 
 export const MyComponent = <div className={ css.mainPanel }>
 ```
-css.mainPanel will be equal to auto-generated class name, which is guaranteed to be unique across the project. In development mode, selector will contain the name of the file and hash, like "MainPage_mainPanel__140Pj". In production mode, selectors will be made short to reduce size.
+
+css.mainPanel will be equal to auto-generated class name, which is guaranteed to be unique across the project. In development mode, selector will contain the name of the file and hash, like "MainPage_mainPanel\_\_140Pj". In production mode, selectors will be made short to reduce size.
 
 If you need an usual global selector, use:
+
 ```
 :global(.my-selector)
 ```
 
-Read more on CSS Modules here: https://github.com/css-modules/css-modules 
+Read more on CSS Modules here: https://github.com/css-modules/css-modules
 
-Read more on SCSS here: https://sass-lang.com/ 
+Read more on SCSS here: https://sass-lang.com/
 
 ## SVG icons
 
 SVG files can be imported like this:
+
 ```
 import { ReactComponent as myIcon } from 'icons/myIcon.svg'
 ```
