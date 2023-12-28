@@ -1,28 +1,36 @@
-import { Panel, Text, FlexRow } from '@epam/uui';
+import { Panel, FlexRow, Button } from '@epam/uui';
 import { FlexCell } from '@epam/uui-components';
+import styles from './MainPage.module.scss';
 
 export const MainPage = () => {
   return (
     <Panel>
-      <FlexRow padding="24">
-        <FlexCell width="auto" grow={2}>
-          <FlexRow padding="24">
-            <Text fontSize="24" lineHeight="30" color="brand">
-              Welcome to Artograd!
-            </Text>
+      <FlexRow>
+        <FlexCell
+          width="100%"
+          grow={2}
+          style={{ background: '#D9E2FC', padding: '0 120px' }}
+        >
+          <FlexRow>
+            <p className={styles.title}>Welcome to Artograd!</p>
           </FlexRow>
-          <FlexRow padding="24">
-            <Text fontSize="18" lineHeight="18" color="brand">
-              The largest community of creators.
-            </Text>
-          </FlexRow>
-          <FlexRow padding="24">
-            <Text fontSize="18" lineHeight="18" color="brand">
+          <FlexRow>
+            <p className={styles.subtitle}>
+              The largest community of creators. <br />
               Be the one who changes the world around.
-            </Text>
+            </p>
+          </FlexRow>
+          <FlexRow>
+            <div className={styles.cta}>
+              <Button
+                color="primary"
+                caption="Join Creators Community"
+                onClick={() => null}
+              />
+            </div>
           </FlexRow>
         </FlexCell>
-        <FlexCell width="auto" grow={2}>
+        {/* <FlexCell width="auto" grow={2}>
           <FlexRow padding="24">
             <Text fontSize="24" lineHeight="30" color="brand">
               How it works:
@@ -75,31 +83,8 @@ export const MainPage = () => {
               investors get profit from tourists' and citizens' donations.
             </Text>
           </FlexRow>
-        </FlexCell>
+        </FlexCell> */}
       </FlexRow>
     </Panel>
   );
 };
-/*
-export const MainPage = () => {
-    return (
-        <main>
-            <div className={css.bgImg}>
-                <IconContainer icon={UuiPromoImage} />
-            </div>
-            <Panel cx={css.mainPanel}>
-                <RichTextView size="14">
-                    <h3>Welcome to UUI template app</h3>
-                    {
-                        links.map((value) => (
-                            <p key={value.label}>
-                                {value.label}
-                                <a href={value.link}>{value.linkLabel}</a>
-                            </p>
-                        ))
-                    }
-                </RichTextView>
-            </Panel>
-        </main>
-    );
-};*/

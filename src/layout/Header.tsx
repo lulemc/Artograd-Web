@@ -75,7 +75,7 @@ export default function MainMenuBasicExample() {
   };
 
   return (
-    <FlexCell grow={1}>
+    <FlexCell>
       <MainMenu items={getMenuItems()} />
     </FlexCell>
   );

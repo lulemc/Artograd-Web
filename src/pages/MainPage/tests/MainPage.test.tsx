@@ -1,4 +1,4 @@
-import { MainPage } from './MainPage';
+import { MainPage } from '../MainPage';
 import { renderWithContextAsync, screen } from '@epam/uui-test-utils';
 
 describe('MainPage', () => {

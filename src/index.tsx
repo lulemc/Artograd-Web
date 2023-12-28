@@ -13,7 +13,7 @@ import {
 } from '@epam/uui-core';
 import { ErrorHandler } from '@epam/promo';
 import { svc } from './services';
-import { MainPage } from './pages/MainPage';
+import { MainPage } from './pages/MainPage/MainPage';
 import { TendersPage } from './pages/TendersPage';
 import TenderPage from './pages/TenderPage';
 import { Layout } from './layout/Layout';
