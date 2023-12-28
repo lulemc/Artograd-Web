@@ -13,6 +13,7 @@ export const MainPage = () => {
   return (
     <>
       {/* Header section */}
+      {/* TODO: ADD IMAGE */}
       <FlexRow>
         <FlexCell
           width="100%"
@@ -47,6 +48,7 @@ export const MainPage = () => {
             </Text>
           </FlexRow>
           <FlexRow />
+          {/* TODO: ALIGN */}
           {mockBlocks.map((block, index) => (
             <div className={styles.block}>
               <FlexRow>
