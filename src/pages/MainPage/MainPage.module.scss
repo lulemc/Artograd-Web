@@ -1,8 +1,12 @@
+@use '~@epam/promo/assets/styles/fonts' as *;
+
 .title {
   font-size: 44px;
   padding-top: 60px;
   margin: 0;
   color: #111111;
+  font-family: var(--font-museo-sans);
+  font-weight: 600;
 }
 
 .subtitle {
@@ -12,8 +16,176 @@
   padding-top: 24px;
   color: #474a59;
   white-space: pre-line;
+  font-family: var(--font-museo-sans);
+  font-weight: 600;
 }
 
 .cta {
   padding: 40px 0 60px 0;
+}
+
+.block {
+  width: 470px;
+}
+
+.blockNumber {
+  color: #acafbf;
+  font-size: 36px;
+  line-height: 40px;
+  font-family: var(--font-museo-sans);
+  margin: 0;
+  font-weight: 600;
+}
+
+.blockTitle {
+  margin: 0;
+  padding-top: 12px;
+  color: #111111;
+  font-size: 18px;
+  line-height: 24px;
+  font-family: var(--uui-font);
+  font-weight: 600;
+}
+
+.blockDescription {
+  margin: 0;
+  padding-top: 18px;
+  color: #474a59;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: var(--uui-font);
+  font-weight: 400;
+}
+
+.wrapper {
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: 0px 1.9649122953414917px 3.9298245906829834px 0px #1d1e261a,
+    0px 0px 1.9649122953414917px 0px #1d1e260d;
+}
+
+.tenderCard {
+  padding: 18px 24px;
+  background: #ffffff;
+  box-shadow: 0px 1.9649122953414917px 3.9298245906829834px 0px #1d1e261a,
+    0px 0px 1.9649122953414917px 0px #1d1e260d;
+  margin-bottom: 6px;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.rightColumn {
+  text-align: right;
+}
+
+.firstRow,
+.secondRow {
+  display: flex;
+  align-items: center;
+}
+
+.tag {
+  background-color: #e1e3eb;
+  padding: 3px 6px;
+  margin-right: 6px;
+  border-radius: 9px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 12px;
+  font-family: var(--uui-font);
+}
+
+.verticalDivider {
+  border: 0.5px solid #ced0db;
+  margin: 0 6px;
+  height: 100%;
+}
+
+.location {
+  padding: 0 6px;
+  display: flex;
+  color: #303240;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: var(--uui-font);
+  svg {
+    fill: #acafbf;
+  }
+}
+
+.author,
+.postedDate,
+.delivery {
+  color: #6c6f80;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: var(--uui-font);
+  span {
+    font-weight: 400;
+    color: #111111;
+  }
+}
+
+.attachments {
+  display: flex;
+  align-items: center;
+  background-color: #e1e3eb;
+  font-family: var(--uui-font);
+  padding: 3px 6px;
+  border-radius: 100px;
+  span,
+  svg {
+    padding: 0 3px;
+  }
+  span {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center;
+    font-family: var(--uui-font);
+    color: #303240;
+  }
+}
+
+.dot {
+  height: 6px;
+  width: 6px;
+  background-color: #ced0db;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 9px;
+}
+
+.status {
+  font-weight: 400;
+  font-family: var(--uui-font);
+  font-size: 12px;
+  line-height: 12px;
+  color: #111111;
+}
+
+.tenderTitle {
+  font-weight: 600;
+  font-family: var(--uui-font);
+  font-size: 16px;
+  line-height: 24px;
+  color: #303240;
+}
+
+.description {
+  font-weight: 400;
+  font-family: var(--uui-font);
+  font-size: 16px;
+  line-height: 24px;
+  color: #303240;
 }
