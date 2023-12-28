@@ -1,6 +1,6 @@
 import '@epam/uui-components/styles.css';
 import '@epam/uui/styles.css';
-import '@epam/promo/styles.css';
+import '@epam/assets/css/theme/theme_electric.css';
 import './index.module.scss';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -13,11 +13,10 @@ import {
 } from '@epam/uui-core';
 import { ErrorHandler } from '@epam/promo';
 import { svc } from './services';
-
 import { MainPage } from './pages/MainPage';
 import { TendersPage } from './pages/TendersPage';
 import TenderPage from './pages/TenderPage';
-import Layout from './pages/Layout';
+import { Layout } from './layout/Layout';
 
 const history = createBrowserHistory();
 const router = new HistoryAdaptedRouter(history);

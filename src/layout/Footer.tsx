@@ -9,40 +9,12 @@ import {
 } from '@epam/uui';
 import { AdaptiveItemProps, MainMenuLogo } from '@epam/uui-components';
 
-export default function MainMenuBasicExample() {
+export const Footer = () => {
   const renderBurger = (props: { onClose: () => void }) => (
     <>
       <BurgerButton
         href="/"
         caption="Training Catalog"
-        onClick={() => {
-          props.onClose && props.onClose();
-        }}
-      />
-      <BurgerButton
-        href="/"
-        caption="Requests"
-        onClick={() => {
-          props.onClose && props.onClose();
-        }}
-      />
-      <BurgerButton
-        href="/"
-        caption="Help"
-        onClick={() => {
-          props.onClose && props.onClose();
-        }}
-      />
-      <BurgerButton
-        href="/"
-        caption="Settings"
-        onClick={() => {
-          props.onClose && props.onClose();
-        }}
-      />
-      <BurgerButton
-        href="/"
-        caption="Log out"
         onClick={() => {
           props.onClose && props.onClose();
         }}
@@ -94,24 +66,12 @@ export default function MainMenuBasicExample() {
       {
         id: 'privacyPolicy',
         priority: 3,
-        render: (p) => (
-          <MainMenuButton
-            key={p.id}
-            href="/privace_policy"
-            caption="Privacy policy"
-          />
-        ),
+        render: (p) => <MainMenuButton key={p.id} caption="Privacy policy" />,
       },
       {
-        id: 'coockiesPolicy',
+        id: 'cookiesPolicy',
         priority: 3,
-        render: (p) => (
-          <MainMenuButton
-            key={p.id}
-            href="/cookies_policy"
-            caption="Cookies policy"
-          />
-        ),
+        render: (p) => <MainMenuButton key={p.id} caption="Cookies policy" />,
       },
     ];
   };
@@ -121,4 +81,4 @@ export default function MainMenuBasicExample() {
       <MainMenu items={getMenuItems()} />
     </FlexCell>
   );
-}
+};

@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@epam/assets": "^5.4.1",
-    "@epam/promo": "^5.4.1",
-    "@epam/uui": "^5.4.1",
-    "@epam/uui-components": "^5.4.1",
-    "@epam/uui-core": "^5.4.1",
+    "@epam/assets": "^5.4.3",
+    "@epam/electric": "^5.4.3",
+    "@epam/promo": "^5.4.3",
+    "@epam/uui": "^5.4.3",
+    "@epam/uui-components": "^5.4.3",
+    "@epam/uui-core": "^5.4.3",
     "history": "^4.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -44,7 +45,7 @@
     ]
   },
   "devDependencies": {
-    "@epam/uui-test-utils": "^5.4.1",
+    "@epam/uui-test-utils": "^5.4.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@types/history": "^4.7.11",
     "@types/jest": "^27.5.2",

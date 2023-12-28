@@ -6,7 +6,7 @@ import {
   Text,
   Button,
   ProgressBar,
-} from '@epam/promo';
+} from '@epam/electric';
 import { Tender } from '../../model/Tender';
 
 type TenderPageProps = {
@@ -18,19 +18,13 @@ const TenderComponent: React.FC<TenderPageProps> = ({ tender }) => {
     <Panel shadow margin="24">
       <FlexRow alignItems="center">
         <FlexCell grow={1}>
-          <Text size="36" font="sans">
-            {tender.shortDescription}
-          </Text>
-          <Text size="24" font="sans">
-            {tender.fullDescription}
-          </Text>
-          <Text size="18" font="sans">
-            Posted by: {tender.opened_by_org}
-          </Text>
+          <Text size="36">{tender.shortDescription}</Text>
+          <Text size="24">{tender.fullDescription}</Text>
+          <Text size="18">Posted by: {tender.opened_by_org}</Text>
         </FlexCell>
         <FlexCell width="auto">
-          <Button color="green" caption="Update Tender" />
-          <Button color="blue" caption="Assign Contractor" />
+          <Button caption="Update Tender" />
+          <Button caption="Assign Contractor" />
         </FlexCell>
       </FlexRow>
       <FlexRow>

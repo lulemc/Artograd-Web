@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react';
 import Header from './Header'; // Assuming you create a Header component
-import Footer from './Footer'; // Assuming you create a Footer component
+import { Footer } from './Footer'; // Assuming you create a Footer component
 
 type LayoutProps = {
   children: ReactNode;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout = ({ children }: LayoutProps) => {
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
@@ -17,5 +17,3 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     </div>
   );
 };
-
-export default Layout;
