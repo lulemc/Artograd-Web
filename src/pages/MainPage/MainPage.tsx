@@ -66,6 +66,8 @@ export const MainPage = () => {
         </FlexCell>
       </FlexRow>
       {/* Current tenders */}
+      {/* TODO: ADD CURRENT TENDERS TITLE */}
+      {/* TODO: ADD CURRENT TENDERS LINK */}
       <FlexRow>
         <FlexCell width="100%" style={{ padding: '0 120px' }}>
           <div className={styles.wrapper}>
@@ -165,11 +167,13 @@ export const MainPage = () => {
                     </div>
                   </div>
                 )}
+                {/* TODO: MORE PROPOSALS LINK */}
               </div>
             ))}
           </div>
         </FlexCell>
       </FlexRow>
+      {/* TODO: CURRENT PROPOSALS SECTION */}
     </>
   );
 };
