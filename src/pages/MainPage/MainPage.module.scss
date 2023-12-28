@@ -189,3 +189,88 @@
   line-height: 24px;
   color: #303240;
 }
+
+.smallProposalCard {
+  display: flex;
+}
+
+.proposalInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+}
+
+.proposalLikes {
+  font-weight: 400;
+  font-family: var(--uui-font);
+  font-size: 12px;
+  line-height: 18px;
+  color: #111111;
+  svg {
+    fill: #6c6f80;
+    cursor: pointer;
+  }
+}
+
+.proposalLink {
+  font-weight: 400;
+  font-family: var(--uui-font);
+  font-size: 16px;
+  line-height: 24px;
+  color: #0a68f1;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.proposalAuthorInfo {
+  display: flex;
+}
+
+.proposalAuthorPic {
+  height: 36px;
+  width: 36px;
+}
+
+.proposalAuthorRole {
+  font-weight: 400;
+  font-family: var(--uui-font);
+  font-size: 12px;
+  line-height: 18px;
+  color: #6c6f80;
+  margin: 0;
+}
+
+.proposalAuthorName {
+  font-weight: 600;
+  font-family: var(--uui-font);
+  font-size: 12px;
+  line-height: 18px;
+  color: #303240;
+  margin: 0;
+}
+
+.proposalAuthorTitle {
+  font-weight: 600;
+  font-family: var(--uui-font);
+  font-size: 12px;
+  line-height: 18px;
+  color: #6c6f80;
+  margin: 12px 0 0 0;
+}
+
+.proposalAuthorSocials svg {
+  fill: #6c6f80;
+  padding: 0 4.5px;
+}
+
+.proposalsTitle {
+  font-weight: 600;
+  font-family: var(--uui-font);
+  font-size: 14px;
+  line-height: 18px;
+  color: #474a59;
+}
+
+.proposals {
+  display: flex;
+}

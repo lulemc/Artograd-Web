@@ -5,6 +5,9 @@ import { mockBlocks } from './mocks/mockBlocks';
 import { tenders } from './mocks/mockTenders';
 import { ReactComponent as GeoLocationIcon } from '@epam/assets/icons/common/communication-geo_tag-18.svg';
 import { ReactComponent as AttachmentIcon } from '@epam/assets/icons/common/file-attachment-18.svg';
+import { ReactComponent as ThumbUpIcon } from '@epam/assets/icons/common/social-thumb-up-12.svg';
+import { ReactComponent as LinkedInIcon } from '@epam/assets/icons/common/linkedin-18.svg';
+import { ReactComponent as EmailIcon } from '@epam/assets/icons/common/communication-mail-18.svg';
 
 export const MainPage = () => {
   return (
@@ -106,14 +109,61 @@ export const MainPage = () => {
                     </div>
                   </div>
                 </div>
-                <p className={styles.tenderTitle}>{tender.title}</p>
-                <p className={styles.description}>{tender.description}</p>
-                {tender.status === 'Submission' && (
-                  <Button
-                    color="primary"
-                    caption="Submit Proposal"
-                    onClick={() => null}
-                  />
+                <div>
+                  <p className={styles.tenderTitle}>{tender.title}</p>
+                  <p className={styles.description}>{tender.description}</p>
+                  {tender.status === 'Submission' && (
+                    <Button
+                      color="primary"
+                      caption="Submit Proposal"
+                      onClick={() => null}
+                    />
+                  )}
+                </div>
+                {/* TODO: Small proposals */}
+                {tender.status === 'Voting' && (
+                  <div className={styles.submittedProposals}>
+                    <p className={styles.proposalsTitle}>
+                      Submitted proposals ({tender.proposals.length})
+                    </p>
+                    <div className={styles.proposals}>
+                      {tender.proposals.slice(0, 2).map((proposal) => (
+                        <div className={styles.smallProposalCard}>
+                          <img src={`images/${proposal.thumbnail}`} />
+                          <div className={styles.proposalInfo}>
+                            <div className={styles.proposalLikes}>
+                              <ThumbUpIcon />
+                              {proposal.likes}
+                            </div>
+                            <div className={styles.proposalLink}>
+                              {proposal.title}
+                            </div>
+                            <p className={styles.proposalAuthorTitle}>
+                              Author:
+                            </p>
+                            <div className={styles.proposalAuthorInfo}>
+                              <img
+                                className={styles.proposalAuthorPic}
+                                src={`images/${proposal.authorPic}`}
+                              />
+                              <div className={styles.proposalAuthorData}>
+                                <p className={styles.proposalAuthorName}>
+                                  {proposal.authorName}
+                                </p>
+                                <p className={styles.proposalAuthorRole}>
+                                  {proposal.authorRole}
+                                </p>
+                              </div>
+                              <div className={styles.proposalAuthorSocials}>
+                                <LinkedInIcon />
+                                <EmailIcon />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
             ))}
