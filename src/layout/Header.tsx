@@ -1,13 +1,12 @@
 import React from 'react';
 import {
   BurgerButton,
-  FlexRow,
   Button,
-  Panel,
   MainMenu,
   FlexSpacer,
   FlexCell,
   Burger,
+  FlexRow,
 } from '@epam/uui';
 import { AdaptiveItemProps, MainMenuLogo } from '@epam/uui-components';
 
@@ -23,18 +22,6 @@ export default function MainMenuBasicExample() {
       />
     </>
   );
-
-  const renderSignButtons = () => {
-    return (
-      <div>
-        <Panel>
-          <FlexRow padding="6" vPadding="12" spacing="12">
-            <Button color="primary" caption="Sign Up" onClick={() => null} />
-          </FlexRow>
-        </Panel>
-      </div>
-    );
-  };
 
   const getMenuItems = (): AdaptiveItemProps[] => {
     return [
@@ -70,7 +57,15 @@ export default function MainMenuBasicExample() {
           <Button key={p.id} href="/s" caption="Sing In" fill="outline" />
         ),
       },
-      { id: 'sign', priority: 2, render: renderSignButtons },
+      {
+        id: 'sign',
+        priority: 2,
+        render: (p) => (
+          <FlexRow key={p.id} padding="6" vPadding="12" spacing="12">
+            <Button color="primary" caption="Sign Up" />
+          </FlexRow>
+        ),
+      },
     ];
   };
 
