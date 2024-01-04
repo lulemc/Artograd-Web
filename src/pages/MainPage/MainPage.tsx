@@ -205,15 +205,17 @@ export const MainPage = () => {
                     </FlexRow>
                   </FlexCell>
                 )}
-                <FlexRow>
-                  <FlexSpacer />
-                  <LinkButton
-                    caption="MORE PROPOSALS"
-                    link={{ pathname: '/' }}
-                    size="42"
-                  />
-                  <FlexSpacer />
-                </FlexRow>
+                {tender.proposals.length > 2 && (
+                  <FlexRow>
+                    <FlexSpacer />
+                    <LinkButton
+                      caption="MORE PROPOSALS"
+                      link={{ pathname: '/' }}
+                      size="42"
+                    />
+                    <FlexSpacer />
+                  </FlexRow>
+                )}
               </FlexCell>
             ))}
           </Panel>
