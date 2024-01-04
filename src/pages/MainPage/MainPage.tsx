@@ -29,45 +29,31 @@ export const MainPage = () => {
       {/* How it works section */}
       <FlexRow cx={styles.sectionAlignment}>
         <FlexCell width="100%">
-          <FlexRow cx={styles.sectionHeadline}>
-            <h3>How it works:</h3>
-          </FlexRow>
           {/* TODO: VERTICAL ALIGN */}
-          <FlexCell>
-            {mockBlocks.map((block, index) => (
-              <FlexRow key={block.id} cx={styles.blockWrapper}>
-                <Panel cx={styles.block}>
-                  <FlexRow>
-                    <h2 className={styles.blockNumber}>
-                      {(index + 1).toString().padStart(2, '0')}.
-                    </h2>
-                  </FlexRow>
-                  <FlexRow>
-                    <Text cx={styles.blockTitle}>{block.title}</Text>
-                  </FlexRow>
-                  <FlexRow>
-                    <Text cx={styles.blockDescription}>
-                      {block.description}
-                    </Text>
-                  </FlexRow>
-                </Panel>
-              </FlexRow>
-            ))}
-          </FlexCell>
+          <h3 className={styles.sectionHeadline}>How it works:</h3>
+          {mockBlocks.map((block, index) => (
+            <FlexRow key={block.id} cx={styles.blockWrapper}>
+              <Panel cx={styles.block}>
+                <h2 className={styles.blockNumber}>
+                  {(index + 1).toString().padStart(2, '0')}.
+                </h2>
+                <Text cx={styles.blockTitle}>{block.title}</Text>
+                <Text cx={styles.blockDescription}>{block.description}</Text>
+              </Panel>
+            </FlexRow>
+          ))}
           <FlexRow />
         </FlexCell>
       </FlexRow>
       {/* Current tenders */}
       <FlexRow cx={styles.sectionAlignment}>
         <FlexCell width="100%">
-          <FlexRow cx={styles.sectionHeadline}>
-            <h3>Current tenders</h3>
-            <LinkButton
-              caption="View all tenders"
-              link={{ pathname: '/' }}
-              size="42"
-            />
-          </FlexRow>
+          <h3 className={styles.sectionHeadline}>Current tenders</h3>
+          <LinkButton
+            caption="View all tenders"
+            link={{ pathname: '/' }}
+            size="42"
+          />
           <Panel cx={styles.sectionContentWrapper}>
             {tenders.map((tender) => (
               <FlexCell key={tender.id} cx={styles.tenderCard}>
@@ -154,7 +140,11 @@ export const MainPage = () => {
                           key={proposal.id}
                           cx={styles.smallProposalCard}
                         >
-                          <img src={`images/${proposal.thumbnail}_small.png`} />
+                          <FlexCell width="auto">
+                            <img
+                              src={`images/${proposal.thumbnail}_small.png`}
+                            />
+                          </FlexCell>
                           <FlexCell grow={1} cx={styles.proposalInfo}>
                             <FlexRow cx={styles.proposalLikes}>
                               <ThumbUpIcon />

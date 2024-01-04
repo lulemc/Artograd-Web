@@ -54,7 +54,7 @@ export default function MainMenuBasicExample() {
         id: 'signin',
         priority: 3,
         render: (p) => (
-          <Button key={p.id} href="/s" caption="Sing In" fill="outline" />
+          <Button key={p.id} href="/s" caption="Sign In" fill="outline" />
         ),
       },
       {
