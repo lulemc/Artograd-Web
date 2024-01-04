@@ -24,6 +24,7 @@ export const Header = () => {
           />
         </FlexRow>
       </FlexCell>
+      {/* TODO: ADD PICTURE */}
     </FlexRow>
   );
 };
