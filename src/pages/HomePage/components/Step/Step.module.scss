@@ -1,0 +1,49 @@
+.stepWrapper {
+  flex: 50%;
+}
+
+.stepWrapper:nth-child(even) {
+  align-items: flex-end;
+}
+
+.step {
+  width: 470px;
+  margin-bottom: 120px;
+}
+
+.offsetStart {
+  margin-top: 60px;
+}
+
+.offsetEnd {
+  margin-bottom: 30px;
+}
+
+.stepNumber {
+  color: var(--night500);
+  font-size: 36px;
+  line-height: 40px;
+  font-family: var(--font-museo-sans);
+  margin: 0;
+  font-weight: 600;
+}
+
+.stepTitle {
+  margin: 0;
+  padding-top: 12px;
+  color: var(--night950);
+  font-size: 18px;
+  line-height: 24px;
+  font-family: var(--uui-font);
+  font-weight: 600;
+  padding-bottom: 0;
+}
+
+.stepDescription {
+  color: var(--night700);
+  font-family: var(--uui-font);
+}
+
+.stepLink {
+  text-transform: capitalize;
+}

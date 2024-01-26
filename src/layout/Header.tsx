@@ -159,7 +159,11 @@ export const Header = () => {
         priority: 6,
         render: (p) => (
           <FlexRow key={p.id} padding="6" vPadding="12" spacing="12">
-            <Button color="primary" caption="Sign Up" />
+            <Button
+              color="primary"
+              caption="Sign Up"
+              cx={styles.signUpButton}
+            />
           </FlexRow>
         ),
       },
