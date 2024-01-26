@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import Header from './Header'; // Assuming you create a Header component
+import { Header } from './Header'; // Assuming you create a Header component
 import { Footer } from './Footer'; // Assuming you create a Footer component
 
 type LayoutProps = {

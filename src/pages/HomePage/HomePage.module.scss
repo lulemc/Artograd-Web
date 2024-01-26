@@ -1,0 +1,99 @@
+@use '~@epam/promo/assets/styles/fonts' as *;
+
+.headerWrapper {
+  padding: 60px;
+  background-color: var(--electric-60);
+  background-image: url(./assets/TexturesBackground.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.headerTitle {
+  font-size: 44px;
+  line-height: 50px;
+  color: var(--night50);
+}
+
+.headerSubTitle {
+  margin-top: 18px;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--night50);
+}
+
+.headerCta {
+  margin-top: 36px;
+  justify-content: center;
+  button {
+    --uui-btn-bg: #65a300 !important;
+    --uui-btn-bg-hover: #528500 !important;
+    --uui-btn-bg-active: #460 !important;
+    --uui-btn-border: #65a300 !important;
+    --uui-btn-border-hover: #528500 !important;
+    --uui-btn-border-active: #460 !important;
+    --uui-btn-caption: #fff !important;
+    --uui-btn-caption-disabled: #acafbf !important;
+  }
+}
+
+.steps {
+  margin: 36px 144px 120px 144px;
+}
+
+.stepsTitle {
+  font-size: 30px;
+  line-height: 36px;
+  color: var(--night800);
+  margin-bottom: 36px;
+}
+
+.stepWrapper {
+  justify-content: flex-end;
+}
+
+.stepWrapper:nth-child(2n) {
+  justify-content: flex-start;
+}
+
+.step {
+  width: 470px;
+}
+
+.stepNumber {
+  color: var(--night500);
+  font-size: 36px;
+  line-height: 40px;
+  font-family: var(--font-museo-sans);
+  margin: 0;
+  font-weight: 600;
+}
+
+.stepTitle {
+  margin: 0;
+  padding-top: 12px;
+  color: var(--night950);
+  font-size: 18px;
+  line-height: 24px;
+  font-family: var(--uui-font);
+  font-weight: 600;
+  padding-bottom: 0;
+}
+
+.stepDescription {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 0px;
+  color: var(--night700);
+  font-size: 16px;
+  line-height: 24px;
+  font-family: var(--uui-font);
+  font-weight: 400;
+}
+
+.stepLink {
+  text-transform: capitalize;
+}
+
+.stepIcon {
+}
