@@ -1,0 +1,55 @@
+@use '~@epam/promo/assets/styles/fonts' as *;
+
+.headerWrapper {
+  padding: 60px;
+  background-color: var(--electric-60);
+  background-image: url(./assets/TexturesBackground.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.headerTitle {
+  font-size: 44px;
+  line-height: 50px;
+  color: var(--night50);
+}
+
+.headerSubTitle {
+  margin-top: 18px;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--night50);
+}
+
+.headerCta {
+  margin-top: 36px;
+  justify-content: center;
+  button {
+    --uui-btn-bg: #65a300 !important;
+    --uui-btn-bg-hover: #528500 !important;
+    --uui-btn-bg-active: #460 !important;
+    --uui-btn-border: #65a300 !important;
+    --uui-btn-border-hover: #528500 !important;
+    --uui-btn-border-active: #460 !important;
+    --uui-btn-caption: #fff !important;
+    --uui-btn-caption-disabled: #acafbf !important;
+  }
+}
+
+.steps {
+  margin: 0 144px;
+}
+
+.stepsTitle {
+  font-size: 30px;
+  line-height: 36px;
+  color: var(--night800);
+  margin-top: 36px;
+}
+
+.stepsSection {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
