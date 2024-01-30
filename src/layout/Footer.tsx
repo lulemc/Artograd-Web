@@ -1,23 +1,36 @@
 import React from 'react';
 import {
-  BurgerButton,
   MainMenu,
   MainMenuButton,
   FlexSpacer,
   FlexCell,
+  BurgerButton,
   Burger,
 } from '@epam/uui';
 import { AdaptiveItemProps, MainMenuLogo } from '@epam/uui-components';
+import { useTranslation } from 'react-i18next';
+import styles from './Footer.module.scss';
+import { useHistory } from 'react-router-dom';
 
 export const Footer = () => {
+  const { t } = useTranslation();
+  const history = useHistory();
+
+  const visitPage = (props: { onClose: () => void }, page: string) => {
+    props.onClose;
+    props.onClose();
+    history.push(page);
+  };
+
   const renderBurger = (props: { onClose: () => void }) => (
     <>
       <BurgerButton
-        href="/"
-        caption="Training Catalog"
-        onClick={() => {
-          props.onClose && props.onClose();
-        }}
+        caption={t('global.layout.footer.privatePolicyCta')}
+        onClick={() => visitPage(props, '/policy')}
+      />
+      <BurgerButton
+        caption={t('global.layout.footer.cookiePolicyCta')}
+        onClick={() => visitPage(props, '/cookie')}
       />
     </>
   );
@@ -29,7 +42,12 @@ export const Footer = () => {
         priority: 100,
         collapsedContainer: true,
         render: (p) => (
-          <Burger key={p.id} width={300} renderBurgerContent={renderBurger} />
+          <Burger
+            key={p.id}
+            width={300}
+            renderBurgerContent={renderBurger}
+            cx={styles.footer}
+          />
         ),
       },
       {
@@ -54,7 +72,7 @@ export const Footer = () => {
         render: (p) => (
           <MainMenuButton
             key={p.id}
-            caption="© 1993—2024 EPAM Systems. All Rights Reserved."
+            caption={t('global.layout.footer.copyright')}
           />
         ),
       },
@@ -66,12 +84,24 @@ export const Footer = () => {
       {
         id: 'privacyPolicy',
         priority: 3,
-        render: (p) => <MainMenuButton key={p.id} caption="Privacy policy" />,
+        render: (p) => (
+          <MainMenuButton
+            key={p.id}
+            onClick={() => history.push('/policy')}
+            caption={t('global.layout.footer.privatePolicyCta')}
+          />
+        ),
       },
       {
         id: 'cookiesPolicy',
         priority: 3,
-        render: (p) => <MainMenuButton key={p.id} caption="Cookies policy" />,
+        render: (p) => (
+          <MainMenuButton
+            key={p.id}
+            onClick={() => history.push('/cookie')}
+            caption={t('global.layout.footer.cookiePolicyCta')}
+          />
+        ),
       },
     ];
   };

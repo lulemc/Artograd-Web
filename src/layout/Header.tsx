@@ -16,42 +16,82 @@ import {
   Dropdown,
 } from '@epam/uui-components';
 import { DropdownBodyProps } from '@epam/uui-core';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import styles from './Header.module.scss';
+import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 const languageList = [
   {
     code: 'en',
+    localizedCode: 'en',
     label: 'english',
   },
   {
     code: 'ru',
-    label: 'russian',
+    localizedCode: 'ру',
+    label: 'Русский',
   },
 ];
 
 export const Header = () => {
   const location = useLocation();
+  const history = useHistory();
+  const { i18n, t } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+  const getLocalizedLabel = languageList.filter(
+    (language) => language.code === selectedLanguage,
+  )[0];
+
+  const changeLanguageHandler = (
+    language: string,
+    props: { onClose?: () => void },
+  ) => {
+    setSelectedLanguage(language);
+    i18n.changeLanguage(language);
+    props.onClose;
+    props.onClose?.();
+  };
+
+  const visitPage = (props: { onClose: () => void }, page: string) => {
+    props.onClose;
+    props.onClose();
+    history.push(page);
+  };
 
   const renderBurger = (props: { onClose: () => void }) => (
-    <BurgerButton
-      href="/"
-      caption="Home"
-      onClick={() => {
-        props.onClose && props.onClose();
-      }}
-    />
+    <>
+      <BurgerButton
+        caption={t('global.layout.header.homepage')}
+        onClick={() => visitPage(props, '/')}
+      />
+      <BurgerButton
+        caption={t('global.layout.header.tenders')}
+        onClick={() => visitPage(props, '/tenders')}
+      />
+      <BurgerButton
+        caption={t('global.layout.header.proposals')}
+        onClick={() => visitPage(props, '/proposals')}
+      />
+      <BurgerButton
+        caption={t('global.layout.header.signInCta')}
+        onClick={() => visitPage(props, '/login')}
+      />
+      <BurgerButton
+        caption={t('global.layout.header.signUpCta')}
+        onClick={() => visitPage(props, '/register')}
+      />
+    </>
   );
 
   const renderLanguageSelector = () => {
     return (
       <Dropdown
-        key="lagnuage-selector"
+        key="language-selector"
         renderTarget={(props: DropdownBodyProps) => (
-          // TODO: Add state manager and display label on the base of the selected language
           <FlexRow padding="6" vPadding="12" spacing="12">
             <MainMenuButton
-              caption="en"
+              caption={getLocalizedLabel.localizedCode}
               {...props}
               cx={styles.languageSelector}
             />
@@ -63,6 +103,7 @@ export const Header = () => {
               <DropdownMenuButton
                 caption={language.label}
                 cx={styles.languageSelectorItem}
+                onClick={() => changeLanguageHandler(language.code, props)}
               />
             ))}
           </DropdownMenuBody>
@@ -95,8 +136,8 @@ export const Header = () => {
         render: (p) => (
           <MainMenuButton
             key={p.id}
-            href="/"
-            caption="home"
+            onClick={() => history.push('/')}
+            caption={t('global.layout.header.homepage')}
             isLinkActive={location.pathname === '/'}
             cx={styles.menuPageLink}
           />
@@ -108,8 +149,8 @@ export const Header = () => {
         render: (p) => (
           <MainMenuButton
             key={p.id}
-            href="/tenders"
-            caption="tenders"
+            onClick={() => history.push('/tenders')}
+            caption={t('global.layout.header.tenders')}
             isLinkActive={location.pathname === '/tenders'}
             cx={styles.menuPageLink}
           />
@@ -121,8 +162,8 @@ export const Header = () => {
         render: (p) => (
           <MainMenuButton
             key={p.id}
-            href="/proposals"
-            caption="proposals"
+            onClick={() => history.push('/proposals')}
+            caption={t('global.layout.header.proposals')}
             isLinkActive={location.pathname === '/proposals'}
             cx={styles.menuPageLink}
           />
@@ -135,7 +176,7 @@ export const Header = () => {
       },
       {
         id: 'languageSelector',
-        priority: 4,
+        priority: 7,
         render: renderLanguageSelector,
       },
       {
@@ -145,8 +186,8 @@ export const Header = () => {
           <FlexRow key={p.id} padding="6" vPadding="12" spacing="12">
             <Button
               key={p.id}
-              href="/s"
-              caption="Sign In"
+              onClick={() => history.push('/login')}
+              caption={t('global.layout.header.signInCta')}
               fill="none"
               color="primary"
               cx={styles.signInButton}
@@ -160,8 +201,9 @@ export const Header = () => {
         render: (p) => (
           <FlexRow key={p.id} padding="6" vPadding="12" spacing="12">
             <Button
+              onClick={() => history.push('/register')}
               color="primary"
-              caption="Sign Up"
+              caption={t('global.layout.header.signUpCta')}
               cx={styles.signUpButton}
             />
           </FlexRow>

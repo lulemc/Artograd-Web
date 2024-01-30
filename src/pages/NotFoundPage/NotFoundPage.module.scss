@@ -1,0 +1,16 @@
+.wrapper {
+  width: 35%;
+  margin: 50px auto;
+  text-align: center;
+  button {
+    width: fit-content;
+    margin: 30px auto;
+  }
+}
+
+@media only screen and (max-device-width: 767px) {
+  .wrapper {
+    width: 90%;
+    margin: 100px auto;
+  }
+}
