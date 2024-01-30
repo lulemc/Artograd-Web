@@ -24,12 +24,10 @@ import { useState } from 'react';
 const languageList = [
   {
     code: 'en',
-    localizedCode: 'en',
     label: 'english',
   },
   {
     code: 'ru',
-    localizedCode: 'ру',
     label: 'Русский',
   },
 ];
@@ -38,10 +36,12 @@ export const Header = () => {
   const location = useLocation();
   const history = useHistory();
   const { i18n, t } = useTranslation();
-  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-  const getLocalizedLabel = languageList.filter(
-    (language) => language.code === selectedLanguage,
-  )[0];
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    i18n.language ?? 'en',
+  );
+  const getLabel =
+    languageList.filter((language) => language.code === selectedLanguage)[0] ??
+    languageList[0];
 
   const changeLanguageHandler = (
     language: string,
@@ -91,7 +91,7 @@ export const Header = () => {
         renderTarget={(props: DropdownBodyProps) => (
           <FlexRow padding="6" vPadding="12" spacing="12">
             <MainMenuButton
-              caption={getLocalizedLabel.localizedCode}
+              caption={getLabel.code ?? 'en'}
               {...props}
               cx={styles.languageSelector}
             />
@@ -101,6 +101,7 @@ export const Header = () => {
           <DropdownMenuBody {...props}>
             {languageList.map((language) => (
               <DropdownMenuButton
+                key={language.code}
                 caption={language.label}
                 cx={styles.languageSelectorItem}
                 onClick={() => changeLanguageHandler(language.code, props)}
