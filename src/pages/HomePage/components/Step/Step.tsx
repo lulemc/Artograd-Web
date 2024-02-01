@@ -1,5 +1,6 @@
 import { FlexRow, FlexCell, Text, Panel, LinkButton } from '@epam/uui';
 import styles from './Step.module.scss';
+import { ReactComponent as navigationIcon } from '@epam/assets/icons/common/navigation-chevron-right-18.svg';
 
 type StepProps = {
   id: number;
@@ -29,9 +30,7 @@ export const Step = ({
       >
         <FlexRow alignItems="bottom">
           <FlexCell width="auto">
-            <Text cx={styles.stepNumber}>
-              {id.toString().padStart(2, '0')}.
-            </Text>
+            <Text cx={styles.stepNumber}>{id.toString().padStart(2, '0')}</Text>
             <Text cx={styles.stepTitle}>{title}</Text>
           </FlexCell>
           {iconOnTop && icon && (
@@ -52,6 +51,8 @@ export const Step = ({
                   link={{ pathname: linkUrl }}
                   size="42"
                   captionCX={styles.stepLink}
+                  icon={navigationIcon}
+                  iconPosition="right"
                 />
               </FlexCell>
             )}
