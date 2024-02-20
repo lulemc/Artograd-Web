@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { Footer } from '../Footer';
 import { screen, fireEvent } from '@epam/uui-test-utils';
 import { createMemoryHistory } from 'history';
@@ -16,23 +15,35 @@ const menuLinks = [
 ];
 
 describe('Layout footer', () => {
+  const history = createMemoryHistory();
   afterEach(() => {
     jest.clearAllMocks();
   });
-  test('renders correctly', () => {
-    const component = render(<Footer />);
+  test('renders correctly', async () => {
+    const component = await testWrapper({ component: <Footer />, history });
 
     expect(component).toMatchSnapshot();
   });
 
   menuLinks.map((link) => {
     test('redirect on menu link click', async () => {
-      const history = createMemoryHistory();
-
       await testWrapper({ component: <Footer />, history });
       fireEvent.click(screen.getByText(link.linkName));
 
       expect(history.location.pathname).toBe(link.url);
     });
+  });
+
+  test('goes back to home page on logo click anon user', async () => {
+    const history = createMemoryHistory();
+
+    await testWrapper({
+      component: <Footer />,
+      history,
+    });
+
+    fireEvent.click(screen.getByTestId('footer-logo-image'));
+
+    expect(history.location.pathname).toBe('/');
   });
 });

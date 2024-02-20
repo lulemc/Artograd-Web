@@ -1,31 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Not found page renders correctly 1`] = `
+exports[`Avatar renders correctly 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
       <div
-        class="uui-panel Dy3NM- wrapper _54i0RB"
+        class="uui-panel Dy3NM- _54i0RB"
+        data-testid="user-avatar"
       >
-        <img
-          src="error.svg"
-        />
-        <div
-          class="ZTInfz uui-text uui-color-primary uui-font-weight-400 uui-font-style-normal uui-typography NTnjYI oep1Ot QL0z0q En3MXG"
-        >
-          Page not found!
-        </div>
         <button
-          class="uui-button-box uui-enabled -clickable EBheCm pSu6kE uui-button uui-fill-solid uui-color-accent uui-size-36"
-          data-testid="not-found-cta"
-          tabindex="0"
-          type="button"
+          class="BiIACD -clickable"
         >
-          <div
-            class="uui-caption"
-          >
-            Return to homepage
+          <img
+            class="eio9JD"
+            height="36"
+            src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Coco&radius=50&backgroundColor=b6e3f4"
+            width="36"
+          />
+          <div>
+            <div
+              class="kb-S-l uui-icon uui-enabled"
+            >
+              <svg
+                class=""
+                height="18"
+                viewBox="0 0 18 18"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.443 6.442 9 9.877 5.558 6.442 4.5 7.5 9 12l4.5-4.5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
           </div>
         </button>
       </div>
@@ -33,26 +42,35 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="uui-panel Dy3NM- wrapper _54i0RB"
+      class="uui-panel Dy3NM- _54i0RB"
+      data-testid="user-avatar"
     >
-      <img
-        src="error.svg"
-      />
-      <div
-        class="ZTInfz uui-text uui-color-primary uui-font-weight-400 uui-font-style-normal uui-typography NTnjYI oep1Ot QL0z0q En3MXG"
-      >
-        Page not found!
-      </div>
       <button
-        class="uui-button-box uui-enabled -clickable EBheCm pSu6kE uui-button uui-fill-solid uui-color-accent uui-size-36"
-        data-testid="not-found-cta"
-        tabindex="0"
-        type="button"
+        class="BiIACD -clickable"
       >
-        <div
-          class="uui-caption"
-        >
-          Return to homepage
+        <img
+          class="eio9JD"
+          height="36"
+          src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Coco&radius=50&backgroundColor=b6e3f4"
+          width="36"
+        />
+        <div>
+          <div
+            class="kb-S-l uui-icon uui-enabled"
+          >
+            <svg
+              class=""
+              height="18"
+              viewBox="0 0 18 18"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.443 6.442 9 9.877 5.558 6.442 4.5 7.5 9 12l4.5-4.5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
         </div>
       </button>
     </div>

@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react';
 import { Header } from '../Header';
 import { createMemoryHistory } from 'history';
 import { screen, fireEvent } from '@epam/uui-test-utils';
 import { testWrapper } from '../../utils/testWrapper';
+import { identityState } from '../../store/identitySlice';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -24,22 +24,19 @@ const menuLinks = [
     linkName: 'Proposals',
     url: '/proposals',
   },
-  {
-    linkName: 'Sign In',
-    url: '/login',
-  },
-  {
-    linkName: 'Sign Up',
-    url: '/register',
-  },
 ];
 
 describe('Layout mobile header', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-  test('renders correctly', () => {
-    const component = render(<Header mobile />);
+  test('renders correctly', async () => {
+    const history = createMemoryHistory();
+
+    const component = await testWrapper({
+      component: <Header mobile />,
+      history,
+    });
     fireEvent.click(screen.getByTestId('header-burger-menu'));
 
     expect(component).toMatchSnapshot();
@@ -58,19 +55,18 @@ describe('Layout mobile header', () => {
 });
 
 describe('Layout header', () => {
+  const history = createMemoryHistory();
   beforeEach(() => {
     jest.clearAllMocks();
   });
-  test('renders correctly', () => {
-    const component = render(<Header />);
+  test('renders correctly', async () => {
+    const component = await testWrapper({ component: <Header />, history });
 
     expect(component).toMatchSnapshot();
   });
 
   menuLinks.map((link) => {
-    test('redirect on menu link click', async () => {
-      const history = createMemoryHistory();
-
+    test(`[ ${link.linkName} ] redirect on menu link click`, async () => {
       await testWrapper({ component: <Header />, history });
       fireEvent.click(screen.getByText(link.linkName));
 
@@ -78,13 +74,61 @@ describe('Layout header', () => {
     });
   });
 
-  test('change language on click', async () => {
-    const history = createMemoryHistory();
+  menuLinks.map((link) => {
+    test(`[ ${link.linkName} ]redirect on menu link click with loggedIn user`, async () => {
+      await testWrapper({
+        component: <Header />,
+        history,
+        state: {
+          identity: {
+            ...identityState,
+            isLoggedIn: true,
+          },
+        },
+      });
+      fireEvent.click(screen.getByText(link.linkName));
 
+      expect(history.location.pathname).toBe(link.url);
+    });
+  });
+
+  test('change language on click', async () => {
     await testWrapper({ component: <Header />, history });
     fireEvent.click(screen.getByText('en'));
     await fireEvent.click(screen.getByText('Русский'));
 
     expect(screen.getByText('Главная'));
+  });
+
+  test('goes back to home page on logo click with logged in user', async () => {
+    const history = createMemoryHistory();
+
+    await testWrapper({
+      component: <Header />,
+      history,
+      state: {
+        identity: {
+          ...identityState,
+          isLoggedIn: true,
+        },
+      },
+    });
+
+    fireEvent.click(screen.getByTestId('header-logo-image'));
+
+    expect(history.location.pathname).toBe('/');
+  });
+
+  test('goes back to home page on logo click anon user', async () => {
+    const history = createMemoryHistory();
+
+    await testWrapper({
+      component: <Header />,
+      history,
+    });
+
+    fireEvent.click(screen.getByTestId('header-logo-image'));
+
+    expect(history.location.pathname).toBe('/');
   });
 });

@@ -1,14 +1,18 @@
+import { CallbackPage } from '../Callback';
 import { createMemoryHistory } from 'history';
-import { HomePage } from '../HomePage';
 import { testWrapper } from '../../../utils/testWrapper';
 
-describe('Home page', () => {
+describe('Callback Page', () => {
   const history = createMemoryHistory();
   afterEach(() => {
     jest.clearAllMocks();
   });
-  test('renders correctly', () => {
-    const component = testWrapper({ component: <HomePage />, history });
+
+  test('renders correctly', async () => {
+    const component = await testWrapper({
+      component: <CallbackPage />,
+      history,
+    });
 
     expect(component).toMatchSnapshot();
   });

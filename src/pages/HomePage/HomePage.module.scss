@@ -25,7 +25,7 @@
 .headerCta {
   margin-top: 36px;
   justify-content: center;
-  button {
+  a {
     --uui-btn-bg: #65a300 !important;
     --uui-btn-bg-hover: #528500 !important;
     --uui-btn-bg-active: #460 !important;
@@ -62,7 +62,7 @@
   display: none;
 }
 
-@media only screen and (max-device-width: 767px) {
+@media only screen and (max-device-width: 1227px) {
   .steps {
     margin: 0 15px;
   }
