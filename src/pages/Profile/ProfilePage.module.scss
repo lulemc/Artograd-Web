@@ -1,0 +1,38 @@
+.wrapper {
+  max-width: 1200px;
+  width: 100%;
+  margin: 40px auto;
+}
+
+.cell {
+  margin: 10px;
+}
+
+.headerCell {
+  margin: 0 10px;
+}
+
+.profileHeader {
+  font-size: 30px;
+  color: #111111;
+  font-weight: 700;
+  margin: 0 10px;
+}
+
+.warning {
+  width: 100%;
+}
+
+.warningMessage {
+  width: 100%;
+}
+
+@media only screen and (max-device-width: 660px) {
+  .mediaRow {
+    flex-direction: column;
+  }
+  .cell {
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
+}

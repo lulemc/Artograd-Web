@@ -119,17 +119,23 @@ export function LocationSelectorModal({
     onSave: (location) =>
       Promise.resolve({ form: location }) /* place your save api call here */,
     onSuccess: () =>
-      svc.uuiNotifications.show((props) => (
-        <SuccessNotification {...props}>
-          <Text>Form saved</Text>
-        </SuccessNotification>
-      )),
+      svc.uuiNotifications.show(
+        (props) => (
+          <SuccessNotification {...props}>
+            <Text>Form saved</Text>
+          </SuccessNotification>
+        ),
+        { duration: 2 },
+      ),
     onError: () =>
-      svc.uuiNotifications.show((props) => (
-        <ErrorNotification {...props}>
-          <Text>Error on save</Text>
-        </ErrorNotification>
-      )),
+      svc.uuiNotifications.show(
+        (props) => (
+          <ErrorNotification {...props}>
+            <Text>Error on save</Text>
+          </ErrorNotification>
+        ),
+        { duration: 2 },
+      ),
     getMetadata: () => ({
       props: {
         country: { isRequired: false },

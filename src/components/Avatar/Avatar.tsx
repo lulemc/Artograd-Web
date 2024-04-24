@@ -21,6 +21,14 @@ import { RootState } from '../../store/store';
 import { useHistory } from 'react-router-dom';
 import styles from './Avatar.module.scss';
 import { useTranslation } from 'react-i18next';
+import {
+  initialState as initialProfileState,
+  resetProfile,
+} from '../../store/slices/profileInformationSlice';
+import {
+  initialState as initialFundraisingState,
+  resetFundraising,
+} from '../../store/slices/profileFundrasingSlice';
 
 export const Avatar = () => {
   const history = useHistory();
@@ -33,6 +41,8 @@ export const Avatar = () => {
     // clear identity state to the initial
     dispatch(userLogin(false));
     dispatch(saveUserData(initialIdentityState));
+    dispatch(resetProfile(initialProfileState));
+    dispatch(resetFundraising(initialFundraisingState));
     // revoke cognito token and clear tokens from localStorage
     localStorage.removeItem('id_token');
     localStorage.removeItem('refresh_token');

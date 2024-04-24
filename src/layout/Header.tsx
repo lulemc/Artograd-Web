@@ -58,6 +58,10 @@ export const Header = ({ mobile = false }: { mobile?: boolean }) => {
         caption={t('global.layout.header.artObjects')}
         onClick={() => visitPage(props, '/artobjects')}
       />
+      <BurgerButton
+        caption={t('global.layout.header.profile')}
+        onClick={() => visitPage(props, '/profile')}
+      />
       {!isLoggedIn && (
         <BurgerButton
           caption={t('global.layout.header.signInCta')}
@@ -244,6 +248,19 @@ export const Header = ({ mobile = false }: { mobile?: boolean }) => {
             onClick={() => history.push('/artobjects')}
             caption={t('global.layout.header.artObjects')}
             isLinkActive={location.pathname === '/artobjects'}
+            cx={styles.menuPageLink}
+          />
+        ),
+      },
+      {
+        id: 'profileMenuItem',
+        priority: 3,
+        render: (p) => (
+          <MainMenuButton
+            key={p.id}
+            onClick={() => history.push('/profile')}
+            caption={t('global.layout.header.profile')}
+            isLinkActive={location.pathname === '/profile'}
             cx={styles.menuPageLink}
           />
         ),

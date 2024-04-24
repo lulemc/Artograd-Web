@@ -480,24 +480,30 @@ export const NewTenderPage = () => {
                       ))
                       .then((result) => {
                         uuiNotifications
-                          .show((props) => (
-                            <SuccessNotification {...props}>
-                              <FlexRow alignItems="center">
-                                <Text>{result}</Text>
-                              </FlexRow>
-                            </SuccessNotification>
-                          ))
+                          .show(
+                            (props) => (
+                              <SuccessNotification {...props}>
+                                <FlexRow alignItems="center">
+                                  <Text>{result}</Text>
+                                </FlexRow>
+                              </SuccessNotification>
+                            ),
+                            { duration: 2 },
+                          )
                           .catch(() => null);
                       })
                       .catch(() => {
                         uuiNotifications
-                          .show((props) => (
-                            <WarningNotification {...props}>
-                              <FlexRow alignItems="center">
-                                <Text>Close action</Text>
-                              </FlexRow>
-                            </WarningNotification>
-                          ))
+                          .show(
+                            (props) => (
+                              <WarningNotification {...props}>
+                                <FlexRow alignItems="center">
+                                  <Text>Close action</Text>
+                                </FlexRow>
+                              </WarningNotification>
+                            ),
+                            { duration: 2 },
+                          )
                           .catch(() => null);
                       })
                   }

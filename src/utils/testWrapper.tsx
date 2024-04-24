@@ -7,11 +7,15 @@ import { MemoryRouter } from 'react-router-dom';
 import { createStore } from '@reduxjs/toolkit';
 import { initialState as identityState } from '../store/identitySlice';
 import { initialState as helpersState } from '../store/helpersSlice';
+import { initialState as profileInformationReducer } from '../store/slices/profileInformationSlice';
+import { initialState as profileFundrasingReducer } from '../store/slices/profileFundrasingSlice';
 import { PersistPartial } from 'redux-persist/lib/persistReducer';
 
 export const initialState: RootState & PersistPartial = {
   identity: identityState,
   helpers: helpersState,
+  profileInformation: profileInformationReducer,
+  profileFundrasing: profileFundrasingReducer,
   _persist: {
     version: 1,
     rehydrated: true,

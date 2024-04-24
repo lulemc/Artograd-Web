@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type UserData = {
+export type UserData = {
   'cognito:username': string;
   'cognito:groups': string[];
   'custom:organization': string;
+  'custom:jobtitle': string;
   email: string;
   email_verified: boolean;
   family_name: string;
@@ -24,6 +25,7 @@ const userData = {
   'cognito:username': '',
   'cognito:groups': [''],
   'custom:organization': '',
+  'custom:jobtitle': '',
   email: '',
   email_verified: false,
   family_name: '',
@@ -50,9 +52,16 @@ export const identitySlice = createSlice({
     userLogin: (state, action) => {
       state.isLoggedIn = action.payload;
     },
+    userAvatarChanged(state, action) {
+      state.userData.picture = action.payload.picture;
+    },
+    updateUserData: (state, action) => {
+      state.userData = { ...action.payload, ...state.userData };
+    },
   },
 });
 
-export const { saveUserData, userLogin } = identitySlice.actions;
+export const { saveUserData, userLogin, userAvatarChanged, updateUserData } =
+  identitySlice.actions;
 
 export default identitySlice.reducer;

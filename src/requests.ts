@@ -2,8 +2,6 @@ import axios from 'axios';
 import { CityItemType, NewTenderFormType, TenderStatus } from './types';
 import { CustomFileCardItem } from './components/FileUpload/CustomFileCardItem';
 
-const idToken = localStorage.getItem('id_token');
-
 export const addNewTender = ({
   formData,
   cityData,
@@ -23,6 +21,7 @@ export const addNewTender = ({
   filesDirectoryId?: string;
   username?: string;
 }) => {
+  const idToken = localStorage.getItem('id_token');
   return axios.post(
     `${process.env.REACT_APP_BACKEND_URL}/tenders`,
     {

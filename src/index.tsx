@@ -2,10 +2,16 @@ import '@epam/uui-components/styles.css';
 import '@epam/uui/styles.css';
 import '@epam/assets/css/theme/theme_electric.css';
 import './index.module.scss';
-import { ReactNode, StrictMode } from 'react';
+import { ReactNode, StrictMode, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserHistory } from 'history';
-import { Route, Router, Switch, useHistory } from 'react-router-dom';
+import {
+  Route,
+  Router,
+  Switch,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import {
   HistoryAdaptedRouter,
   useUuiServices,
@@ -24,7 +30,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { TendersPage } from './pages/TendersPage/TendersPage';
 import { NewTenderPage } from './pages/NewTenderPage/NewTenderPage';
-import { Modals } from '@epam/uui-components';
+import { Modals, Snackbar } from '@epam/uui-components';
+import { ProfilePage } from './pages/Profile/ProfilePage';
+import { overrideUUILocalisation } from './translation/i18nUUI';
+import { useTranslation } from 'react-i18next';
 
 const history = createBrowserHistory();
 const router = new HistoryAdaptedRouter(history);
@@ -38,10 +47,55 @@ const OfficerRoutes = ({ children }: { children: ReactNode }) => {
   const isOfficer = userRoles?.includes('Officials');
   return <>{isOfficer ? children : history.push('/')}</>;
 };
+const ProfileRoute = ({ children }: { children: ReactNode }) => {
+  const { isLoggedIn } = useSelector((state: RootState) => state.identity);
+  const history = useHistory();
+  return <>{isLoggedIn ? children : history.push('/')}</>;
+};
+
+const CommonRedirectRoute = () => {
+  const { isLoggedIn } = useSelector((state: RootState) => state.identity);
+  const userRoles = useSelector(
+    (state: RootState) => state?.identity?.userData['cognito:groups'],
+  );
+  const isOfficer = userRoles?.includes('Officials');
+  const isArtist = userRoles?.includes('Artists');
+  const { given_name, family_name, phone_number } = useSelector(
+    (state: RootState) => state.identity.userData,
+  );
+  const company = useSelector(
+    (state: RootState) => state.identity.userData['custom:organization'],
+  );
+  const jobtitle = useSelector(
+    (state: RootState) => state.identity.userData['custom:jobtitle'],
+  );
+  // Redirect to profile if there are no required fields(first name, second name, company(for officer only), phone_number(for artist only)
+  const artistRedirect =
+    isArtist && !(!!given_name && !!family_name && !!phone_number);
+  const officerRedirect =
+    isOfficer && !(!!given_name && !!family_name && !!company && !!jobtitle);
+  const userRedirect =
+    !isArtist && !isOfficer && !(!!given_name && !!family_name);
+
+  const redirect =
+    isLoggedIn && (artistRedirect || officerRedirect || userRedirect);
+
+  const location = useLocation();
+  const history = useHistory();
+  useEffect(() => {
+    const pathName = location.pathname;
+    if (redirect && pathName !== '/profile') {
+      history.replace('/profile');
+    }
+  }, [history, location]);
+  return <></>;
+};
 
 const UuiEnhancedApp = () => {
   const { services } = useUuiServices({ router });
+  const { t } = useTranslation();
   Object.assign(svc, services);
+  overrideUUILocalisation(t);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -49,10 +103,14 @@ const UuiEnhancedApp = () => {
           <ErrorHandler>
             <Router history={history}>
               <Layout>
+                <CommonRedirectRoute></CommonRedirectRoute>
                 <Switch>
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/callback" component={CallbackPage} />
                   <Route exact path="/tenders" component={TendersPage} />
+                  <ProfileRoute>
+                    <Route exact path="/profile" component={ProfilePage} />
+                  </ProfileRoute>
                   <OfficerRoutes>
                     <Route
                       exact
@@ -64,6 +122,7 @@ const UuiEnhancedApp = () => {
                 </Switch>
               </Layout>
             </Router>
+            <Snackbar />
             <Modals />
           </ErrorHandler>
         </UuiContext.Provider>
