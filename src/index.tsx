@@ -108,16 +108,20 @@ const UuiEnhancedApp = () => {
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/callback" component={CallbackPage} />
                   <Route exact path="/tenders" component={TendersPage} />
-                  <ProfileRoute>
-                    <Route exact path="/profile" component={ProfilePage} />
-                  </ProfileRoute>
-                  <OfficerRoutes>
-                    <Route
-                      exact
-                      path="/tenders/new"
-                      component={NewTenderPage}
-                    />
-                  </OfficerRoutes>
+                  <Route exact path="/profile">
+                    <ProfileRoute>
+                      <Route exact path="/profile" component={ProfilePage} />
+                    </ProfileRoute>
+                  </Route>
+                  <Route exact path="/tenders/new">
+                    <OfficerRoutes>
+                      <Route
+                        exact
+                        path="/tenders/new"
+                        component={NewTenderPage}
+                      />
+                    </OfficerRoutes>
+                  </Route>
                   <Route path="*" component={ErrorPage} />
                 </Switch>
               </Layout>
