@@ -1,2 +1,8 @@
 **/*.yml
 build/
+/dist
+/.quasar
+/node_modules
+.eslintrc.js
+babel.config.js
+**/node_modules

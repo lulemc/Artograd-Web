@@ -157,7 +157,7 @@ export const Header = ({ mobile = false }: { mobile?: boolean }) => {
         id: 'signin',
         priority: 5,
         render: (p) => (
-          <FlexRow key={p.id} padding="6" vPadding="12" spacing="12">
+          <FlexRow key={p.id} padding="6" vPadding="12" columnGap="12">
             <Button
               key={p.id}
               href={cognitoLoginUrl}
@@ -173,7 +173,7 @@ export const Header = ({ mobile = false }: { mobile?: boolean }) => {
         id: 'signup',
         priority: 6,
         render: (p) => (
-          <FlexRow key={p.id} padding="6" vPadding="12" spacing="12">
+          <FlexRow key={p.id} padding="6" vPadding="12" columnGap="12">
             <Button
               href={cognitoSignUpUrl}
               color="primary"

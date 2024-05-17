@@ -57,7 +57,7 @@ export const LocationInput = ({
         valueType="entity"
         sorting={{ field: 'name', direction: 'asc' }}
         placeholder={t(
-          'tendersPage.newTender.tenderLocationModal.cityInputPlaceholder',
+          'tendersPages.newTender.tenderLocationModal.cityInputPlaceholder',
         )}
         rawProps={{
           input: { 'data-testid': `city-selector-input` },

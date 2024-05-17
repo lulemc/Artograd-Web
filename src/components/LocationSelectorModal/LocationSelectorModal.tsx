@@ -91,7 +91,7 @@ export function LocationSelectorModal({
     [],
   );
 
-  const getCityById = (city?: number) => {
+  const getCityById = (city?: string) => {
     return listOfCities.find((cityArray) => cityArray.id === city);
   };
 
@@ -158,7 +158,7 @@ export function LocationSelectorModal({
       <ModalWindow width={753}>
         <Panel background="surface-main">
           <ModalHeader
-            title={t('tendersPage.newTender.tenderLocationModal.modalTitle')}
+            title={t('tendersPages.newTender.tenderLocationModal.modalTitle')}
             onClose={() => modalProps.abort()}
             borderBottom
           />
@@ -169,7 +169,7 @@ export function LocationSelectorModal({
                   <LabeledInput
                     htmlFor="countryInput"
                     label={t(
-                      'tendersPage.newTender.tenderLocationModal.countryInputLabel',
+                      'tendersPages.newTender.tenderLocationModal.countryInputLabel',
                     )}
                     cx={styles.modalInputLabel}
                     {...lens.prop('country').toProps()}
@@ -186,7 +186,7 @@ export function LocationSelectorModal({
                   <LabeledInput
                     htmlFor="cityInput"
                     label={t(
-                      'tendersPage.newTender.tenderLocationModal.cityInputLabel',
+                      'tendersPages.newTender.tenderLocationModal.cityInputLabel',
                     )}
                     cx={styles.modalInputLabel}
                     {...lens.prop('city').toProps()}
@@ -202,7 +202,7 @@ export function LocationSelectorModal({
                       valueType="entity"
                       sorting={{ field: 'name', direction: 'asc' }}
                       placeholder={t(
-                        'tendersPage.newTender.tenderLocationModal.cityInputPlaceholder',
+                        'tendersPages.newTender.tenderLocationModal.cityInputPlaceholder',
                       )}
                       rawProps={{
                         input: { 'data-testid': `city-selector-input` },
@@ -212,11 +212,11 @@ export function LocationSelectorModal({
                   <LabeledInput
                     htmlFor="addressInput"
                     label={t(
-                      'tendersPage.newTender.tenderLocationModal.addressInputLabel',
+                      'tendersPages.newTender.tenderLocationModal.addressInputLabel',
                     )}
                     sidenote={
                       <Trans
-                        i18nKey="tendersPage.newTender.tenderLocationModal.addressInputLabelSidenote"
+                        i18nKey="tendersPages.newTender.tenderLocationModal.addressInputLabelSidenote"
                         components={{
                           i: <span className={styles.sideNote} />,
                         }}
@@ -231,7 +231,7 @@ export function LocationSelectorModal({
                       value={addressModalValue}
                       onValueChange={setAddressModalValue}
                       placeholder={t(
-                        'tendersPage.newTender.tenderLocationModal.addressInputPlaceholder',
+                        'tendersPages.newTender.tenderLocationModal.addressInputPlaceholder',
                       )}
                       rawProps={{ 'data-testid': `address-input` }}
                     />
@@ -261,11 +261,11 @@ export function LocationSelectorModal({
                 <FlexCell width="100%">
                   <LabeledInput
                     label={t(
-                      'tendersPage.newTender.tenderLocationModal.commentsInputLabel',
+                      'tendersPages.newTender.tenderLocationModal.commentsInputLabel',
                     )}
                     sidenote={
                       <Trans
-                        i18nKey="tendersPage.newTender.tenderLocationModal.commentsInputLabelSidenote"
+                        i18nKey="tendersPages.newTender.tenderLocationModal.commentsInputLabelSidenote"
                         components={{
                           i: <span className={styles.sideNote} />,
                         }}
@@ -280,7 +280,7 @@ export function LocationSelectorModal({
                       value={commentsModalValue ?? ''}
                       onValueChange={setCommentsModalValue}
                       placeholder={t(
-                        'tendersPage.newTender.tenderLocationModal.commentsInputPlaceholder',
+                        'tendersPages.newTender.tenderLocationModal.commentsInputPlaceholder',
                       )}
                       id="commentsInput"
                     />
@@ -294,13 +294,15 @@ export function LocationSelectorModal({
             <Button
               color="secondary"
               fill="outline"
-              caption={t('tendersPage.newTender.tenderLocationModal.cancelCta')}
+              caption={t(
+                'tendersPages.newTender.tenderLocationModal.cancelCta',
+              )}
               onClick={() => modalProps.abort()}
             />
             <Button
               color="accent"
               caption={t(
-                'tendersPage.newTender.tenderLocationModal.confirmCta',
+                'tendersPages.newTender.tenderLocationModal.confirmCta',
               )}
               onClick={() => saveValues()}
             />

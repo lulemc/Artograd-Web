@@ -5,7 +5,7 @@ export type HelpersStateType = {
 };
 
 export const initialState: HelpersStateType = {
-  isPageLoading: false,
+  isPageLoading: true,
 };
 
 export const helpersSlice = createSlice({

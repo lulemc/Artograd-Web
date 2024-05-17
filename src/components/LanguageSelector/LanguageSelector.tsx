@@ -46,7 +46,7 @@ export const LanguageSelector = () => {
     <Dropdown
       key="language-selector"
       renderTarget={(props: DropdownBodyProps) => (
-        <FlexRow padding="6" vPadding="12" spacing="12">
+        <FlexRow padding="6" vPadding="12" columnGap="12">
           <MainMenuButton
             caption={getLabel.code ?? 'en'}
             {...props}

@@ -50,12 +50,14 @@ import { useHistory } from 'react-router-dom';
 import dayjs, { Dayjs } from 'dayjs';
 import { isPageLoading } from '../../store/helpersSlice';
 import { v4 as uuidv4 } from 'uuid';
-import { addNewTender, getCityList } from '../../requests';
+import { getCityList } from '../../requests';
 import {
   saveUserData,
   userLogin,
   initialState as initialIdentityState,
 } from '../../store/identitySlice';
+import { categoryList } from '../../utils/getCategoryName';
+import { tendersApi } from '../../services/api/tendersApi';
 
 const MapMarkerIcon = L.icon({
   iconUrl: MarkerIcon,
@@ -118,7 +120,7 @@ export const NewTenderPage = () => {
         <ModalWindow>
           <Panel background="surface-main">
             <ModalHeader
-              title={t('tendersPage.newTender.beforeLeave.message')}
+              title={t('tendersPages.newTender.beforeLeave.message')}
               onClose={() => modalProps.abort()}
             />
             <ModalFooter>
@@ -126,7 +128,7 @@ export const NewTenderPage = () => {
               <Button
                 color="secondary"
                 fill="outline"
-                caption={t('tendersPage.newTender.beforeLeave.discardCta')}
+                caption={t('tendersPages.newTender.beforeLeave.discardCta')}
                 onClick={() => {
                   modalProps.success(false);
                   setSaveWithErrors(true);
@@ -134,7 +136,7 @@ export const NewTenderPage = () => {
               />
               <Button
                 color="accent"
-                caption={t('tendersPage.newTender.beforeLeave.saveCta')}
+                caption={t('tendersPages.newTender.beforeLeave.saveCta')}
                 onClick={() => {
                   modalProps.abort();
                 }}
@@ -160,16 +162,17 @@ export const NewTenderPage = () => {
         : Promise.resolve({ form: tender }),
     onError: () => history.push('/tenders'),
     onSuccess: (form) =>
-      addNewTender({
-        formData: form,
-        cityData: cityName,
-        tenderAttachments,
-        addressValue,
-        commentsValue,
-        tenderStatus,
-        filesDirectoryId,
-        username,
-      })
+      tendersApi
+        .post({
+          formData: form,
+          cityData: cityName,
+          tenderAttachments,
+          addressValue,
+          commentsValue,
+          tenderStatus,
+          filesDirectoryId,
+          username,
+        })
         .then(() => {
           history.push('/tenders');
           dispatch(isPageLoading(false));
@@ -230,23 +233,6 @@ export const NewTenderPage = () => {
       .catch(() => setListOfCities([]));
   }, []);
 
-  // CATEGORIES LIST PROVIDER
-  const categoryList: CategoryItemType[] = [
-    { id: 0, name: 'tendersPage.newTender.categories.sculptures' },
-    { id: 1, name: 'tendersPage.newTender.categories.mosaics' },
-    { id: 2, name: 'tendersPage.newTender.categories.murals' },
-    { id: 3, name: 'tendersPage.newTender.categories.graffiti' },
-    { id: 4, name: 'tendersPage.newTender.categories.functionalArt' },
-    {
-      id: 5,
-      name: 'tendersPage.newTender.categories.interactiveInstallations',
-    },
-    { id: 6, name: 'tendersPage.newTender.categories.botanicalArt' },
-    { id: 7, name: 'tendersPage.newTender.categories.waterFeatures' },
-    { id: 8, name: 'tendersPage.newTender.categories.themedGardens' },
-    { id: 9, name: 'tendersPage.newTender.categories.recycled' },
-  ];
-
   const dataSource = useArrayDataSource(
     {
       items: categoryList,
@@ -280,10 +266,10 @@ export const NewTenderPage = () => {
   i18nFromUui.rangeDatePicker = {
     ...i18nFromUui.rangeDatePicker,
     pickerPlaceholderFrom: t(
-      'tendersPage.newTender.tenderValidityPeriodFromPlaceholder',
+      'tendersPages.newTender.tenderValidityPeriodFromPlaceholder',
     ),
     pickerPlaceholderTo: t(
-      'tendersPage.newTender.tenderValidityPeriodToPlaceholder',
+      'tendersPages.newTender.tenderValidityPeriodToPlaceholder',
     ),
   };
 
@@ -295,44 +281,44 @@ export const NewTenderPage = () => {
   return (
     <Panel cx={styles.wrapper}>
       <LinkButton
-        caption={t('tendersPage.newTender.pageBackCta')}
+        caption={t('tendersPages.newTender.pageBackCta')}
         link={{ pathname: '/tenders' }}
         icon={navigationBack}
         cx={styles.pageBackCta}
       />
-      <Text cx={styles.pageTitle}>{t('tendersPage.newTender.pageTitle')}</Text>
+      <Text cx={styles.pageTitle}>{t('tendersPages.newTender.pageTitle')}</Text>
       <Panel cx={styles.contentWrapper}>
         <FlexRow>
           <FlexCell cx={styles.contentBody} width="100%">
             <FlexRow>
               <FlexCell width="100%">
                 <Text cx={styles.sectionHeadline}>
-                  {t('tendersPage.newTender.tenderInformationSectionTitle')}
+                  {t('tendersPages.newTender.tenderInformationSectionTitle')}
                 </Text>
 
                 <LabeledInput
-                  label={t('tendersPage.newTender.tenderTitleLabel')}
+                  label={t('tendersPages.newTender.tenderTitleLabel')}
                   cx={styles.inputLabel}
                   {...lens.prop('tenderTitle').toProps()}
                 >
                   <TextInput
                     {...lens.prop('tenderTitle').toProps()}
                     placeholder={t(
-                      'tendersPage.newTender.tenderTitlePlaceholder',
+                      'tendersPages.newTender.tenderTitlePlaceholder',
                     )}
                     rawProps={{ 'data-testid': `tender-title-input` }}
                   />
                 </LabeledInput>
 
                 <LabeledInput
-                  label={t('tendersPage.newTender.tenderDescriptionLabel')}
+                  label={t('tendersPages.newTender.tenderDescriptionLabel')}
                   cx={styles.inputLabel}
                   {...lens.prop('tenderDescription').toProps()}
                 >
                   <TextArea
                     {...lens.prop('tenderDescription').toProps()}
                     placeholder={t(
-                      'tendersPage.newTender.tenderDescriptionPlaceholder',
+                      'tendersPages.newTender.tenderDescriptionPlaceholder',
                     )}
                     rawProps={{ 'data-testid': `tender-description-input` }}
                   />
@@ -343,7 +329,7 @@ export const NewTenderPage = () => {
             <FlexRow>
               <FlexCell width="100%">
                 <Text cx={styles.sectionHeadline}>
-                  {t('tendersPage.newTender.tenderDetailsSectionTitle')}
+                  {t('tendersPages.newTender.tenderDetailsSectionTitle')}
                 </Text>
                 <FlexRow>
                   <FlexCell
@@ -353,7 +339,7 @@ export const NewTenderPage = () => {
                   >
                     <LabeledInput
                       label={t(
-                        'tendersPage.newTender.tenderValidityPeriodLabel',
+                        'tendersPages.newTender.tenderValidityPeriodLabel',
                       )}
                       {...lens.prop('tenderValidity').toProps()}
                       cx={styles.inputLabel}
@@ -375,11 +361,11 @@ export const NewTenderPage = () => {
                   <FlexCell width="100%" grow={1}>
                     <LabeledInput
                       label={t(
-                        'tendersPage.newTender.tenderExpectedDeliveryLabel',
+                        'tendersPages.newTender.tenderExpectedDeliveryLabel',
                       )}
                       sidenote={
                         <Trans
-                          i18nKey="tendersPage.newTender.tenderExpectedDeliveryLabelSidenote"
+                          i18nKey="tendersPages.newTender.tenderExpectedDeliveryLabelSidenote"
                           components={{
                             i: <span className={styles.sideNote} />,
                           }}
@@ -417,13 +403,13 @@ export const NewTenderPage = () => {
                     cx={styles.categoryPickerWrapper}
                   >
                     <LabeledInput
-                      label={t('tendersPage.newTender.tenderCategoryLabel')}
+                      label={t('tendersPages.newTender.tenderCategoryLabel')}
                       sidenote={
                         <Trans
                           components={{
                             i: <span className={styles.sideNote} />,
                           }}
-                          i18nKey="tendersPage.newTender.tenderCategoryLabelSidenote"
+                          i18nKey="tendersPages.newTender.tenderCategoryLabelSidenote"
                         />
                       }
                       cx={styles.inputLabel}
@@ -438,7 +424,7 @@ export const NewTenderPage = () => {
                         valueType="id"
                         sorting={{ field: 'name', direction: 'asc' }}
                         placeholder={t(
-                          'tendersPage.newTender.tenderCategoryPlaceholder',
+                          'tendersPages.newTender.tenderCategoryPlaceholder',
                         )}
                       />
                     </LabeledInput>
@@ -452,14 +438,14 @@ export const NewTenderPage = () => {
             <FlexRow>
               <FlexCell width="100%">
                 <Text cx={styles.sectionHeadline}>
-                  {t('tendersPage.newTender.tenderLocationSectionTitle')}
+                  {t('tendersPages.newTender.tenderLocationSectionTitle')}
                 </Text>
 
                 <LinkButton
                   caption={
                     getCityById()?.name || addressValue || commentsValue
-                      ? t('tendersPage.newTender.tenderEditLocationLink')
-                      : t('tendersPage.newTender.tenderIndicateLink')
+                      ? t('tendersPages.newTender.tenderEditLocationLink')
+                      : t('tendersPages.newTender.tenderIndicateLink')
                   }
                   cx={styles.indicateLink}
                   onClick={() =>
@@ -513,7 +499,9 @@ export const NewTenderPage = () => {
                     {(cityName || addressValue) && (
                       <FlexRow cx={styles.locationDetailsRow}>
                         <Text>
-                          {t('tendersPage.newTender.tenderLocationAddressLine')}
+                          {t(
+                            'tendersPages.newTender.tenderLocationAddressLine',
+                          )}
                         </Text>
                         <Text>
                           {(cityName || addressValue) &&
@@ -526,7 +514,7 @@ export const NewTenderPage = () => {
                     {commentsValue && (
                       <FlexRow cx={styles.locationDetailsRow}>
                         <Text>
-                          {t('tendersPage.newTender.tenderLocationComments')}
+                          {t('tendersPages.newTender.tenderLocationComments')}
                         </Text>
                         <Text>{commentsValue}</Text>
                       </FlexRow>
@@ -561,25 +549,25 @@ export const NewTenderPage = () => {
             <FlexRow>
               <FlexCell width="100%">
                 <Text cx={styles.sectionHeadline}>
-                  {t('tendersPage.newTender.tenderOwnerContactSectionTitle')}
+                  {t('tendersPages.newTender.tenderOwnerContactSectionTitle')}
                 </Text>
                 {(given_name || family_name) && (
                   <FlexRow cx={styles.ownerDetailsRow}>
-                    <Text>{t('tendersPage.newTender.tenderOwnerName')}</Text>
+                    <Text>{t('tendersPages.newTender.tenderOwnerName')}</Text>
                     <Text>{`${given_name} ${family_name}`}</Text>
                   </FlexRow>
                 )}
                 {userOrganization && (
                   <FlexRow cx={styles.ownerDetailsRow}>
                     <Text>
-                      {t('tendersPage.newTender.tenderOwnerOrganisation')}
+                      {t('tendersPages.newTender.tenderOwnerOrganisation')}
                     </Text>
                     <Text>{userOrganization}</Text>
                   </FlexRow>
                 )}
                 {email && (
                   <FlexRow cx={styles.ownerDetailsRow}>
-                    <Text>{t('tendersPage.newTender.tenderOwnerEmail')}</Text>
+                    <Text>{t('tendersPages.newTender.tenderOwnerEmail')}</Text>
                     <Text>{email}</Text>
                   </FlexRow>
                 )}
@@ -588,7 +576,7 @@ export const NewTenderPage = () => {
                   <Alert color="warning" cx={styles.emailInfoAlert}>
                     <Checkbox
                       label={t(
-                        'tendersPage.newTender.tenderOwnerEmailAvailabilityCheckbox',
+                        'tendersPages.newTender.tenderOwnerEmailAvailabilityCheckbox',
                       )}
                       {...lens.prop('emailSharingAgreement').toProps()}
                     />
@@ -600,7 +588,7 @@ export const NewTenderPage = () => {
             <FlexRow>
               <FlexCell width="100%">
                 <Text cx={styles.sectionHeadline}>
-                  {t('tendersPage.newTender.tenderAdditionalInformationLabel')}
+                  {t('tendersPages.newTender.tenderAdditionalInformationLabel')}
                 </Text>
                 <FileUpload
                   attachments={tenderAttachments}
@@ -616,20 +604,20 @@ export const NewTenderPage = () => {
           <Button
             fill="outline"
             color="secondary"
-            caption={t('tendersPage.newTender.pageFormFooterCancelCta')}
+            caption={t('tendersPages.newTender.pageFormFooterCancelCta')}
             link={{ pathname: '/tenders' }}
           />
           <FlexSpacer />
           <Button
             fill="outline"
             color="secondary"
-            caption={t('tendersPage.newTender.pageFormFooterDraftCta')}
+            caption={t('tendersPages.newTender.pageFormFooterDraftCta')}
             onClick={() => onDraftFormSubmit()}
             cx={styles.draftCta}
           />
           <Button
             color="primary"
-            caption={t('tendersPage.newTender.pageFormFooterCreateCta')}
+            caption={t('tendersPages.newTender.pageFormFooterCreateCta')}
             onClick={() => onFormSubmit()}
             rawProps={{ 'data-testid': `form-submit` }}
           />

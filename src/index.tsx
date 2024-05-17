@@ -2,7 +2,7 @@ import '@epam/uui-components/styles.css';
 import '@epam/uui/styles.css';
 import '@epam/assets/css/theme/theme_electric.css';
 import './index.module.scss';
-import { ReactNode, StrictMode, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserHistory } from 'history';
 import {
@@ -30,6 +30,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { TendersPage } from './pages/TendersPage/TendersPage';
 import { NewTenderPage } from './pages/NewTenderPage/NewTenderPage';
+import { TenderPage } from './pages/TenderPage/TenderPage';
 import { Modals, Snackbar } from '@epam/uui-components';
 import { ProfilePage } from './pages/Profile/ProfilePage';
 import { overrideUUILocalisation } from './translation/i18nUUI';
@@ -108,6 +109,7 @@ const UuiEnhancedApp = () => {
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/callback" component={CallbackPage} />
                   <Route exact path="/tenders" component={TendersPage} />
+                  <Route path="/tender/:tenderId" component={TenderPage} />
                   <Route exact path="/profile">
                     <ProfileRoute>
                       <Route exact path="/profile" component={ProfilePage} />
@@ -137,11 +139,7 @@ const UuiEnhancedApp = () => {
 
 const App = () => {
   const root = createRoot(window.document.getElementById('root') as Element);
-  root.render(
-    <StrictMode>
-      <UuiEnhancedApp />
-    </StrictMode>,
-  );
+  root.render(<UuiEnhancedApp />);
 };
 
 App();

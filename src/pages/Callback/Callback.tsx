@@ -36,7 +36,6 @@ export const CallbackPage = () => {
         const decoded: UserData = jwtDecode(data.id_token);
         dispatch(saveUserData(decoded));
         dispatch(userLogin(true));
-        console.log(data);
         localStorage.setItem('refresh_token', data.refresh_token);
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('id_token', data.id_token);

@@ -1,7 +1,5 @@
 .wrapper {
   margin: 36px 144px 60px;
-  box-shadow: 0px 1.9649122953414917px 3.9298245906829834px 0px #1d1e261a;
-  box-shadow: 0px 0px 1.9649122953414917px 0px #1d1e260d;
 }
 
 .pageTitle {
@@ -14,42 +12,77 @@
 .contentWrapper {
   background-color: white;
   min-height: 748px;
-}
-
-.emptyFolderIcon {
-  height: 200px;
-  margin: 30px 0;
-}
-
-.tenders {
-  margin: 0 auto;
-  text-align: center;
-  button {
-    margin: 0 auto;
-  }
-}
-
-.tendersTitle {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 24px;
-}
-
-.tendersDescription {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  margin: 0 auto 30px auto;
-  color: var(--night600);
-  max-width: 500px;
+  box-shadow: 0px 2px 10px 0px #1d1e261a;
+  box-shadow: 0px 1px 2px 0px #1d1e261a;
 }
 
 .headerTendersCta {
   float: right;
 }
 
-@media only screen and (max-device-width: 1227px) {
+.statusInput,
+.citiesInput {
+  width: 250px;
+  min-height: 36px;
+  height: fit-content;
+  margin-right: 12px !important;
+}
+
+.filtersWrapper {
+  margin: 15px 24px 30px 24px;
+}
+
+.creatorFilter button {
+  margin-right: 9px;
+  &:last-child {
+    margin-right: 24px;
+  }
+}
+
+.searchField {
+  width: 210px;
+}
+
+.prefix {
+  color: var(--night500);
+  min-height: 36px;
+  height: fit-content;
+}
+
+.inputHolder {
+  display: flex;
+}
+
+@media only screen and (max-width: 1227px) {
   .wrapper {
     margin: 36px 30px 60px;
+  }
+  .filtersWrapper {
+    flex-direction: column;
+  }
+  .inputHolder,
+  .searchField,
+  .statusInput,
+  .citiesInput {
+    width: 100%;
+  }
+
+  .statusInput,
+  .citiesInput {
+    margin-right: 0 !important;
+  }
+
+  .creatorFilter,
+  .statusInput,
+  .prefix,
+  .citiesInput {
+    margin-bottom: 6px;
+  }
+  .pickerInputHolder {
+    flex-direction: column;
+    width: 100%;
+  }
+  .prefix {
+    width: 35%;
   }
 }

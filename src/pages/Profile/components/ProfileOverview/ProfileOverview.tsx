@@ -28,8 +28,8 @@ import { useEffect } from 'react';
 import {
   ACTIVE_TENDERS,
   OTHER_TENDERS,
-  tenderApi,
-} from '../../../../services/api/tenderApi';
+  tenderCountApi,
+} from '../../../../services/api/tenderCountApi';
 import axios from 'axios';
 
 export const ProfileOverview = () => {
@@ -39,8 +39,8 @@ export const ProfileOverview = () => {
   useEffect(() => {
     axios
       .all([
-        tenderApi.get(username, ACTIVE_TENDERS),
-        tenderApi.get(username, OTHER_TENDERS),
+        tenderCountApi.get(username, ACTIVE_TENDERS),
+        tenderCountApi.get(username, OTHER_TENDERS),
       ])
       .then((response) => {
         const [activeTenders, others] = [response[0]?.data, response[1]?.data];
