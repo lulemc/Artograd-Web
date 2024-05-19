@@ -15,8 +15,8 @@ export type LocationType = {
     name: string;
   };
   geoPosition: {
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
   };
   addressLine: string;
   addressComment: string;
@@ -40,15 +40,24 @@ export type Proposals = {
 
 export type Tender = {
   id: string;
-  tags: string[];
-  location: LocationType;
-  author: string;
-  attachments: string[];
-  published: string;
-  delivery: string;
-  status: TenderStatus;
   title: string;
   description: string;
+  submissionStart: string;
+  submissionEnd: string;
+  expectedDelivery: string;
+  category: string[];
+  location: LocationType;
+  ownerEmail: string;
+  showEmail: boolean;
+  files: string[];
+  snapFiles: string[];
+  status: TenderStatus;
+  ownerName: string;
+  ownerId: string;
+  organization: string;
+  ownerPicture: string;
+  createdAt: string;
+  modifiedAt: string;
   proposals: Proposals[];
 };
 

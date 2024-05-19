@@ -1,0 +1,54 @@
+.text {
+  padding: 0;
+}
+
+.authorCardLabel {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--night600);
+  margin-right: 6px;
+  padding: 0;
+  &:first-child {
+    margin-top: 12px;
+  }
+}
+
+.authorCardContent {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--night950);
+  padding: 0;
+  &:first-child {
+    margin-top: 12px;
+  }
+}
+
+.socialIcon {
+  fill: var(--electric-50);
+  margin-right: 9px;
+}
+
+.authorInfoLink {
+  border-bottom: 1px dashed var(--electric-50);
+}
+
+.smallProposalAvatar {
+  height: 24px;
+  width: 24px;
+}
+
+.proposalAuthor {
+  color: var(--night950);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  margin-top: 12px;
+  display: flex;
+  height: 24px;
+  align-items: center;
+  span {
+    margin: 0 3px;
+  }
+}

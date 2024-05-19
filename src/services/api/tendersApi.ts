@@ -22,25 +22,30 @@ type TenderApiPostPayload = {
 
 export const tendersApi = {
   get: async (
-    page: number,
+    page?: number,
     statuses?: CategoryItemType[],
     locations?: CityItemType[],
     title?: string,
     owner?: string,
+    tenderId?: string,
   ) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/tenders?page=${page}${
-          statuses && statuses.length !== 0
-            ? `&statuses=${statuses
-                .map((item) => item.name.toUpperCase())
-                .join(decodeURIComponent('%2c'))}`
-            : ''
-        }${
-          locations && locations.length !== 0
-            ? `&locationLeafIds=${locations.map((location) => location.id)}`
-            : ''
-        }${title ? `&title=${title}` : ''}${owner ? `&ownerId=${owner}` : ''}`,
+        tenderId
+          ? `${process.env.REACT_APP_BACKEND_URL}/tenders/${tenderId}`
+          : `${process.env.REACT_APP_BACKEND_URL}/tenders?page=${page}${
+              statuses && statuses.length !== 0
+                ? `&statuses=${statuses
+                    .map((item) => item.name.toUpperCase())
+                    .join(decodeURIComponent('%2c'))}`
+                : ''
+            }${
+              locations && locations.length !== 0
+                ? `&locationLeafIds=${locations.map((location) => location.id)}`
+                : ''
+            }${title ? `&title=${title}` : ''}${
+              owner ? `&ownerId=${owner}` : ''
+            }`,
       );
       return response.data;
     } catch (err) {
