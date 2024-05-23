@@ -48,7 +48,6 @@ export const TenderPage = () => {
     tendersApi
       .get(undefined, undefined, undefined, undefined, undefined, tenderId)
       .then((response) => {
-        console.log(':::res', response);
         setTenderDetails(response);
       });
   }, []);
@@ -74,13 +73,13 @@ export const TenderPage = () => {
       <FlexRow borderBottom>
         <FlexRow>
           <TabButton
-            caption={'Overview'}
+            caption={t(`tendersPages.viewTender.tenderTab`)}
             isLinkActive={tab === 'tender'}
             onClick={() => setTab('tender')}
             size="48"
           />
           <TabButton
-            caption={'Submitted Proposals '}
+            caption={t(`tendersPages.viewTender.proposalsTab`)}
             isLinkActive={tab === 'proposals'}
             onClick={() => setTab('proposals')}
             count={proposals ? proposals.length : 0}
@@ -93,7 +92,7 @@ export const TenderPage = () => {
             <Button
               icon={NavigationChevronRightOutlineIcon}
               iconPosition="right"
-              caption="Open Art Object"
+              caption={t(`tendersPages.viewTender.openArtObjectCta`)}
               fill="ghost"
               onClick={() => null}
             />
@@ -105,7 +104,7 @@ export const TenderPage = () => {
               <Button
                 fill="ghost"
                 color="secondary"
-                caption="Cancel Tender"
+                caption={t(`tendersPages.viewTender.cancelTenderCta`)}
                 onClick={() => null}
               />
             )}
@@ -115,7 +114,7 @@ export const TenderPage = () => {
               <Button
                 fill="ghost"
                 color="secondary"
-                caption="Delete Tender"
+                caption={t(`tendersPages.viewTender.deleteTenderCta`)}
                 onClick={() => null}
               />
             )}
@@ -125,7 +124,7 @@ export const TenderPage = () => {
               <Button
                 fill="outline"
                 color="primary"
-                caption="Edit"
+                caption={t(`tendersPages.viewTender.editTenderCta`)}
                 onClick={() => null}
               />
             )}
@@ -135,7 +134,7 @@ export const TenderPage = () => {
               <Button
                 fill="outline"
                 color="primary"
-                caption="Start Voting"
+                caption={t(`tendersPages.viewTender.startVotingCta`)}
                 onClick={() => null}
               />
             )}
@@ -145,14 +144,18 @@ export const TenderPage = () => {
               <Button
                 fill="outline"
                 color="primary"
-                caption="Re-Activate"
+                caption={t(`tendersPages.viewTender.reactivateCta`)}
                 onClick={() => null}
               />
             )}
           {tenderDetails &&
             username === tenderDetails.ownerId &&
             tenderDetails?.status === TenderStatus.DRAFT && (
-              <Button color="primary" caption="Publish" onClick={() => null} />
+              <Button
+                color="primary"
+                caption={t(`tendersPages.viewTender.publishCta`)}
+                onClick={() => null}
+              />
             )}
         </FlexRow>
       </FlexRow>
@@ -161,7 +164,7 @@ export const TenderPage = () => {
           <FlexRow>
             <Panel cx={styles.dateWrapper}>
               <Text fontSize="12" fontWeight="400" color="tertiary">
-                Created on:
+                {t(`tendersPages.viewTender.createdOnLabel`)}
               </Text>
               <Text fontSize="12" fontWeight="400">
                 {dayjs(tenderDetails?.createdAt).format('D MMM YYYY')}
@@ -169,7 +172,7 @@ export const TenderPage = () => {
             </Panel>
             <Panel cx={styles.dateWrapper}>
               <Text fontSize="12" fontWeight="400" color="tertiary">
-                Edited on:
+                {t(`tendersPages.viewTender.editedOnLabel`)}
               </Text>
               <Text fontSize="12" fontWeight="400">
                 {dayjs(tenderDetails?.modifiedAt).format('D MMM YYYY')}
@@ -178,7 +181,7 @@ export const TenderPage = () => {
           </FlexRow>
           <FlexRow>
             <Text fontSize="18" fontWeight="600" cx={styles.descriptionLabel}>
-              Tender description
+              {t(`tendersPages.viewTender.descriptionLabel`)}
             </Text>
           </FlexRow>
           <FlexRow>
@@ -188,7 +191,7 @@ export const TenderPage = () => {
           </FlexRow>
           <FlexRow>
             <Text fontSize="18" fontWeight="600" cx={styles.detailsLabel}>
-              Tender Details
+              {t(`tendersPages.viewTender.detailsLabel`)}
             </Text>
           </FlexRow>
           {/* details */}
@@ -198,7 +201,7 @@ export const TenderPage = () => {
               <FlexRow>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400" color="tertiary">
-                    Proposals submission period:
+                    {t(`tendersPages.viewTender.submissionPeriodLabel`)}
                   </Text>
                 </FlexCell>
                 <FlexCell width="100%">
@@ -213,7 +216,7 @@ export const TenderPage = () => {
               <FlexRow>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400" color="tertiary">
-                    Category:{' '}
+                    {t(`tendersPages.viewTender.categoryLabel`)}
                   </Text>
                 </FlexCell>
                 <FlexCell width="100%">
@@ -235,7 +238,7 @@ export const TenderPage = () => {
               <FlexRow>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400" color="tertiary">
-                    Expected readiness:{' '}
+                    {t(`tendersPages.viewTender.expectedReadinessLabel`)}
                   </Text>
                 </FlexCell>
                 <FlexCell width="100%">
@@ -251,7 +254,7 @@ export const TenderPage = () => {
           </FlexRow>
           <FlexRow>
             <Text fontSize="18" fontWeight="600" cx={styles.artObjectLabel}>
-              Art Object Location
+              {t(`tendersPages.viewTender.objectLocationLabel`)}
             </Text>
           </FlexRow>
           <FlexRow>
@@ -259,7 +262,7 @@ export const TenderPage = () => {
               <FlexRow>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400" color="tertiary">
-                    Address line:
+                    {t(`tendersPages.viewTender.addressLineLabel`)}
                   </Text>
                 </FlexCell>
                 <FlexCell width="100%">
@@ -273,7 +276,7 @@ export const TenderPage = () => {
               <FlexRow>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400" color="tertiary">
-                    Comments:
+                    {t(`tendersPages.viewTender.addressCommentLabel`)}
                   </Text>
                 </FlexCell>
                 <FlexCell width="100%">
@@ -314,7 +317,7 @@ export const TenderPage = () => {
           </FlexRow>
           <FlexRow>
             <Text fontSize="18" fontWeight="600" cx={styles.tenderOwnerLabel}>
-              Tender owner
+              {t(`tendersPages.viewTender.tenderOwnerLabel`)}
             </Text>
           </FlexRow>
           <FlexRow>
@@ -326,7 +329,7 @@ export const TenderPage = () => {
           </FlexRow>
           <FlexRow>
             <Text fontSize="18" fontWeight="600" cx={styles.attachmentsLabel}>
-              Additional information
+              {t(`tendersPages.viewTender.additionalInformationLabel`)}
             </Text>
           </FlexRow>
           <FlexRow>
@@ -350,12 +353,15 @@ export const TenderPage = () => {
             {/* {proposals?.length === 0 && ( */}
             <WarningAlert
               cx={styles.alert}
-              actions={[{ name: 'Prolong dates', action: () => null }]}
+              actions={[
+                {
+                  name: t(`tendersPages.viewTender.prolongDateCta`),
+                  action: () => null,
+                },
+              ]}
             >
               <Text size="30">
-                Indicated tender validity period is over, and proposals cannot
-                be submitted. You can either prolong proposal submission period
-                to accept new proposals, or cancel tender.
+                {t(`tendersPages.viewTender.noProposalsAlertMessage`)}
               </Text>
             </WarningAlert>
             {/* )} */}
@@ -364,15 +370,18 @@ export const TenderPage = () => {
             <WarningAlert
               cx={styles.alert}
               actions={[
-                { name: 'Appoint Winner', action: () => null },
-                { name: 'Prolong dates', action: () => null },
+                {
+                  name: t(`tendersPages.viewTender.selectWinnerCta`),
+                  action: () => null,
+                },
+                {
+                  name: t(`tendersPages.viewTender.prolongDateCta`),
+                  action: () => null,
+                },
               ]}
             >
               <Text size="30">
-                There are not enough proposals to start voting process. You can
-                either prolong proposal submission period to accept new
-                proposals, or appoint this only submitted proposal as a tender
-                winner.
+                {t(`tendersPages.viewTender.singleProposalAlertMessage`)}
               </Text>
             </WarningAlert>
             {/* )} */}
@@ -380,12 +389,15 @@ export const TenderPage = () => {
             {/* {proposals && proposals?.length >= 2 && ( */}
             <WarningAlert
               cx={styles.alert}
-              actions={[{ name: 'Prolong dates', action: () => null }]}
+              actions={[
+                {
+                  name: t(`tendersPages.viewTender.prolongDateCta`),
+                  action: () => null,
+                },
+              ]}
             >
               <Text size="30">
-                The number of proposals to start voting process is acceptable
-                minimum. You can either prolong proposal submission period to
-                accept new proposals, or cancel tender.
+                {t(`tendersPages.viewTender.selectWinnerAlertMessage`)}
               </Text>
             </WarningAlert>
             {/* )} */}
@@ -394,7 +406,7 @@ export const TenderPage = () => {
             {!proposals || (proposals && proposals?.length === 0) ? (
               <EmptyContent
                 icon={SearchGuyIcon}
-                description="No proposal submitted yet"
+                description={t(`tendersPages.viewTender.noProposalsMessage`)}
               />
             ) : (
               proposals?.map((proposal) => (
