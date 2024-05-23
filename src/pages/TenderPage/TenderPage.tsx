@@ -159,38 +159,42 @@ export const TenderPage = () => {
       {tab === 'tender' ? (
         <Panel cx={styles.contentWrapper}>
           <FlexRow>
-            <Panel>
+            <Panel cx={styles.dateWrapper}>
+              <Text fontSize="12" fontWeight="400" color="tertiary">
+                Created on:
+              </Text>
               <Text fontSize="12" fontWeight="400">
-                Created on:{' '}
                 {dayjs(tenderDetails?.createdAt).format('D MMM YYYY')}
               </Text>
             </Panel>
-            <Panel>
+            <Panel cx={styles.dateWrapper}>
+              <Text fontSize="12" fontWeight="400" color="tertiary">
+                Edited on:
+              </Text>
               <Text fontSize="12" fontWeight="400">
-                Edited on:{' '}
                 {dayjs(tenderDetails?.modifiedAt).format('D MMM YYYY')}
               </Text>
             </Panel>
           </FlexRow>
           <FlexRow>
-            <Text fontSize="18" fontWeight="600">
+            <Text fontSize="18" fontWeight="600" cx={styles.descriptionLabel}>
               Tender description
             </Text>
           </FlexRow>
           <FlexRow>
-            <Text fontSize="16" fontWeight="400">
+            <Text fontSize="16" fontWeight="400" cx={styles.descriptionContent}>
               {tenderDetails?.description}
             </Text>
           </FlexRow>
           <FlexRow>
-            <Text fontSize="18" fontWeight="600">
+            <Text fontSize="18" fontWeight="600" cx={styles.detailsLabel}>
               Tender Details
             </Text>
           </FlexRow>
           {/* details */}
-          <FlexRow>
+          <FlexRow cx={styles.detailsWrapper}>
             {/* 1st column */}
-            <FlexCell width="100%">
+            <FlexCell width="100%" cx={styles.column}>
               <FlexRow>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400" color="tertiary">
@@ -215,15 +219,19 @@ export const TenderPage = () => {
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400">
                     {tenderDetails?.category &&
-                      tenderDetails?.category.map((category) =>
-                        t(`${getCategoryName(category)?.name}`),
+                      tenderDetails?.category.map(
+                        (category, index) =>
+                          t(`${getCategoryName(category)?.name}`) +
+                          (index !== tenderDetails?.category.length - 1
+                            ? ', '
+                            : ''),
                       )}
                   </Text>
                 </FlexCell>
               </FlexRow>
             </FlexCell>
             {/* 2nd column */}
-            <FlexCell width="100%">
+            <FlexCell width="100%" cx={styles.column} alignSelf="flex-start">
               <FlexRow>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400" color="tertiary">
@@ -242,12 +250,12 @@ export const TenderPage = () => {
             </FlexCell>
           </FlexRow>
           <FlexRow>
-            <Text fontSize="18" fontWeight="600">
+            <Text fontSize="18" fontWeight="600" cx={styles.artObjectLabel}>
               Art Object Location
             </Text>
           </FlexRow>
           <FlexRow>
-            <FlexCell width="100%">
+            <FlexCell width="100%" cx={styles.column}>
               <FlexRow>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400" color="tertiary">
@@ -275,7 +283,7 @@ export const TenderPage = () => {
                 </FlexCell>
               </FlexRow>
             </FlexCell>
-            <FlexCell width="100%">
+            <FlexCell width="100%" cx={styles.column}>
               {tenderDetails?.location &&
                 tenderDetails.location.geoPosition && (
                   <MapContainer
@@ -305,7 +313,7 @@ export const TenderPage = () => {
             </FlexCell>
           </FlexRow>
           <FlexRow>
-            <Text fontSize="18" fontWeight="600">
+            <Text fontSize="18" fontWeight="600" cx={styles.tenderOwnerLabel}>
               Tender owner
             </Text>
           </FlexRow>
@@ -317,7 +325,7 @@ export const TenderPage = () => {
             />
           </FlexRow>
           <FlexRow>
-            <Text fontSize="18" fontWeight="600">
+            <Text fontSize="18" fontWeight="600" cx={styles.attachmentsLabel}>
               Additional information
             </Text>
           </FlexRow>
@@ -325,6 +333,7 @@ export const TenderPage = () => {
             {tenderDetails?.files &&
               tenderDetails.files.map((file) => (
                 <FileCard
+                  cx={styles.fileCard}
                   file={{
                     id: 1,
                     name: 'file',
@@ -337,18 +346,52 @@ export const TenderPage = () => {
         </Panel>
       ) : (
         <Panel>
-          <WarningAlert
-            actions={[{ name: 'Prolong dates', action: () => null }]}
-          >
-            {' '}
-            <Text size="30">
-              Indicated tender validity period is over, and proposals cannot be
-              submitted. You can either prolong proposal submission period to
-              accept new proposals, or cancel tender.
-            </Text>{' '}
-          </WarningAlert>
+          <Panel cx={styles.alertsWrapper}>
+            {/* {proposals?.length === 0 && ( */}
+            <WarningAlert
+              cx={styles.alert}
+              actions={[{ name: 'Prolong dates', action: () => null }]}
+            >
+              <Text size="30">
+                Indicated tender validity period is over, and proposals cannot
+                be submitted. You can either prolong proposal submission period
+                to accept new proposals, or cancel tender.
+              </Text>
+            </WarningAlert>
+            {/* )} */}
+
+            {/* {proposals?.length === 1 && ( */}
+            <WarningAlert
+              cx={styles.alert}
+              actions={[
+                { name: 'Appoint Winner', action: () => null },
+                { name: 'Prolong dates', action: () => null },
+              ]}
+            >
+              <Text size="30">
+                There are not enough proposals to start voting process. You can
+                either prolong proposal submission period to accept new
+                proposals, or appoint this only submitted proposal as a tender
+                winner.
+              </Text>
+            </WarningAlert>
+            {/* )} */}
+
+            {/* {proposals && proposals?.length >= 2 && ( */}
+            <WarningAlert
+              cx={styles.alert}
+              actions={[{ name: 'Prolong dates', action: () => null }]}
+            >
+              <Text size="30">
+                The number of proposals to start voting process is acceptable
+                minimum. You can either prolong proposal submission period to
+                accept new proposals, or cancel tender.
+              </Text>
+            </WarningAlert>
+            {/* )} */}
+          </Panel>
           <Panel cx={styles.contentWrapper}>
-            {proposals?.length === 0 ? (
+            {!proposals || (proposals && proposals?.length === 0) ? (
               <EmptyContent
                 icon={SearchGuyIcon}
                 description="No proposal submitted yet"
