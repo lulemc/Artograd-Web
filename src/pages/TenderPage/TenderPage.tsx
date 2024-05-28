@@ -1,32 +1,42 @@
 import {
   Button,
+  DatePicker,
   FileCard,
   FlexCell,
   FlexRow,
   FlexSpacer,
+  LabeledInput,
+  ModalBlocker,
+  ModalFooter,
+  ModalHeader,
+  ModalWindow,
   Panel,
+  RangeDatePicker,
+  ScrollBars,
   TabButton,
   Text,
   WarningAlert,
+  useForm,
 } from '@epam/uui';
 import styles from './TenderPage.module.scss';
 import { useTranslation } from 'react-i18next';
 import { tendersApi } from '../../services/api/tendersApi';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Tender, TenderStatus } from '../../types';
+import { Tender } from '../../types';
 import { DotIndicator } from '../../components/DotIndicator/DotIndicator';
 import { getCategoryName } from '../../utils/getCategoryName';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { MapCordsController } from '../../components/MapCordsController/MapCordsController';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { ReactComponent as NavigationChevronRightOutlineIcon } from '@epam/assets/icons/navigation-chevron_right-outline.svg';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '../../store/store';
 import { AuthorCard } from '../../components/AuthorCard/AuthorCard';
 import { ProposalCard } from '../../components/ProposalCard/ProposalCard';
 import { EmptyContent } from '../../components/EmptyContent/EmptyContent';
 import SearchGuyIcon from '../../images/searchGuy.svg';
+import { IModal, useUuiContext } from '@epam/uui-core';
 
 type TenderRouteParams = {
   tenderId: string;
@@ -34,15 +44,16 @@ type TenderRouteParams = {
 
 export const TenderPage = () => {
   const { t } = useTranslation();
+  const { uuiModals } = useUuiContext();
   const { tenderId } = useParams<TenderRouteParams>();
   const [tenderDetails, setTenderDetails] = useState<Tender | undefined>();
   const [tab, setTab] = useState('tender');
   const proposals = tenderDetails?.proposals;
-  const tenderStatus = tenderDetails?.status;
+  // const tenderStatus = tenderDetails?.status;
 
-  const username = useSelector(
-    (state: RootState) => state.identity.userData['cognito:username'],
-  );
+  // const username = useSelector(
+  //   (state: RootState) => state.identity.userData['cognito:username'],
+  // );
 
   useEffect(() => {
     tendersApi
@@ -88,75 +99,91 @@ export const TenderPage = () => {
         </FlexRow>
         <FlexSpacer />
         <FlexRow>
-          {tenderDetails && tenderStatus === TenderStatus.CLOSED && (
-            <Button
-              icon={NavigationChevronRightOutlineIcon}
-              iconPosition="right"
-              caption={t(`tendersPages.viewTender.openArtObjectCta`)}
-              fill="ghost"
-              onClick={() => null}
-            />
-          )}
-          {tenderDetails &&
+          {/* {tenderDetails && tenderStatus === TenderStatus.CLOSED && ( */}
+          <Button
+            icon={NavigationChevronRightOutlineIcon}
+            iconPosition="right"
+            caption={t(`tendersPages.viewTender.openArtObjectCta`)}
+            fill="ghost"
+            onClick={() => null}
+          />
+          {/* )} */}
+          {/* {tenderDetails &&
             username === tenderDetails.ownerId &&
             tenderStatus !== TenderStatus.CANCELLED &&
-            tenderStatus !== TenderStatus.CLOSED && (
-              <Button
-                fill="ghost"
-                color="secondary"
-                caption={t(`tendersPages.viewTender.cancelTenderCta`)}
-                onClick={() => null}
-              />
-            )}
-          {tenderDetails &&
+            tenderStatus !== TenderStatus.CLOSED && ( */}
+          <Button
+            fill="ghost"
+            color="secondary"
+            caption={t(`tendersPages.viewTender.cancelTenderCta`)}
+            onClick={() =>
+              uuiModals
+                .show<string>((props) => <CancelTenderModal {...props} />)
+                .catch(() => null)
+            }
+          />
+          {/* )} */}
+          {/* {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderStatus === TenderStatus.CANCELLED && (
-              <Button
-                fill="ghost"
-                color="secondary"
-                caption={t(`tendersPages.viewTender.deleteTenderCta`)}
-                onClick={() => null}
-              />
-            )}
-          {tenderDetails &&
+            tenderStatus === TenderStatus.CANCELLED && ( */}
+          <Button
+            fill="ghost"
+            color="secondary"
+            caption={t(`tendersPages.viewTender.deleteTenderCta`)}
+            onClick={() =>
+              uuiModals
+                .show<string>((props) => <DeleteTenderModal {...props} />)
+                .catch(() => null)
+            }
+          />
+          {/* )} */}
+          {/* {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderStatus === TenderStatus.CANCELLED && (
-              <Button
-                fill="outline"
-                color="primary"
-                caption={t(`tendersPages.viewTender.editTenderCta`)}
-                onClick={() => null}
-              />
-            )}
-          {tenderDetails &&
+            tenderStatus === TenderStatus.CANCELLED && ( */}
+          <Button
+            fill="outline"
+            color="primary"
+            caption={t(`tendersPages.viewTender.editTenderCta`)}
+            onClick={() => null}
+          />
+          {/* )} */}
+          {/* {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderStatus === TenderStatus.IDEATION && (
-              <Button
-                fill="outline"
-                color="primary"
-                caption={t(`tendersPages.viewTender.startVotingCta`)}
-                onClick={() => null}
-              />
-            )}
-          {tenderDetails &&
+            tenderStatus === TenderStatus.IDEATION && ( */}
+          <Button
+            fill="outline"
+            color="primary"
+            caption={t(`tendersPages.viewTender.startVotingCta`)}
+            onClick={() =>
+              uuiModals
+                .show<string>((props) => <VotingBeginningModal {...props} />)
+                .catch(() => null)
+            }
+          />
+          {/* )} */}
+          {/* {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderDetails?.status === TenderStatus.CANCELLED && (
-              <Button
-                fill="outline"
-                color="primary"
-                caption={t(`tendersPages.viewTender.reactivateCta`)}
-                onClick={() => null}
-              />
-            )}
-          {tenderDetails &&
+            tenderDetails?.status === TenderStatus.CANCELLED && ( */}
+          <Button
+            fill="outline"
+            color="primary"
+            caption={t(`tendersPages.viewTender.reactivateCta`)}
+            onClick={() =>
+              uuiModals
+                .show<string>((props) => <ReactivateTenderModal {...props} />)
+                .catch(() => null)
+            }
+          />
+          {/* )} */}
+          {/* {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderDetails?.status === TenderStatus.DRAFT && (
-              <Button
-                color="primary"
-                caption={t(`tendersPages.viewTender.publishCta`)}
-                onClick={() => null}
-              />
-            )}
+            tenderDetails?.status === TenderStatus.DRAFT && ( */}
+          <Button
+            color="primary"
+            caption={t(`tendersPages.viewTender.publishCta`)}
+            onClick={() => null}
+          />
+          {/* )} */}
         </FlexRow>
       </FlexRow>
       {tab === 'tender' ? (
@@ -356,7 +383,12 @@ export const TenderPage = () => {
               actions={[
                 {
                   name: t(`tendersPages.viewTender.prolongDateCta`),
-                  action: () => null,
+                  action: () =>
+                    uuiModals
+                      .show<string>((props) => (
+                        <ProlongTenderModal {...props} />
+                      ))
+                      .catch(() => null),
                 },
               ]}
             >
@@ -376,7 +408,12 @@ export const TenderPage = () => {
                 },
                 {
                   name: t(`tendersPages.viewTender.prolongDateCta`),
-                  action: () => null,
+                  action: () =>
+                    uuiModals
+                      .show<string>((props) => (
+                        <ProlongTenderModal {...props} />
+                      ))
+                      .catch(() => null),
                 },
               ]}
             >
@@ -392,7 +429,12 @@ export const TenderPage = () => {
               actions={[
                 {
                   name: t(`tendersPages.viewTender.prolongDateCta`),
-                  action: () => null,
+                  action: () =>
+                    uuiModals
+                      .show<string>((props) => (
+                        <ProlongTenderModal {...props} />
+                      ))
+                      .catch(() => null),
                 },
               ]}
             >
@@ -419,5 +461,249 @@ export const TenderPage = () => {
         </Panel>
       )}
     </Panel>
+  );
+};
+
+export const ProlongTenderModal = (modalProps: IModal<string>) => {
+  return (
+    <ModalBlocker {...modalProps}>
+      <ModalWindow>
+        <Panel background="surface-main">
+          <ModalHeader
+            title="Prolong Tender Dates"
+            onClose={() => modalProps.abort()}
+          />
+          <ScrollBars hasTopShadow hasBottomShadow>
+            <FlexRow padding="24">
+              <Text size="36"> qwertyu </Text>
+            </FlexRow>
+          </ScrollBars>
+          <ModalFooter>
+            <FlexSpacer />
+            <Button
+              color="secondary"
+              fill="outline"
+              caption="Cancel"
+              onClick={() => modalProps.abort()}
+            />
+            <Button
+              color="primary"
+              caption="Ok"
+              onClick={() => modalProps.success('Success action')}
+            />
+          </ModalFooter>
+        </Panel>
+      </ModalWindow>
+    </ModalBlocker>
+  );
+};
+
+export const CancelTenderModal = (modalProps: IModal<string>) => {
+  return (
+    <ModalBlocker {...modalProps}>
+      <ModalWindow>
+        <Panel background="surface-main">
+          <ModalHeader
+            title="Cancel Tender"
+            onClose={() => modalProps.abort()}
+          />
+          <ScrollBars hasTopShadow hasBottomShadow>
+            <FlexRow padding="24">
+              <Text size="36"> qwertyu </Text>
+            </FlexRow>
+          </ScrollBars>
+          <ModalFooter>
+            <FlexSpacer />
+            <Button
+              color="secondary"
+              fill="outline"
+              caption="Cancel"
+              onClick={() => modalProps.abort()}
+            />
+            <Button
+              color="primary"
+              caption="Ok"
+              onClick={() => modalProps.success('Success action')}
+            />
+          </ModalFooter>
+        </Panel>
+      </ModalWindow>
+    </ModalBlocker>
+  );
+};
+
+export const ReactivateTenderModal = (modalProps: IModal<string>) => {
+  type ReactivateType = {
+    tenderValidity?: { from: string; to: string };
+    tenderExpectedDelivery?: string;
+  };
+  const { t } = useTranslation();
+  const { lens, value: formValues } = useForm<ReactivateType>({
+    value: {},
+    onSave: (person) => Promise.resolve({ form: person }),
+    getMetadata: () => ({
+      props: {
+        tenderValidity: {
+          validators: [
+            (value) => [
+              !value?.to &&
+                !value?.from &&
+                t('global.lenses.isRequiredMessage'),
+            ],
+          ],
+        },
+        tenderExpectedDelivery: { isRequired: false },
+      },
+    }),
+  });
+  return (
+    <ModalBlocker {...modalProps}>
+      <ModalWindow>
+        <Panel background="surface-main">
+          <ModalHeader
+            title="Re-activate Tender"
+            onClose={() => modalProps.abort()}
+            borderBottom
+          />
+          <ScrollBars hasTopShadow hasBottomShadow>
+            <FlexCell>
+              <Text size="36">
+                By re-activating tender you make it available again for
+                accepting proposals.
+              </Text>
+              <FlexRow cx={styles.rangeDatePickerWrapper}>
+                <LabeledInput
+                  label={t('tendersPages.newTender.tenderValidityPeriodLabel')}
+                  {...lens.prop('tenderValidity').toProps()}
+                  cx={styles.inputLabel}
+                >
+                  <RangeDatePicker
+                    {...lens.prop('tenderValidity').toProps()}
+                    format="MMM D, YYYY"
+                    rawProps={{
+                      from: { 'data-testid': `tender-validity-from-input` },
+                      to: { 'data-testid': `tender-validity-to-input` },
+                    }}
+                    filter={(day: Dayjs) =>
+                      day.valueOf() >= dayjs().subtract(1, 'day').valueOf()
+                    }
+                  />
+                </LabeledInput>
+              </FlexRow>
+              <FlexRow>
+                <LabeledInput
+                  label={t(
+                    'tendersPages.newTender.tenderExpectedDeliveryLabel',
+                  )}
+                  cx={styles.inputLabel}
+                  {...lens.prop('tenderExpectedDelivery').toProps()}
+                >
+                  <DatePicker
+                    {...lens.prop('tenderExpectedDelivery').toProps()}
+                    format="MMM D, YYYY"
+                    placeholder={t('global.datePickerPlaceholder')}
+                    rawProps={{
+                      input: {
+                        'data-testid': `tender-expected-delivery-input`,
+                      },
+                    }}
+                    filter={(day: Dayjs) =>
+                      day.valueOf() >=
+                      dayjs(
+                        formValues.tenderValidity?.to
+                          ? formValues.tenderValidity?.to
+                          : undefined,
+                      ).valueOf()
+                    }
+                  />
+                </LabeledInput>
+              </FlexRow>
+            </FlexCell>
+          </ScrollBars>
+          <ModalFooter>
+            <FlexSpacer />
+            <Button
+              color="secondary"
+              fill="outline"
+              caption="Cancel"
+              onClick={() => modalProps.abort()}
+            />
+            <Button
+              color="primary"
+              caption="Ok"
+              onClick={() => modalProps.success('Success action')}
+            />
+          </ModalFooter>
+        </Panel>
+      </ModalWindow>
+    </ModalBlocker>
+  );
+};
+
+export const DeleteTenderModal = (modalProps: IModal<string>) => {
+  return (
+    <ModalBlocker {...modalProps}>
+      <ModalWindow>
+        <Panel background="surface-main">
+          <ModalHeader
+            title="Delete Tender"
+            onClose={() => modalProps.abort()}
+          />
+          <ScrollBars hasTopShadow hasBottomShadow>
+            <FlexRow padding="24">
+              <Text size="36"> qwertyu </Text>
+            </FlexRow>
+          </ScrollBars>
+          <ModalFooter>
+            <FlexSpacer />
+            <Button
+              color="secondary"
+              fill="outline"
+              caption="Cancel"
+              onClick={() => modalProps.abort()}
+            />
+            <Button
+              color="primary"
+              caption="Ok"
+              onClick={() => modalProps.success('Success action')}
+            />
+          </ModalFooter>
+        </Panel>
+      </ModalWindow>
+    </ModalBlocker>
+  );
+};
+
+export const VotingBeginningModal = (modalProps: IModal<string>) => {
+  return (
+    <ModalBlocker {...modalProps}>
+      <ModalWindow>
+        <Panel background="surface-main">
+          <ModalHeader
+            title="Start Proposals Voting"
+            onClose={() => modalProps.abort()}
+          />
+          <ScrollBars hasTopShadow hasBottomShadow>
+            <FlexRow padding="24">
+              <Text size="36"> qwertyu </Text>
+            </FlexRow>
+          </ScrollBars>
+          <ModalFooter>
+            <FlexSpacer />
+            <Button
+              color="secondary"
+              fill="outline"
+              caption="Cancel"
+              onClick={() => modalProps.abort()}
+            />
+            <Button
+              color="primary"
+              caption="Ok"
+              onClick={() => modalProps.success('Success action')}
+            />
+          </ModalFooter>
+        </Panel>
+      </ModalWindow>
+    </ModalBlocker>
   );
 };
