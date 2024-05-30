@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalWindow,
   Panel,
+  PickerInput,
   RangeDatePicker,
   ScrollBars,
   TabButton,
@@ -19,7 +20,7 @@ import {
   useForm,
 } from '@epam/uui';
 import styles from './TenderPage.module.scss';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { tendersApi } from '../../services/api/tendersApi';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -36,7 +37,7 @@ import { AuthorCard } from '../../components/AuthorCard/AuthorCard';
 import { ProposalCard } from '../../components/ProposalCard/ProposalCard';
 import { EmptyContent } from '../../components/EmptyContent/EmptyContent';
 import SearchGuyIcon from '../../images/searchGuy.svg';
-import { IModal, useUuiContext } from '@epam/uui-core';
+import { IModal, useArrayDataSource, useUuiContext } from '@epam/uui-core';
 
 type TenderRouteParams = {
   tenderId: string;
@@ -465,20 +466,100 @@ export const TenderPage = () => {
 };
 
 export const ProlongTenderModal = (modalProps: IModal<string>) => {
+  type ProlongType = {
+    tenderValidity?: { from: string; to: string };
+    tenderExpectedDelivery?: string;
+  };
+  const { t } = useTranslation();
+  const { lens, value: formValues } = useForm<ProlongType>({
+    value: {},
+    onSave: (person) => Promise.resolve({ form: person }),
+    getMetadata: () => ({
+      props: {
+        tenderValidity: {
+          validators: [
+            (value) => [
+              !value?.to &&
+                !value?.from &&
+                t('global.lenses.isRequiredMessage'),
+            ],
+          ],
+        },
+        tenderExpectedDelivery: { isRequired: false },
+      },
+    }),
+  });
   return (
     <ModalBlocker {...modalProps}>
-      <ModalWindow>
+      <ModalWindow cx={styles.modal}>
         <Panel background="surface-main">
           <ModalHeader
             title="Prolong Tender Dates"
             onClose={() => modalProps.abort()}
+            borderBottom
           />
           <ScrollBars hasTopShadow hasBottomShadow>
-            <FlexRow padding="24">
-              <Text size="36"> qwertyu </Text>
-            </FlexRow>
+            <FlexCell>
+              <Panel margin="24">
+                <FlexRow cx={styles.rangeDatePickerWrapper}>
+                  <LabeledInput
+                    label={t(
+                      'tendersPages.newTender.tenderValidityPeriodLabel',
+                    )}
+                    {...lens.prop('tenderValidity').toProps()}
+                  >
+                    <RangeDatePicker
+                      {...lens.prop('tenderValidity').toProps()}
+                      format="MMM D, YYYY"
+                      rawProps={{
+                        from: { 'data-testid': `tender-validity-from-input` },
+                        to: { 'data-testid': `tender-validity-to-input` },
+                      }}
+                      filter={(day: Dayjs) =>
+                        day.valueOf() >= dayjs().subtract(1, 'day').valueOf()
+                      }
+                    />
+                  </LabeledInput>
+                </FlexRow>
+                <FlexRow>
+                  <LabeledInput
+                    label={t(
+                      'tendersPages.newTender.tenderExpectedDeliveryLabel',
+                    )}
+                    {...lens.prop('tenderExpectedDelivery').toProps()}
+                    sidenote={
+                      <Trans
+                        i18nKey="tendersPages.newTender.tenderExpectedDeliveryLabelSidenote"
+                        components={{
+                          i: <span className={styles.sideNote} />,
+                        }}
+                      />
+                    }
+                  >
+                    <DatePicker
+                      {...lens.prop('tenderExpectedDelivery').toProps()}
+                      format="MMM D, YYYY"
+                      placeholder={t('global.datePickerPlaceholder')}
+                      rawProps={{
+                        input: {
+                          'data-testid': `tender-expected-delivery-input`,
+                        },
+                      }}
+                      filter={(day: Dayjs) =>
+                        day.valueOf() >=
+                        dayjs(
+                          formValues.tenderValidity?.to
+                            ? formValues.tenderValidity?.to
+                            : undefined,
+                        ).valueOf()
+                      }
+                    />
+                  </LabeledInput>
+                </FlexRow>
+              </Panel>
+            </FlexCell>
           </ScrollBars>
-          <ModalFooter>
+          <ModalFooter borderTop>
             <FlexSpacer />
             <Button
               color="secondary"
@@ -488,7 +569,7 @@ export const ProlongTenderModal = (modalProps: IModal<string>) => {
             />
             <Button
               color="primary"
-              caption="Ok"
+              caption="Prolong Dates"
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
@@ -499,20 +580,81 @@ export const ProlongTenderModal = (modalProps: IModal<string>) => {
 };
 
 export const CancelTenderModal = (modalProps: IModal<string>) => {
+  type CancelType = {
+    tenderValidity?: { from: string; to: string };
+    tenderExpectedDelivery?: string;
+  };
+  const languageLevels = [{ id: 2, level: 'A1' }];
+  const { t } = useTranslation();
+  const [singlePickerValue, singleOnValueChange] = useState('');
+  const { lens } = useForm<CancelType>({
+    value: {},
+    onSave: (person) => Promise.resolve({ form: person }),
+    getMetadata: () => ({
+      props: {
+        tenderValidity: {
+          validators: [
+            (value) => [
+              !value?.to &&
+                !value?.from &&
+                t('global.lenses.isRequiredMessage'),
+            ],
+          ],
+        },
+        tenderExpectedDelivery: { isRequired: false },
+      },
+    }),
+  });
+  const dataSource = useArrayDataSource(
+    {
+      items: languageLevels,
+    },
+    [],
+  );
   return (
     <ModalBlocker {...modalProps}>
-      <ModalWindow>
+      <ModalWindow cx={styles.modal}>
         <Panel background="surface-main">
           <ModalHeader
             title="Cancel Tender"
             onClose={() => modalProps.abort()}
+            borderBottom
           />
           <ScrollBars hasTopShadow hasBottomShadow>
-            <FlexRow padding="24">
-              <Text size="36"> qwertyu </Text>
-            </FlexRow>
+            <FlexCell>
+              <Panel margin="24">
+                <Text fontWeight="600" size="36">
+                  Notification
+                </Text>
+                <Text size="36">
+                  If you cancel tender, it becomes inactive and proposals cannot
+                  be submitted. Cancelled tender is still available in your
+                  tender’s list, and can be either re-activated or removed
+                  permanently. If the tender already has submitted proposals,
+                  their owners would be notified automatically.
+                </Text>
+
+                <FlexRow>
+                  <LabeledInput
+                    label={t('Cancelation Reason')}
+                    {...lens.prop('tenderExpectedDelivery').toProps()}
+                  >
+                    <PickerInput
+                      dataSource={dataSource}
+                      value={singlePickerValue}
+                      onValueChange={singleOnValueChange}
+                      getName={(item) => item.level}
+                      entityName="Language level"
+                      selectionMode="single"
+                      valueType="id"
+                      sorting={{ field: 'level', direction: 'asc' }}
+                    />
+                  </LabeledInput>
+                </FlexRow>
+              </Panel>
+            </FlexCell>
           </ScrollBars>
-          <ModalFooter>
+          <ModalFooter borderTop>
             <FlexSpacer />
             <Button
               color="secondary"
@@ -522,7 +664,7 @@ export const CancelTenderModal = (modalProps: IModal<string>) => {
             />
             <Button
               color="primary"
-              caption="Ok"
+              caption="Delete"
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
@@ -558,7 +700,7 @@ export const ReactivateTenderModal = (modalProps: IModal<string>) => {
   });
   return (
     <ModalBlocker {...modalProps}>
-      <ModalWindow>
+      <ModalWindow cx={styles.modal}>
         <Panel background="surface-main">
           <ModalHeader
             title="Re-activate Tender"
@@ -567,60 +709,70 @@ export const ReactivateTenderModal = (modalProps: IModal<string>) => {
           />
           <ScrollBars hasTopShadow hasBottomShadow>
             <FlexCell>
-              <Text size="36">
-                By re-activating tender you make it available again for
-                accepting proposals.
-              </Text>
-              <FlexRow cx={styles.rangeDatePickerWrapper}>
-                <LabeledInput
-                  label={t('tendersPages.newTender.tenderValidityPeriodLabel')}
-                  {...lens.prop('tenderValidity').toProps()}
-                  cx={styles.inputLabel}
-                >
-                  <RangeDatePicker
+              <Panel margin="24">
+                <Text size="36" cx={styles.modalDescription}>
+                  By re-activating tender you make it available again for
+                  accepting proposals.
+                </Text>
+                <FlexRow cx={styles.rangeDatePickerWrapper}>
+                  <LabeledInput
+                    label={t(
+                      'tendersPages.newTender.tenderValidityPeriodLabel',
+                    )}
                     {...lens.prop('tenderValidity').toProps()}
-                    format="MMM D, YYYY"
-                    rawProps={{
-                      from: { 'data-testid': `tender-validity-from-input` },
-                      to: { 'data-testid': `tender-validity-to-input` },
-                    }}
-                    filter={(day: Dayjs) =>
-                      day.valueOf() >= dayjs().subtract(1, 'day').valueOf()
-                    }
-                  />
-                </LabeledInput>
-              </FlexRow>
-              <FlexRow>
-                <LabeledInput
-                  label={t(
-                    'tendersPages.newTender.tenderExpectedDeliveryLabel',
-                  )}
-                  cx={styles.inputLabel}
-                  {...lens.prop('tenderExpectedDelivery').toProps()}
-                >
-                  <DatePicker
+                  >
+                    <RangeDatePicker
+                      {...lens.prop('tenderValidity').toProps()}
+                      format="MMM D, YYYY"
+                      rawProps={{
+                        from: { 'data-testid': `tender-validity-from-input` },
+                        to: { 'data-testid': `tender-validity-to-input` },
+                      }}
+                      filter={(day: Dayjs) =>
+                        day.valueOf() >= dayjs().subtract(1, 'day').valueOf()
+                      }
+                    />
+                  </LabeledInput>
+                </FlexRow>
+                <FlexRow>
+                  <LabeledInput
+                    label={t(
+                      'tendersPages.newTender.tenderExpectedDeliveryLabel',
+                    )}
                     {...lens.prop('tenderExpectedDelivery').toProps()}
-                    format="MMM D, YYYY"
-                    placeholder={t('global.datePickerPlaceholder')}
-                    rawProps={{
-                      input: {
-                        'data-testid': `tender-expected-delivery-input`,
-                      },
-                    }}
-                    filter={(day: Dayjs) =>
-                      day.valueOf() >=
-                      dayjs(
-                        formValues.tenderValidity?.to
-                          ? formValues.tenderValidity?.to
-                          : undefined,
-                      ).valueOf()
+                    sidenote={
+                      <Trans
+                        i18nKey="tendersPages.newTender.tenderExpectedDeliveryLabelSidenote"
+                        components={{
+                          i: <span className={styles.sideNote} />,
+                        }}
+                      />
                     }
-                  />
-                </LabeledInput>
-              </FlexRow>
+                  >
+                    <DatePicker
+                      {...lens.prop('tenderExpectedDelivery').toProps()}
+                      format="MMM D, YYYY"
+                      placeholder={t('global.datePickerPlaceholder')}
+                      rawProps={{
+                        input: {
+                          'data-testid': `tender-expected-delivery-input`,
+                        },
+                      }}
+                      filter={(day: Dayjs) =>
+                        day.valueOf() >=
+                        dayjs(
+                          formValues.tenderValidity?.to
+                            ? formValues.tenderValidity?.to
+                            : undefined,
+                        ).valueOf()
+                      }
+                    />
+                  </LabeledInput>
+                </FlexRow>
+              </Panel>
             </FlexCell>
           </ScrollBars>
-          <ModalFooter>
+          <ModalFooter borderTop>
             <FlexSpacer />
             <Button
               color="secondary"
@@ -630,7 +782,7 @@ export const ReactivateTenderModal = (modalProps: IModal<string>) => {
             />
             <Button
               color="primary"
-              caption="Ok"
+              caption="Re-Activate"
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
@@ -643,18 +795,27 @@ export const ReactivateTenderModal = (modalProps: IModal<string>) => {
 export const DeleteTenderModal = (modalProps: IModal<string>) => {
   return (
     <ModalBlocker {...modalProps}>
-      <ModalWindow>
+      <ModalWindow cx={styles.modal}>
         <Panel background="surface-main">
           <ModalHeader
             title="Delete Tender"
             onClose={() => modalProps.abort()}
+            borderBottom
           />
           <ScrollBars hasTopShadow hasBottomShadow>
-            <FlexRow padding="24">
-              <Text size="36"> qwertyu </Text>
-            </FlexRow>
+            <FlexCell>
+              <Panel margin="24">
+                <Text fontWeight="600" size="36">
+                  Notification
+                </Text>
+                <Text size="36">
+                  When you confirm ‘Delete’ action, the tender will be
+                  permanently removed and not available in the tenders list.
+                </Text>
+              </Panel>
+            </FlexCell>
           </ScrollBars>
-          <ModalFooter>
+          <ModalFooter borderTop>
             <FlexSpacer />
             <Button
               color="secondary"
@@ -664,7 +825,7 @@ export const DeleteTenderModal = (modalProps: IModal<string>) => {
             />
             <Button
               color="primary"
-              caption="Ok"
+              caption="Delete"
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
