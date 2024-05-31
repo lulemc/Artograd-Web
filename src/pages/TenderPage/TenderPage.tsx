@@ -623,10 +623,14 @@ export const CancelTenderModal = (modalProps: IModal<string>) => {
           <ScrollBars hasTopShadow hasBottomShadow>
             <FlexCell>
               <Panel margin="24">
-                <Text fontWeight="600" size="36">
+                <Text
+                  fontWeight="600"
+                  size="36"
+                  cx={styles.modalDescriptionLabel}
+                >
                   Notification
                 </Text>
-                <Text size="36">
+                <Text size="36" cx={styles.modalDescription}>
                   If you cancel tender, it becomes inactive and proposals cannot
                   be submitted. Cancelled tender is still available in your
                   tender’s list, and can be either re-activated or removed
@@ -648,6 +652,7 @@ export const CancelTenderModal = (modalProps: IModal<string>) => {
                       selectionMode="single"
                       valueType="id"
                       sorting={{ field: 'level', direction: 'asc' }}
+                      disableClear
                     />
                   </LabeledInput>
                 </FlexRow>
@@ -805,7 +810,11 @@ export const DeleteTenderModal = (modalProps: IModal<string>) => {
           <ScrollBars hasTopShadow hasBottomShadow>
             <FlexCell>
               <Panel margin="24">
-                <Text fontWeight="600" size="36">
+                <Text
+                  fontWeight="600"
+                  size="36"
+                  cx={styles.modalDescriptionLabel}
+                >
                   Notification
                 </Text>
                 <Text size="36">
