@@ -264,7 +264,32 @@
       "selectWinnerAlertMessage": "The number of proposals to start voting process is acceptable minimum. You can either prolong proposal submission period to accept new proposals, or cancel tender.",
       "noProposalsMessage": "No proposal submitted yet",
       "prolongDateCta": "Prolong dates",
-      "selectWinnerCta": "Appoint Winner"
+      "selectWinnerCta": "Appoint Winner",
+      "modals": {
+        "reactivateTitle": "Re-activate Tender",
+        "reactivateDescription": "By re-activating tender you make it available again for accepting proposals.",
+        "startVotingTitle": "Start Proposals Voting",
+        "setByOption1": "Set by date",
+        "setByOption2": "Set by period",
+        "votingBy": "Complete Voting By",
+        "votingDuratation": "Voting Duration",
+        "deleteTitle": "Delete Tender",
+        "notification": "Notification",
+        "deleteDescription": "When you confirm ‘Delete’ action, the tender will be permanently removed and not available in the tenders list.",
+        "cancelTitle": "Cancel Tender",
+        "cancelDescription": "If you cancel tender, it becomes inactive and proposals cannot be submitted. Cancelled tender is still available in your tender’s list, and can be either re-activated or removed permanently. If the tender already has submitted proposals, their owners would be notified automatically.",
+        "cancelationReason": "Cancelation Reason",
+        "cancelTenderCta": "Cancel Tender",
+        "prolongTitle": "Prolong Tender Dates",
+        "prolongCta": "Prolong Dates",
+        "cancelCta": "Cancel",
+        "reactivateCta": "Re-Activate",
+        "deleteCta": "Delete",
+        "startVotingCta": "Start Voting",
+        "oneWeek": "1 week",
+        "twoWeeks": "2 weeks",
+        "oneMonth": "1 month"
+      }
     }
   },
   "optionalSidenote": "<i>This field is optional</i>",

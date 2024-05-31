@@ -23,6 +23,8 @@ import { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import styles from './DialogModals.module.scss';
 
+const TRANSLATION_KEY = 'tendersPages.viewTender.modals';
+
 const ProlongTenderModal = (modalProps: IModal<string>) => {
   type ProlongType = {
     tenderValidity?: { from: string; to: string };
@@ -52,7 +54,7 @@ const ProlongTenderModal = (modalProps: IModal<string>) => {
       <ModalWindow cx={styles.modal}>
         <Panel background="surface-main">
           <ModalHeader
-            title="Prolong Tender Dates"
+            title={t(`${TRANSLATION_KEY}.prolongTitle`)}
             onClose={() => modalProps.abort()}
             borderBottom
           />
@@ -122,12 +124,12 @@ const ProlongTenderModal = (modalProps: IModal<string>) => {
             <Button
               color="secondary"
               fill="outline"
-              caption="Cancel"
+              caption={t(`${TRANSLATION_KEY}.cancelCta`)}
               onClick={() => modalProps.abort()}
             />
             <Button
               color="primary"
-              caption="Prolong Dates"
+              caption={t(`${TRANSLATION_KEY}.prolongCta`)}
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
@@ -174,7 +176,7 @@ const CancelTenderModal = (modalProps: IModal<string>) => {
       <ModalWindow cx={styles.modal}>
         <Panel background="surface-main">
           <ModalHeader
-            title="Cancel Tender"
+            title={t(`${TRANSLATION_KEY}.cancelTitle`)}
             onClose={() => modalProps.abort()}
             borderBottom
           />
@@ -186,19 +188,15 @@ const CancelTenderModal = (modalProps: IModal<string>) => {
                   size="36"
                   cx={styles.modalDescriptionLabel}
                 >
-                  Notification
+                  {t(`${TRANSLATION_KEY}.notification`)}
                 </Text>
                 <Text size="36" cx={styles.modalDescription}>
-                  If you cancel tender, it becomes inactive and proposals cannot
-                  be submitted. Cancelled tender is still available in your
-                  tender’s list, and can be either re-activated or removed
-                  permanently. If the tender already has submitted proposals,
-                  their owners would be notified automatically.
+                  {t(`${TRANSLATION_KEY}.cancelDescription`)}
                 </Text>
 
                 <FlexRow>
                   <LabeledInput
-                    label={t('Cancelation Reason')}
+                    label={t(`${TRANSLATION_KEY}.cancelationReason`)}
                     {...lens.prop('tenderExpectedDelivery').toProps()}
                   >
                     <PickerInput
@@ -222,12 +220,12 @@ const CancelTenderModal = (modalProps: IModal<string>) => {
             <Button
               color="secondary"
               fill="outline"
-              caption="Cancel"
+              caption={t(`${TRANSLATION_KEY}.cancelCta`)}
               onClick={() => modalProps.abort()}
             />
             <Button
               color="primary"
-              caption="Cancel Tender"
+              caption={t(`${TRANSLATION_KEY}.cancelTenderCta`)}
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
@@ -266,7 +264,7 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
       <ModalWindow cx={styles.modal}>
         <Panel background="surface-main">
           <ModalHeader
-            title="Re-activate Tender"
+            title={t(`${TRANSLATION_KEY}.reactivateTitle`)}
             onClose={() => modalProps.abort()}
             borderBottom
           />
@@ -274,8 +272,7 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
             <FlexCell>
               <Panel margin="24">
                 <Text size="36" cx={styles.modalDescription}>
-                  By re-activating tender you make it available again for
-                  accepting proposals.
+                  {t(`${TRANSLATION_KEY}.reactivateDescription`)}
                 </Text>
                 <FlexRow cx={styles.rangeDatePickerWrapper}>
                   <LabeledInput
@@ -340,12 +337,12 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
             <Button
               color="secondary"
               fill="outline"
-              caption="Cancel"
+              caption={t(`${TRANSLATION_KEY}.cancelCta`)}
               onClick={() => modalProps.abort()}
             />
             <Button
               color="primary"
-              caption="Re-Activate"
+              caption={t(`${TRANSLATION_KEY}.reactivateCta`)}
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
@@ -356,12 +353,13 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
 };
 
 const DeleteTenderModal = (modalProps: IModal<string>) => {
+  const { t } = useTranslation();
   return (
     <ModalBlocker {...modalProps}>
       <ModalWindow cx={styles.modal}>
         <Panel background="surface-main">
           <ModalHeader
-            title="Delete Tender"
+            title={t(`${TRANSLATION_KEY}.deleteTitle`)}
             onClose={() => modalProps.abort()}
             borderBottom
           />
@@ -373,11 +371,10 @@ const DeleteTenderModal = (modalProps: IModal<string>) => {
                   size="36"
                   cx={styles.modalDescriptionLabel}
                 >
-                  Notification
+                  {t(`${TRANSLATION_KEY}.notification`)}
                 </Text>
                 <Text size="36">
-                  When you confirm ‘Delete’ action, the tender will be
-                  permanently removed and not available in the tenders list.
+                  {t(`${TRANSLATION_KEY}.deleteDescription`)}
                 </Text>
               </Panel>
             </FlexCell>
@@ -387,12 +384,12 @@ const DeleteTenderModal = (modalProps: IModal<string>) => {
             <Button
               color="secondary"
               fill="outline"
-              caption="Cancel"
+              caption={t(`${TRANSLATION_KEY}.cancelCta`)}
               onClick={() => modalProps.abort()}
             />
             <Button
               color="primary"
-              caption="Delete"
+              caption={t(`${TRANSLATION_KEY}.deleteCta`)}
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
@@ -419,9 +416,9 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
   const [votingBy, setVotingBy] = useState(1);
   const [singlePickerValue, singleOnValueChange] = useState(1);
   const languageLevels = [
-    { id: 1, level: '1 week' },
-    { id: 2, level: '2 weeks' },
-    { id: 3, level: '1 month' },
+    { id: 1, level: t(`${TRANSLATION_KEY}.oneWeek`) },
+    { id: 2, level: t(`${TRANSLATION_KEY}.twoWeeks`) },
+    { id: 3, level: t(`${TRANSLATION_KEY}.oneMonth`) },
   ];
   const dataSource = useArrayDataSource(
     {
@@ -434,7 +431,7 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
       <ModalWindow cx={styles.modal}>
         <Panel background="surface-main">
           <ModalHeader
-            title="Start Proposals Voting"
+            title={t(`${TRANSLATION_KEY}.startVotingTitle`)}
             onClose={() => modalProps.abort()}
             borderBottom
           />
@@ -444,8 +441,8 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
                 <RadioGroup
                   name="setby"
                   items={[
-                    { id: 1, name: 'Set by date' },
-                    { id: 2, name: 'Set by period' },
+                    { id: 1, name: t(`${TRANSLATION_KEY}.setByOption1`) },
+                    { id: 2, name: t(`${TRANSLATION_KEY}.setByOption2`) },
                   ]}
                   value={votingBy}
                   onValueChange={setVotingBy}
@@ -455,7 +452,7 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
               {votingBy === 1 ? (
                 <FlexRow>
                   <LabeledInput
-                    label="Complete Voting By"
+                    label={t(`${TRANSLATION_KEY}.votingBy`)}
                     {...lens.prop('tenderExpectedDelivery').toProps()}
                   >
                     <DatePicker
@@ -473,7 +470,7 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
               ) : (
                 <FlexRow>
                   <LabeledInput
-                    label={t('Voting Duration')}
+                    label={t(`${TRANSLATION_KEY}.votingDuratation`)}
                     {...lens.prop('tenderExpectedDelivery').toProps()}
                   >
                     <PickerInput
@@ -497,12 +494,12 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
             <Button
               color="secondary"
               fill="outline"
-              caption="Cancel"
+              caption={t(`${TRANSLATION_KEY}.cancelCta`)}
               onClick={() => modalProps.abort()}
             />
             <Button
               color="primary"
-              caption="Start Voting"
+              caption={t(`${TRANSLATION_KEY}.startVotingCta`)}
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
