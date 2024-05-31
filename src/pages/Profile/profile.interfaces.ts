@@ -8,6 +8,10 @@ export interface SocialMediaList {
   name: string;
 }
 
+export interface LanguagePrefered {
+  lang_iso2: string;
+}
+
 export interface ProfileInformationItems {
   email: string;
   family_name: string;
