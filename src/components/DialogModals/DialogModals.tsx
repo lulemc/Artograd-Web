@@ -416,7 +416,19 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
       },
     }),
   });
-  const [color, setColor] = useState(1);
+  const [votingBy, setVotingBy] = useState(1);
+  const [singlePickerValue, singleOnValueChange] = useState(1);
+  const languageLevels = [
+    { id: 1, level: '1 week' },
+    { id: 2, level: '2 weeks' },
+    { id: 3, level: '1 month' },
+  ];
+  const dataSource = useArrayDataSource(
+    {
+      items: languageLevels,
+    },
+    [],
+  );
   return (
     <ModalBlocker {...modalProps}>
       <ModalWindow cx={styles.modal}>
@@ -435,28 +447,49 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
                     { id: 1, name: 'Set by date' },
                     { id: 2, name: 'Set by period' },
                   ]}
-                  value={color}
-                  onValueChange={setColor}
+                  value={votingBy}
+                  onValueChange={setVotingBy}
                   direction="horizontal"
                 />
               </FlexRow>
-              <FlexRow>
-                <LabeledInput
-                  label="Complete Voting By"
-                  {...lens.prop('tenderExpectedDelivery').toProps()}
-                >
-                  <DatePicker
+              {votingBy === 1 ? (
+                <FlexRow>
+                  <LabeledInput
+                    label="Complete Voting By"
                     {...lens.prop('tenderExpectedDelivery').toProps()}
-                    format="MMM D, YYYY"
-                    placeholder={t('global.datePickerPlaceholder')}
-                    rawProps={{
-                      input: {
-                        'data-testid': `tender-expected-delivery-input`,
-                      },
-                    }}
-                  />
-                </LabeledInput>
-              </FlexRow>
+                  >
+                    <DatePicker
+                      {...lens.prop('tenderExpectedDelivery').toProps()}
+                      format="MMM D, YYYY"
+                      placeholder={t('global.datePickerPlaceholder')}
+                      rawProps={{
+                        input: {
+                          'data-testid': `tender-expected-delivery-input`,
+                        },
+                      }}
+                    />
+                  </LabeledInput>
+                </FlexRow>
+              ) : (
+                <FlexRow>
+                  <LabeledInput
+                    label={t('Voting Duration')}
+                    {...lens.prop('tenderExpectedDelivery').toProps()}
+                  >
+                    <PickerInput
+                      dataSource={dataSource}
+                      value={singlePickerValue}
+                      onValueChange={singleOnValueChange}
+                      getName={(item) => item.level}
+                      entityName="Language level"
+                      selectionMode="single"
+                      valueType="id"
+                      sorting={{ field: 'id', direction: 'asc' }}
+                      disableClear
+                    />
+                  </LabeledInput>
+                </FlexRow>
+              )}
             </Panel>
           </ScrollBars>
           <ModalFooter borderTop>
@@ -469,7 +502,7 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
             />
             <Button
               color="primary"
-              caption="Ok"
+              caption="Start Voting"
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
