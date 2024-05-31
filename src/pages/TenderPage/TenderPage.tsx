@@ -663,7 +663,7 @@ export const CancelTenderModal = (modalProps: IModal<string>) => {
             />
             <Button
               color="primary"
-              caption="Delete"
+              caption="Cancel Tender"
               onClick={() => modalProps.success('Success action')}
             />
           </ModalFooter>
