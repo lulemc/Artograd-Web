@@ -187,6 +187,68 @@ export const TenderPage = () => {
           {/* )} */}
         </FlexRow>
       </FlexRow>
+      <Panel cx={styles.alertsWrapper}>
+        {/* {proposals?.length === 0 && ( */}
+        <WarningAlert
+          cx={styles.alert}
+          actions={[
+            {
+              name: t(`tendersPages.viewTender.prolongDateCta`),
+              action: () =>
+                uuiModals
+                  .show<string>((props) => <ProlongTenderModal {...props} />)
+                  .catch(() => null),
+            },
+          ]}
+        >
+          <Text size="30">
+            {t(`tendersPages.viewTender.noProposalsAlertMessage`)}
+          </Text>
+        </WarningAlert>
+        {/* )} */}
+
+        {/* {proposals?.length === 1 && ( */}
+        <WarningAlert
+          cx={styles.alert}
+          actions={[
+            {
+              name: t(`tendersPages.viewTender.selectWinnerCta`),
+              action: () => null,
+            },
+            {
+              name: t(`tendersPages.viewTender.prolongDateCta`),
+              action: () =>
+                uuiModals
+                  .show<string>((props) => <ProlongTenderModal {...props} />)
+                  .catch(() => null),
+            },
+          ]}
+        >
+          <Text size="30">
+            {t(`tendersPages.viewTender.singleProposalAlertMessage`)}
+          </Text>
+        </WarningAlert>
+        {/* )} */}
+
+        {/* {proposals && proposals?.length >= 2 && ( */}
+        <WarningAlert
+          cx={styles.alert}
+          actions={[
+            {
+              name: t(`tendersPages.viewTender.prolongDateCta`),
+              action: () =>
+                uuiModals
+                  .show<string>((props) => <ProlongTenderModal {...props} />)
+                  .catch(() => null),
+            },
+          ]}
+        >
+          <Text size="30">
+            {t(`tendersPages.viewTender.selectWinnerAlertMessage`)}
+          </Text>
+        </WarningAlert>
+        {/* )} */}
+      </Panel>
       {tab === 'tender' ? (
         <Panel cx={styles.contentWrapper}>
           <FlexRow>
@@ -377,74 +439,6 @@ export const TenderPage = () => {
         </Panel>
       ) : (
         <Panel>
-          <Panel cx={styles.alertsWrapper}>
-            {/* {proposals?.length === 0 && ( */}
-            <WarningAlert
-              cx={styles.alert}
-              actions={[
-                {
-                  name: t(`tendersPages.viewTender.prolongDateCta`),
-                  action: () =>
-                    uuiModals
-                      .show<string>((props) => (
-                        <ProlongTenderModal {...props} />
-                      ))
-                      .catch(() => null),
-                },
-              ]}
-            >
-              <Text size="30">
-                {t(`tendersPages.viewTender.noProposalsAlertMessage`)}
-              </Text>
-            </WarningAlert>
-            {/* )} */}
-
-            {/* {proposals?.length === 1 && ( */}
-            <WarningAlert
-              cx={styles.alert}
-              actions={[
-                {
-                  name: t(`tendersPages.viewTender.selectWinnerCta`),
-                  action: () => null,
-                },
-                {
-                  name: t(`tendersPages.viewTender.prolongDateCta`),
-                  action: () =>
-                    uuiModals
-                      .show<string>((props) => (
-                        <ProlongTenderModal {...props} />
-                      ))
-                      .catch(() => null),
-                },
-              ]}
-            >
-              <Text size="30">
-                {t(`tendersPages.viewTender.singleProposalAlertMessage`)}
-              </Text>
-            </WarningAlert>
-            {/* )} */}
-
-            {/* {proposals && proposals?.length >= 2 && ( */}
-            <WarningAlert
-              cx={styles.alert}
-              actions={[
-                {
-                  name: t(`tendersPages.viewTender.prolongDateCta`),
-                  action: () =>
-                    uuiModals
-                      .show<string>((props) => (
-                        <ProlongTenderModal {...props} />
-                      ))
-                      .catch(() => null),
-                },
-              ]}
-            >
-              <Text size="30">
-                {t(`tendersPages.viewTender.selectWinnerAlertMessage`)}
-              </Text>
-            </WarningAlert>
-            {/* )} */}
-          </Panel>
           <Panel cx={styles.contentWrapper}>
             {!proposals || (proposals && proposals?.length === 0) ? (
               <EmptyContent
