@@ -352,7 +352,13 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
   );
 };
 
-const DeleteTenderModal = (modalProps: IModal<string>) => {
+const DeleteTenderModal = ({
+  modalProps,
+  onModalSubmit,
+}: {
+  modalProps: IModal<string>;
+  onModalSubmit(): void;
+}) => {
   const { t } = useTranslation();
   return (
     <ModalBlocker {...modalProps}>
@@ -390,7 +396,7 @@ const DeleteTenderModal = (modalProps: IModal<string>) => {
             <Button
               color="primary"
               caption={t(`${TRANSLATION_KEY}.deleteCta`)}
-              onClick={() => modalProps.success('Success action')}
+              onClick={() => onModalSubmit()}
             />
           </ModalFooter>
         </Panel>
@@ -516,9 +522,11 @@ type ModalType = {
 export const DialogModals = ({
   modalProps,
   modalType,
+  onModalSubmit,
 }: {
   modalProps: IModal<string>;
   modalType: ModalType | string;
+  onModalSubmit(): void;
 }) => {
   const Modal = () => {
     switch (modalType) {
@@ -532,7 +540,12 @@ export const DialogModals = ({
         return <ReactivateTenderModal {...modalProps} />;
       case 'delete':
       default:
-        return <DeleteTenderModal {...modalProps} />;
+        return (
+          <DeleteTenderModal
+            onModalSubmit={onModalSubmit}
+            modalProps={modalProps}
+          />
+        );
     }
   };
   return <Modal />;
