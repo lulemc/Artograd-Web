@@ -21,7 +21,7 @@ import { IModal, useArrayDataSource } from '@epam/uui-core';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import styles from './DialogModals.module.scss';
+import styles from './TenderDialogModals.module.scss';
 
 const TRANSLATION_KEY = 'tendersPages.viewTender.modals';
 
@@ -519,7 +519,7 @@ type ModalType = {
   modalType: 'voting' | 'delete' | 'reactivate' | 'cancel' | 'prolong';
 };
 
-export const DialogModals = ({
+export const TenderDialogModals = ({
   modalProps,
   modalType,
   onModalSubmit,

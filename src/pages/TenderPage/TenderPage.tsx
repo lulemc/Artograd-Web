@@ -26,7 +26,7 @@ import { ProposalCard } from '../../components/ProposalCard/ProposalCard';
 import { EmptyContent } from '../../components/EmptyContent/EmptyContent';
 import SearchGuyIcon from '../../images/searchGuy.svg';
 import { useUuiContext } from '@epam/uui-core';
-import { DialogModals } from '../../components/DialogModals/DialogModals';
+import { TenderDialogModals } from '../../components/DialogModals/TenderDialogModals';
 
 type TenderRouteParams = {
   tenderId: string;
@@ -109,7 +109,7 @@ export const TenderPage = () => {
             onClick={() =>
               uuiModals
                 .show<string>((props) => (
-                  <DialogModals
+                  <TenderDialogModals
                     modalProps={props}
                     modalType="cancel"
                     onModalSubmit={() => console.log(':::pew')}
@@ -129,7 +129,7 @@ export const TenderPage = () => {
             onClick={() =>
               uuiModals
                 .show<string>((props) => (
-                  <DialogModals
+                  <TenderDialogModals
                     modalProps={props}
                     modalType="delete"
                     onModalSubmit={() => console.log(':::pew')}
@@ -159,7 +159,7 @@ export const TenderPage = () => {
             onClick={() =>
               uuiModals
                 .show<string>((props) => (
-                  <DialogModals
+                  <TenderDialogModals
                     modalProps={props}
                     modalType="voting"
                     onModalSubmit={() => console.log(':::pew')}
@@ -179,7 +179,7 @@ export const TenderPage = () => {
             onClick={() =>
               uuiModals
                 .show<string>((props) => (
-                  <DialogModals
+                  <TenderDialogModals
                     modalProps={props}
                     modalType="reactivate"
                     onModalSubmit={() => console.log(':::pew')}
@@ -210,7 +210,7 @@ export const TenderPage = () => {
               action: () =>
                 uuiModals
                   .show<string>((props) => (
-                    <DialogModals
+                    <TenderDialogModals
                       modalProps={props}
                       modalType="prolong"
                       onModalSubmit={() => console.log(':::pew')}
@@ -239,7 +239,7 @@ export const TenderPage = () => {
               action: () =>
                 uuiModals
                   .show<string>((props) => (
-                    <DialogModals
+                    <TenderDialogModals
                       modalProps={props}
                       modalType="prolong"
                       onModalSubmit={() => console.log(':::pew')}
@@ -264,7 +264,7 @@ export const TenderPage = () => {
               action: () =>
                 uuiModals
                   .show<string>((props) => (
-                    <DialogModals
+                    <TenderDialogModals
                       modalProps={props}
                       modalType="prolong"
                       onModalSubmit={() => console.log(':::pew')}
