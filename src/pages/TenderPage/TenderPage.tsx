@@ -39,11 +39,6 @@ export const TenderPage = () => {
   const [tenderDetails, setTenderDetails] = useState<Tender | undefined>();
   const [tab, setTab] = useState('tender');
   const proposals = tenderDetails?.proposals;
-  // const tenderStatus = tenderDetails?.status;
-
-  // const username = useSelector(
-  //   (state: RootState) => state.identity.userData['cognito:username'],
-  // );
 
   useEffect(() => {
     tendersApi
@@ -56,6 +51,8 @@ export const TenderPage = () => {
   const getFileExtension = (url: string) => {
     return url.split(/[#?]/)[0].split('.').pop()?.trim();
   };
+
+  console.log(':::tender', tenderDetails);
 
   return (
     <Panel cx={styles.wrapper}>
@@ -112,7 +109,7 @@ export const TenderPage = () => {
                   <TenderDialogModals
                     modalProps={props}
                     modalType="cancel"
-                    onModalSubmit={() => console.log(':::pew')}
+                    tender={tenderDetails}
                   />
                 ))
                 .catch(() => null)
@@ -129,11 +126,7 @@ export const TenderPage = () => {
             onClick={() =>
               uuiModals
                 .show<string>((props) => (
-                  <TenderDialogModals
-                    modalProps={props}
-                    modalType="delete"
-                    onModalSubmit={() => console.log(':::pew')}
-                  />
+                  <TenderDialogModals modalProps={props} modalType="delete" />
                 ))
                 .catch(() => null)
             }
@@ -159,11 +152,7 @@ export const TenderPage = () => {
             onClick={() =>
               uuiModals
                 .show<string>((props) => (
-                  <TenderDialogModals
-                    modalProps={props}
-                    modalType="voting"
-                    onModalSubmit={() => console.log(':::pew')}
-                  />
+                  <TenderDialogModals modalProps={props} modalType="voting" />
                 ))
                 .catch(() => null)
             }
@@ -182,7 +171,7 @@ export const TenderPage = () => {
                   <TenderDialogModals
                     modalProps={props}
                     modalType="reactivate"
-                    onModalSubmit={() => console.log(':::pew')}
+                    tender={tenderDetails}
                   />
                 ))
                 .catch(() => null)
@@ -213,7 +202,7 @@ export const TenderPage = () => {
                     <TenderDialogModals
                       modalProps={props}
                       modalType="prolong"
-                      onModalSubmit={() => console.log(':::pew')}
+                      tender={tenderDetails}
                     />
                   ))
                   .catch(() => null),
@@ -242,7 +231,7 @@ export const TenderPage = () => {
                     <TenderDialogModals
                       modalProps={props}
                       modalType="prolong"
-                      onModalSubmit={() => console.log(':::pew')}
+                      tender={tenderDetails}
                     />
                   ))
                   .catch(() => null),
@@ -267,7 +256,7 @@ export const TenderPage = () => {
                     <TenderDialogModals
                       modalProps={props}
                       modalType="prolong"
-                      onModalSubmit={() => console.log(':::pew')}
+                      tender={tenderDetails}
                     />
                   ))
                   .catch(() => null),

@@ -41,13 +41,13 @@ import { DeviceType, useMediaQuery } from '../../utils/useMediaQuery';
 
 type TenderCardProps = {
   id: string;
-  submissionStart?: string;
-  submissionEnd?: string;
+  submissionStart?: string | null;
+  submissionEnd?: string | null;
   files?: string[];
   status?: TenderStatus;
   category?: string[];
   location?: LocationType;
-  expectedDelivery?: string;
+  expectedDelivery?: string | null;
   title?: string;
   description?: string;
   proposals?: Proposals[];
@@ -91,7 +91,7 @@ export const TenderCard = ({
     return getTop3LikedProposal?.some((proposal) => proposal.id === proposalId);
   };
 
-  const formatDate = (date?: string) => {
+  const formatDate = (date?: string | null) => {
     return dayjs(date).format('D MMM YYYY');
   };
 

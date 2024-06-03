@@ -42,9 +42,9 @@ export type Tender = {
   id: string;
   title: string;
   description: string;
-  submissionStart: string;
-  submissionEnd: string;
-  expectedDelivery: string;
+  submissionStart: string | null;
+  submissionEnd: string | null;
+  expectedDelivery: string | null;
   category: string[];
   location: LocationType;
   ownerEmail: string;
@@ -59,6 +59,7 @@ export type Tender = {
   createdAt: string;
   modifiedAt: string;
   proposals: Proposals[];
+  cancellationReason: string;
 };
 
 export type CategoryItemType = {

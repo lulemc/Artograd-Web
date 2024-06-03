@@ -13,6 +13,7 @@ import {
   PickerInput,
   RadioGroup,
   RangeDatePicker,
+  RangeDatePickerValue,
   ScrollBars,
   Text,
   useForm,
@@ -22,16 +23,32 @@ import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import styles from './TenderDialogModals.module.scss';
+import { Tender, TenderStatus } from '../../types';
+import { tendersApi } from '../../services/api/tendersApi';
+import { useHistory } from 'react-router-dom';
 
 const TRANSLATION_KEY = 'tendersPages.viewTender.modals';
 
-const ProlongTenderModal = (modalProps: IModal<string>) => {
+const ProlongTenderModal = ({
+  modalProps,
+  tender,
+}: {
+  modalProps: IModal<string>;
+  tender?: Tender;
+}) => {
   type ProlongType = {
     tenderValidity?: { from: string; to: string };
     tenderExpectedDelivery?: string;
   };
   const { t } = useTranslation();
-  const { lens, value: formValues } = useForm<ProlongType>({
+  const [validity, setValidity] = useState({
+    from: dayjs(tender?.submissionStart).format('YYYY-MM-DD'),
+    to: dayjs(tender?.submissionEnd).format('YYYY-MM-DD'),
+  } as RangeDatePickerValue);
+  const [delivery, setDelivery] = useState(
+    dayjs(tender?.expectedDelivery).format('YYYY-MM-DD') as string | null,
+  );
+  const { lens } = useForm<ProlongType>({
     value: {},
     onSave: (person) => Promise.resolve({ form: person }),
     getMetadata: () => ({
@@ -49,6 +66,20 @@ const ProlongTenderModal = (modalProps: IModal<string>) => {
       },
     }),
   });
+
+  const prolongTender = () => {
+    if (tender) {
+      tendersApi
+        .put(tender.id, {
+          ...tender,
+          submissionStart: validity.from,
+          submissionEnd: validity.to,
+          expectedDelivery: delivery,
+        })
+        .then(() => history.go(0));
+    }
+  };
+
   return (
     <ModalBlocker {...modalProps}>
       <ModalWindow cx={styles.modal}>
@@ -78,6 +109,8 @@ const ProlongTenderModal = (modalProps: IModal<string>) => {
                       filter={(day: Dayjs) =>
                         day.valueOf() >= dayjs().subtract(1, 'day').valueOf()
                       }
+                      value={validity}
+                      onValueChange={setValidity}
                     />
                   </LabeledInput>
                 </FlexRow>
@@ -108,11 +141,15 @@ const ProlongTenderModal = (modalProps: IModal<string>) => {
                       filter={(day: Dayjs) =>
                         day.valueOf() >=
                         dayjs(
-                          formValues.tenderValidity?.to
-                            ? formValues.tenderValidity?.to
+                          validity?.to
+                            ? dayjs(tender?.expectedDelivery).format(
+                                'YYYY-MM-DD',
+                              )
                             : undefined,
                         ).valueOf()
                       }
+                      value={delivery}
+                      onValueChange={setDelivery}
                     />
                   </LabeledInput>
                 </FlexRow>
@@ -130,7 +167,7 @@ const ProlongTenderModal = (modalProps: IModal<string>) => {
             <Button
               color="primary"
               caption={t(`${TRANSLATION_KEY}.prolongCta`)}
-              onClick={() => modalProps.success('Success action')}
+              onClick={() => prolongTender()}
             />
           </ModalFooter>
         </Panel>
@@ -139,38 +176,53 @@ const ProlongTenderModal = (modalProps: IModal<string>) => {
   );
 };
 
-const CancelTenderModal = (modalProps: IModal<string>) => {
+const CancelTenderModal = ({
+  modalProps,
+  tender,
+}: {
+  modalProps: IModal<string>;
+  tender?: Tender;
+}) => {
+  const history = useHistory();
   type CancelType = {
-    tenderValidity?: { from: string; to: string };
-    tenderExpectedDelivery?: string;
+    cancelationReason: string;
   };
-  const languageLevels = [{ id: 2, level: 'A1' }];
+  const reasonsList = [
+    { id: 1, name: 'Not enough proposals' },
+    { id: 2, name: 'Other' },
+  ];
   const { t } = useTranslation();
-  const [singlePickerValue, singleOnValueChange] = useState('');
+  const [reason, setReason] = useState({
+    id: reasonsList[0].id,
+    name: reasonsList[0].name,
+  });
   const { lens } = useForm<CancelType>({
-    value: {},
+    value: { cancelationReason: '' },
     onSave: (person) => Promise.resolve({ form: person }),
     getMetadata: () => ({
       props: {
-        tenderValidity: {
-          validators: [
-            (value) => [
-              !value?.to &&
-                !value?.from &&
-                t('global.lenses.isRequiredMessage'),
-            ],
-          ],
-        },
-        tenderExpectedDelivery: { isRequired: false },
+        cancelationReason: { isRequired: true },
       },
     }),
   });
   const dataSource = useArrayDataSource(
     {
-      items: languageLevels,
+      items: reasonsList,
     },
     [],
   );
+
+  const cancelTender = () => {
+    if (tender) {
+      tendersApi
+        .put(tender.id, {
+          ...tender,
+          status: TenderStatus.CANCELLED,
+          cancellationReason: reason.name,
+        })
+        .then(() => history.push('/tenders'));
+    }
+  };
   return (
     <ModalBlocker {...modalProps}>
       <ModalWindow cx={styles.modal}>
@@ -197,17 +249,18 @@ const CancelTenderModal = (modalProps: IModal<string>) => {
                 <FlexRow>
                   <LabeledInput
                     label={t(`${TRANSLATION_KEY}.cancelationReason`)}
-                    {...lens.prop('tenderExpectedDelivery').toProps()}
+                    {...lens.prop('cancelationReason').toProps()}
                   >
                     <PickerInput
+                      id="cancelationReason"
                       dataSource={dataSource}
-                      value={singlePickerValue}
-                      onValueChange={singleOnValueChange}
-                      getName={(item) => item.level}
-                      entityName="Language level"
+                      value={reason}
+                      onValueChange={setReason}
+                      getName={(item) => item.name}
+                      entityName="Cancelation reason"
                       selectionMode="single"
-                      valueType="id"
-                      sorting={{ field: 'level', direction: 'asc' }}
+                      valueType="entity"
+                      sorting={{ field: 'name', direction: 'asc' }}
                       disableClear
                     />
                   </LabeledInput>
@@ -226,7 +279,7 @@ const CancelTenderModal = (modalProps: IModal<string>) => {
             <Button
               color="primary"
               caption={t(`${TRANSLATION_KEY}.cancelTenderCta`)}
-              onClick={() => modalProps.success('Success action')}
+              onClick={() => cancelTender()}
             />
           </ModalFooter>
         </Panel>
@@ -235,13 +288,26 @@ const CancelTenderModal = (modalProps: IModal<string>) => {
   );
 };
 
-const ReactivateTenderModal = (modalProps: IModal<string>) => {
+const ReactivateTenderModal = ({
+  modalProps,
+  tender,
+}: {
+  modalProps: IModal<string>;
+  tender?: Tender;
+}) => {
   type ReactivateType = {
     tenderValidity?: { from: string; to: string };
     tenderExpectedDelivery?: string;
   };
   const { t } = useTranslation();
-  const { lens, value: formValues } = useForm<ReactivateType>({
+  const [validity, setValidity] = useState({
+    from: dayjs(tender?.submissionStart).format('YYYY-MM-DD'),
+    to: dayjs(tender?.submissionEnd).format('YYYY-MM-DD'),
+  } as RangeDatePickerValue);
+  const [delivery, setDelivery] = useState(
+    dayjs(tender?.expectedDelivery).format('YYYY-MM-DD') as string | null,
+  );
+  const { lens } = useForm<ReactivateType>({
     value: {},
     onSave: (person) => Promise.resolve({ form: person }),
     getMetadata: () => ({
@@ -259,6 +325,20 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
       },
     }),
   });
+
+  const reactivateTender = () => {
+    if (tender) {
+      tendersApi
+        .put(tender.id, {
+          ...tender,
+          status: TenderStatus.PUBLISHED,
+          submissionStart: validity.from,
+          submissionEnd: validity.to,
+          expectedDelivery: delivery,
+        })
+        .then(() => history.go(0));
+    }
+  };
   return (
     <ModalBlocker {...modalProps}>
       <ModalWindow cx={styles.modal}>
@@ -291,6 +371,8 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
                       filter={(day: Dayjs) =>
                         day.valueOf() >= dayjs().subtract(1, 'day').valueOf()
                       }
+                      value={validity}
+                      onValueChange={setValidity}
                     />
                   </LabeledInput>
                 </FlexRow>
@@ -321,11 +403,15 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
                       filter={(day: Dayjs) =>
                         day.valueOf() >=
                         dayjs(
-                          formValues.tenderValidity?.to
-                            ? formValues.tenderValidity?.to
+                          validity?.to
+                            ? dayjs(tender?.expectedDelivery).format(
+                                'YYYY-MM-DD',
+                              )
                             : undefined,
                         ).valueOf()
                       }
+                      value={delivery}
+                      onValueChange={setDelivery}
                     />
                   </LabeledInput>
                 </FlexRow>
@@ -343,7 +429,7 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
             <Button
               color="primary"
               caption={t(`${TRANSLATION_KEY}.reactivateCta`)}
-              onClick={() => modalProps.success('Success action')}
+              onClick={() => reactivateTender()}
             />
           </ModalFooter>
         </Panel>
@@ -352,14 +438,17 @@ const ReactivateTenderModal = (modalProps: IModal<string>) => {
   );
 };
 
-const DeleteTenderModal = ({
-  modalProps,
-  onModalSubmit,
-}: {
-  modalProps: IModal<string>;
-  onModalSubmit(): void;
-}) => {
+const DeleteTenderModal = ({ modalProps }: { modalProps: IModal<string> }) => {
   const { t } = useTranslation();
+  const history = useHistory();
+
+  const deleteTender = (tender?: Tender) => {
+    if (tender) {
+      tendersApi
+        .put(tender.id, { ...tender, status: TenderStatus.DELETED })
+        .then(() => history.push('/tenders'));
+    }
+  };
   return (
     <ModalBlocker {...modalProps}>
       <ModalWindow cx={styles.modal}>
@@ -396,7 +485,7 @@ const DeleteTenderModal = ({
             <Button
               color="primary"
               caption={t(`${TRANSLATION_KEY}.deleteCta`)}
-              onClick={() => onModalSubmit()}
+              onClick={() => deleteTender()}
             />
           </ModalFooter>
         </Panel>
@@ -522,30 +611,27 @@ type ModalType = {
 export const TenderDialogModals = ({
   modalProps,
   modalType,
-  onModalSubmit,
+  tender,
 }: {
   modalProps: IModal<string>;
   modalType: ModalType | string;
-  onModalSubmit(): void;
+  tender?: Tender;
 }) => {
   const Modal = () => {
     switch (modalType) {
       case 'voting':
         return <VotingBeginningModal {...modalProps} />;
       case 'prolong':
-        return <ProlongTenderModal {...modalProps} />;
+        return <ProlongTenderModal modalProps={modalProps} tender={tender} />;
       case 'cancel':
-        return <CancelTenderModal {...modalProps} />;
+        return <CancelTenderModal modalProps={modalProps} tender={tender} />;
       case 'reactivate':
-        return <ReactivateTenderModal {...modalProps} />;
+        return (
+          <ReactivateTenderModal modalProps={modalProps} tender={tender} />
+        );
       case 'delete':
       default:
-        return (
-          <DeleteTenderModal
-            onModalSubmit={onModalSubmit}
-            modalProps={modalProps}
-          />
-        );
+        return <DeleteTenderModal modalProps={modalProps} />;
     }
   };
   return <Modal />;
