@@ -7,6 +7,7 @@ import {
   Panel,
   TabButton,
   Text,
+  TextPlaceholder,
   WarningAlert,
 } from '@epam/uui';
 import styles from './TenderPage.module.scss';
@@ -39,6 +40,7 @@ export const TenderPage = () => {
   const { uuiModals } = useUuiContext();
   const { tenderId } = useParams<TenderRouteParams>();
   const [tenderDetails, setTenderDetails] = useState<Tender | undefined>();
+  const [isLoading, setIsLoading] = useState(true);
   const [tab, setTab] = useState('tender');
   const proposals = tenderDetails?.proposals;
   const tenderStatus = tenderDetails?.status;
@@ -48,11 +50,13 @@ export const TenderPage = () => {
   );
 
   useEffect(() => {
+    setIsLoading(true);
     tendersApi
       .get(undefined, undefined, undefined, undefined, undefined, tenderId)
       .then((response) => {
         setTenderDetails(response);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const getFileExtension = (url: string) => {
@@ -63,14 +67,22 @@ export const TenderPage = () => {
     <Panel cx={styles.wrapper}>
       <FlexRow>
         <FlexCell width="100%">
-          <Text cx={styles.pageTitle}>{tenderDetails?.title}</Text>
+          <Text cx={styles.pageTitle}>
+            {isLoading ? (
+              <TextPlaceholder>Text</TextPlaceholder>
+            ) : (
+              tenderDetails?.title
+            )}
+          </Text>
         </FlexCell>
         <FlexSpacer />
         <FlexCell width="100%" textAlign="right">
-          <Text fontSize="14" fontWeight="400">
-            <DotIndicator status={tenderDetails?.status} />
-            {t(`global.statuses.${tenderDetails?.status.toLowerCase()}`)}
-          </Text>
+          {tenderDetails && tenderDetails?.status && (
+            <Text fontSize="14" fontWeight="400">
+              <DotIndicator status={tenderDetails?.status} />
+              {t(`global.statuses.${tenderDetails?.status.toLowerCase()}`)}
+            </Text>
+          )}
         </FlexCell>
       </FlexRow>
       <FlexRow borderBottom>
@@ -289,7 +301,11 @@ export const TenderPage = () => {
                 {t(`tendersPages.viewTender.createdOnLabel`)}
               </Text>
               <Text fontSize="12" fontWeight="400">
-                {dayjs(tenderDetails?.createdAt).format('D MMM YYYY')}
+                {isLoading ? (
+                  <TextPlaceholder>Text</TextPlaceholder>
+                ) : (
+                  dayjs(tenderDetails?.createdAt).format('D MMM YYYY')
+                )}
               </Text>
             </Panel>
             <Panel cx={styles.dateWrapper}>
@@ -297,7 +313,11 @@ export const TenderPage = () => {
                 {t(`tendersPages.viewTender.editedOnLabel`)}
               </Text>
               <Text fontSize="12" fontWeight="400">
-                {dayjs(tenderDetails?.modifiedAt).format('D MMM YYYY')}
+                {isLoading ? (
+                  <TextPlaceholder>Text</TextPlaceholder>
+                ) : (
+                  dayjs(tenderDetails?.modifiedAt).format('D MMM YYYY')
+                )}
               </Text>
             </Panel>
           </FlexRow>
@@ -308,7 +328,11 @@ export const TenderPage = () => {
           </FlexRow>
           <FlexRow>
             <Text fontSize="16" fontWeight="400" cx={styles.descriptionContent}>
-              {tenderDetails?.description}
+              {isLoading ? (
+                <TextPlaceholder wordsCount={100}>Text</TextPlaceholder>
+              ) : (
+                tenderDetails?.description
+              )}
             </Text>
           </FlexRow>
           <FlexRow>
@@ -327,12 +351,16 @@ export const TenderPage = () => {
                   </Text>
                 </FlexCell>
                 <FlexCell width="100%">
-                  <Text fontSize="16" fontWeight="400">{`${dayjs(
-                    tenderDetails?.submissionStart,
-                  ).format('D MMM YYYY')} -
+                  {isLoading ? (
+                    <TextPlaceholder wordsCount={3}>Text</TextPlaceholder>
+                  ) : (
+                    <Text fontSize="16" fontWeight="400">{`${dayjs(
+                      tenderDetails?.submissionStart,
+                    ).format('D MMM YYYY')} -
                 ${dayjs(tenderDetails?.submissionEnd).format(
                   'D MMM YYYY',
                 )}`}</Text>
+                  )}
                 </FlexCell>
               </FlexRow>
               <FlexRow>
@@ -343,14 +371,18 @@ export const TenderPage = () => {
                 </FlexCell>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400">
-                    {tenderDetails?.category &&
+                    {isLoading ? (
+                      <TextPlaceholder>Text</TextPlaceholder>
+                    ) : (
+                      tenderDetails?.category &&
                       tenderDetails?.category.map(
                         (category, index) =>
                           t(`${getCategoryName(category)?.name}`) +
                           (index !== tenderDetails?.category.length - 1
                             ? ', '
                             : ''),
-                      )}
+                      )
+                    )}
                   </Text>
                 </FlexCell>
               </FlexRow>
@@ -365,10 +397,14 @@ export const TenderPage = () => {
                 </FlexCell>
                 <FlexCell width="100%">
                   <Text fontSize="16" fontWeight="400">
-                    {tenderDetails?.expectedDelivery &&
+                    {isLoading ? (
+                      <TextPlaceholder>Text</TextPlaceholder>
+                    ) : (
+                      tenderDetails?.expectedDelivery &&
                       dayjs(tenderDetails?.expectedDelivery).format(
                         'D MMM YYYY',
-                      )}
+                      )
+                    )}
                   </Text>
                 </FlexCell>
               </FlexRow>
@@ -388,11 +424,15 @@ export const TenderPage = () => {
                   </Text>
                 </FlexCell>
                 <FlexCell width="100%">
-                  <Text fontSize="16" fontWeight="400">
-                    {process.env.REACT_APP_LOCATION},{' '}
-                    {tenderDetails?.location.nestedLocation.name},{' '}
-                    {tenderDetails?.location.addressLine}
-                  </Text>
+                  {isLoading ? (
+                    <TextPlaceholder>Text</TextPlaceholder>
+                  ) : (
+                    <Text fontSize="16" fontWeight="400">
+                      {process.env.REACT_APP_LOCATION},{' '}
+                      {tenderDetails?.location.nestedLocation.name},{' '}
+                      {tenderDetails?.location.addressLine}
+                    </Text>
+                  )}
                 </FlexCell>
               </FlexRow>
               <FlexRow>
@@ -401,11 +441,17 @@ export const TenderPage = () => {
                     {t(`tendersPages.viewTender.addressCommentLabel`)}
                   </Text>
                 </FlexCell>
-                <FlexCell width="100%">
-                  <Text fontSize="16" fontWeight="400">
-                    {tenderDetails?.location.addressComment}
-                  </Text>
-                </FlexCell>
+                {tenderDetails?.location.addressComment && (
+                  <FlexCell width="100%">
+                    <Text fontSize="16" fontWeight="400">
+                      {isLoading ? (
+                        <TextPlaceholder>Text</TextPlaceholder>
+                      ) : (
+                        tenderDetails?.location.addressComment
+                      )}
+                    </Text>
+                  </FlexCell>
+                )}
               </FlexRow>
             </FlexCell>
             <FlexCell width="100%" cx={styles.column}>
@@ -443,11 +489,15 @@ export const TenderPage = () => {
             </Text>
           </FlexRow>
           <FlexRow>
-            <AuthorCard
-              organization={tenderDetails?.organization}
-              authorName={tenderDetails?.ownerName}
-              authorPicture={tenderDetails?.ownerPicture}
-            />
+            {isLoading ? (
+              <TextPlaceholder>Text</TextPlaceholder>
+            ) : (
+              <AuthorCard
+                organization={tenderDetails?.organization}
+                authorName={tenderDetails?.ownerName}
+                authorPicture={tenderDetails?.ownerPicture}
+              />
+            )}
           </FlexRow>
           <FlexRow>
             <Text fontSize="18" fontWeight="600" cx={styles.attachmentsLabel}>
