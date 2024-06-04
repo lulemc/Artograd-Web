@@ -52,8 +52,6 @@ export const TenderPage = () => {
     return url.split(/[#?]/)[0].split('.').pop()?.trim();
   };
 
-  console.log(':::tender', tenderDetails);
-
   return (
     <Panel cx={styles.wrapper}>
       <FlexRow>
@@ -152,7 +150,11 @@ export const TenderPage = () => {
             onClick={() =>
               uuiModals
                 .show<string>((props) => (
-                  <TenderDialogModals modalProps={props} modalType="voting" />
+                  <TenderDialogModals
+                    modalProps={props}
+                    modalType="voting"
+                    tender={tenderDetails}
+                  />
                 ))
                 .catch(() => null)
             }

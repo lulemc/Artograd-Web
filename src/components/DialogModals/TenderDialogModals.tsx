@@ -20,7 +20,7 @@ import {
 } from '@epam/uui';
 import { IModal, useArrayDataSource } from '@epam/uui-core';
 import dayjs, { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import styles from './TenderDialogModals.module.scss';
 import { Tender, TenderStatus } from '../../types';
@@ -494,9 +494,15 @@ const DeleteTenderModal = ({ modalProps }: { modalProps: IModal<string> }) => {
   );
 };
 
-const VotingBeginningModal = (modalProps: IModal<string>) => {
+const VotingBeginningModal = ({
+  modalProps,
+  tender,
+}: {
+  modalProps: IModal<string>;
+  tender?: Tender;
+}) => {
   type VotingType = {
-    tenderExpectedDelivery?: string;
+    votingEndDate?: string;
   };
   const { t } = useTranslation();
   const { lens } = useForm<VotingType>({
@@ -504,23 +510,61 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
     onSave: (person) => Promise.resolve({ form: person }),
     getMetadata: () => ({
       props: {
-        tenderExpectedDelivery: { isRequired: true },
+        votingEndDate: { isRequired: true },
       },
     }),
   });
+
   const [votingBy, setVotingBy] = useState(1);
-  const [singlePickerValue, singleOnValueChange] = useState(1);
-  const languageLevels = [
-    { id: 1, level: t(`${TRANSLATION_KEY}.oneWeek`) },
-    { id: 2, level: t(`${TRANSLATION_KEY}.twoWeeks`) },
-    { id: 3, level: t(`${TRANSLATION_KEY}.oneMonth`) },
+  const [period, setPeriod] = useState({
+    id: 1,
+    name: t(`${TRANSLATION_KEY}.oneWeek`),
+  });
+  const [selectedDate, setSelectedDate] = useState<string | null>(
+    dayjs().format('YYYY-MM-DD'),
+  );
+
+  const periodList = [
+    { id: 1, name: t(`${TRANSLATION_KEY}.oneWeek`) },
+    { id: 2, name: t(`${TRANSLATION_KEY}.twoWeeks`) },
+    { id: 3, name: t(`${TRANSLATION_KEY}.oneMonth`) },
   ];
   const dataSource = useArrayDataSource(
     {
-      items: languageLevels,
+      items: periodList,
     },
     [],
   );
+
+  useEffect(() => {
+    if (votingBy === 2) {
+      switch (period.id) {
+        case 1:
+          setSelectedDate(dayjs().add(1, 'week').format('YYYY-MM-DD'));
+          break;
+        case 2:
+          setSelectedDate(dayjs().add(2, 'week').format('YYYY-MM-DD'));
+          break;
+        case 3:
+          setSelectedDate(dayjs().add(1, 'month').format('YYYY-MM-DD'));
+          break;
+      }
+    }
+  }, [period, votingBy]);
+
+  const beginVotingTender = () => {
+    if (tender) {
+      tendersApi
+        .put(tender.id, {
+          ...tender,
+          status: TenderStatus.VOTING,
+          votingEndDate: dayjs(selectedDate).format(
+            'YYYY-MM-DDTHH:mm:ss.SSS+00:00',
+          ),
+        })
+        .then(() => history.go(0));
+    }
+  };
   return (
     <ModalBlocker {...modalProps}>
       <ModalWindow cx={styles.modal}>
@@ -548,10 +592,10 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
                 <FlexRow>
                   <LabeledInput
                     label={t(`${TRANSLATION_KEY}.votingBy`)}
-                    {...lens.prop('tenderExpectedDelivery').toProps()}
+                    {...lens.prop('votingEndDate').toProps()}
                   >
                     <DatePicker
-                      {...lens.prop('tenderExpectedDelivery').toProps()}
+                      {...lens.prop('votingEndDate').toProps()}
                       format="MMM D, YYYY"
                       placeholder={t('global.datePickerPlaceholder')}
                       rawProps={{
@@ -559,6 +603,8 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
                           'data-testid': `tender-expected-delivery-input`,
                         },
                       }}
+                      value={selectedDate}
+                      onValueChange={setSelectedDate}
                     />
                   </LabeledInput>
                 </FlexRow>
@@ -566,16 +612,17 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
                 <FlexRow>
                   <LabeledInput
                     label={t(`${TRANSLATION_KEY}.votingDuratation`)}
-                    {...lens.prop('tenderExpectedDelivery').toProps()}
+                    {...lens.prop('votingEndDate').toProps()}
                   >
                     <PickerInput
+                      id="votingDuratation"
                       dataSource={dataSource}
-                      value={singlePickerValue}
-                      onValueChange={singleOnValueChange}
-                      getName={(item) => item.level}
-                      entityName="Language level"
+                      value={period}
+                      onValueChange={setPeriod}
+                      getName={(item) => item.name}
+                      entityName="Voting duratation"
                       selectionMode="single"
-                      valueType="id"
+                      valueType="entity"
                       sorting={{ field: 'id', direction: 'asc' }}
                       disableClear
                     />
@@ -595,7 +642,7 @@ const VotingBeginningModal = (modalProps: IModal<string>) => {
             <Button
               color="primary"
               caption={t(`${TRANSLATION_KEY}.startVotingCta`)}
-              onClick={() => modalProps.success('Success action')}
+              onClick={() => beginVotingTender()}
             />
           </ModalFooter>
         </Panel>
@@ -620,7 +667,7 @@ export const TenderDialogModals = ({
   const Modal = () => {
     switch (modalType) {
       case 'voting':
-        return <VotingBeginningModal {...modalProps} />;
+        return <VotingBeginningModal modalProps={modalProps} tender={tender} />;
       case 'prolong':
         return <ProlongTenderModal modalProps={modalProps} tender={tender} />;
       case 'cancel':

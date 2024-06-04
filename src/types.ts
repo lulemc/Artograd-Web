@@ -60,6 +60,7 @@ export type Tender = {
   modifiedAt: string;
   proposals: Proposals[];
   cancellationReason: string;
+  votingEndDate?: string;
 };
 
 export type CategoryItemType = {
