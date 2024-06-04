@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { tendersApi } from '../../services/api/tendersApi';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Tender } from '../../types';
+import { Tender, TenderStatus } from '../../types';
 import { DotIndicator } from '../../components/DotIndicator/DotIndicator';
 import { getCategoryName } from '../../utils/getCategoryName';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
@@ -27,6 +27,8 @@ import { EmptyContent } from '../../components/EmptyContent/EmptyContent';
 import SearchGuyIcon from '../../images/searchGuy.svg';
 import { useUuiContext } from '@epam/uui-core';
 import { TenderDialogModals } from '../../components/DialogModals/TenderDialogModals';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 type TenderRouteParams = {
   tenderId: string;
@@ -39,6 +41,11 @@ export const TenderPage = () => {
   const [tenderDetails, setTenderDetails] = useState<Tender | undefined>();
   const [tab, setTab] = useState('tender');
   const proposals = tenderDetails?.proposals;
+  const tenderStatus = tenderDetails?.status;
+
+  const username = useSelector(
+    (state: RootState) => state.identity.userData['cognito:username'],
+  );
 
   useEffect(() => {
     tendersApi
@@ -84,192 +91,195 @@ export const TenderPage = () => {
         </FlexRow>
         <FlexSpacer />
         <FlexRow>
-          {/* {tenderDetails && tenderStatus === TenderStatus.CLOSED && ( */}
-          <Button
-            icon={NavigationChevronRightOutlineIcon}
-            iconPosition="right"
-            caption={t(`tendersPages.viewTender.openArtObjectCta`)}
-            fill="ghost"
-            onClick={() => null}
-          />
-          {/* )} */}
-          {/* {tenderDetails &&
+          {tenderDetails && tenderStatus === TenderStatus.CLOSED && (
+            <Button
+              icon={NavigationChevronRightOutlineIcon}
+              iconPosition="right"
+              caption={t(`tendersPages.viewTender.openArtObjectCta`)}
+              fill="ghost"
+              onClick={() => null}
+            />
+          )}
+          {tenderDetails &&
             username === tenderDetails.ownerId &&
             tenderStatus !== TenderStatus.CANCELLED &&
-            tenderStatus !== TenderStatus.CLOSED && ( */}
-          <Button
-            fill="ghost"
-            color="secondary"
-            caption={t(`tendersPages.viewTender.cancelTenderCta`)}
-            onClick={() =>
-              uuiModals
-                .show<string>((props) => (
-                  <TenderDialogModals
-                    modalProps={props}
-                    modalType="cancel"
-                    tender={tenderDetails}
-                  />
-                ))
-                .catch(() => null)
-            }
-          />
-          {/* )} */}
-          {/* {tenderDetails &&
+            tenderStatus !== TenderStatus.CLOSED && (
+              <Button
+                fill="ghost"
+                color="secondary"
+                caption={t(`tendersPages.viewTender.cancelTenderCta`)}
+                onClick={() =>
+                  uuiModals
+                    .show<string>((props) => (
+                      <TenderDialogModals
+                        modalProps={props}
+                        modalType="cancel"
+                        tender={tenderDetails}
+                      />
+                    ))
+                    .catch(() => null)
+                }
+              />
+            )}
+          {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderStatus === TenderStatus.CANCELLED && ( */}
-          <Button
-            fill="ghost"
-            color="secondary"
-            caption={t(`tendersPages.viewTender.deleteTenderCta`)}
-            onClick={() =>
-              uuiModals
-                .show<string>((props) => (
-                  <TenderDialogModals modalProps={props} modalType="delete" />
-                ))
-                .catch(() => null)
-            }
-          />
-          {/* )} */}
-          {/* {tenderDetails &&
+            tenderStatus === TenderStatus.CANCELLED && (
+              <Button
+                fill="ghost"
+                color="secondary"
+                caption={t(`tendersPages.viewTender.deleteTenderCta`)}
+                onClick={() =>
+                  uuiModals
+                    .show<string>((props) => (
+                      <TenderDialogModals
+                        modalProps={props}
+                        modalType="delete"
+                      />
+                    ))
+                    .catch(() => null)
+                }
+              />
+            )}
+          {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderStatus === TenderStatus.CANCELLED && ( */}
-          <Button
-            fill="outline"
-            color="primary"
-            caption={t(`tendersPages.viewTender.editTenderCta`)}
-            onClick={() => null}
-          />
-          {/* )} */}
-          {/* {tenderDetails &&
+            tenderStatus === TenderStatus.CANCELLED && (
+              <Button
+                fill="outline"
+                color="primary"
+                caption={t(`tendersPages.viewTender.editTenderCta`)}
+                onClick={() => null}
+              />
+            )}
+          {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderStatus === TenderStatus.IDEATION && ( */}
-          <Button
-            fill="outline"
-            color="primary"
-            caption={t(`tendersPages.viewTender.startVotingCta`)}
-            onClick={() =>
-              uuiModals
-                .show<string>((props) => (
-                  <TenderDialogModals
-                    modalProps={props}
-                    modalType="voting"
-                    tender={tenderDetails}
-                  />
-                ))
-                .catch(() => null)
-            }
-          />
-          {/* )} */}
-          {/* {tenderDetails &&
+            tenderStatus === TenderStatus.IDEATION && (
+              <Button
+                fill="outline"
+                color="primary"
+                caption={t(`tendersPages.viewTender.startVotingCta`)}
+                onClick={() =>
+                  uuiModals
+                    .show<string>((props) => (
+                      <TenderDialogModals
+                        modalProps={props}
+                        modalType="voting"
+                        tender={tenderDetails}
+                      />
+                    ))
+                    .catch(() => null)
+                }
+              />
+            )}
+          {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderDetails?.status === TenderStatus.CANCELLED && ( */}
-          <Button
-            fill="outline"
-            color="primary"
-            caption={t(`tendersPages.viewTender.reactivateCta`)}
-            onClick={() =>
-              uuiModals
-                .show<string>((props) => (
-                  <TenderDialogModals
-                    modalProps={props}
-                    modalType="reactivate"
-                    tender={tenderDetails}
-                  />
-                ))
-                .catch(() => null)
-            }
-          />
-          {/* )} */}
-          {/* {tenderDetails &&
+            tenderDetails?.status === TenderStatus.CANCELLED && (
+              <Button
+                fill="outline"
+                color="primary"
+                caption={t(`tendersPages.viewTender.reactivateCta`)}
+                onClick={() =>
+                  uuiModals
+                    .show<string>((props) => (
+                      <TenderDialogModals
+                        modalProps={props}
+                        modalType="reactivate"
+                        tender={tenderDetails}
+                      />
+                    ))
+                    .catch(() => null)
+                }
+              />
+            )}
+          {tenderDetails &&
             username === tenderDetails.ownerId &&
-            tenderDetails?.status === TenderStatus.DRAFT && ( */}
-          <Button
-            color="primary"
-            caption={t(`tendersPages.viewTender.publishCta`)}
-            onClick={() => null}
-          />
-          {/* )} */}
+            tenderDetails?.status === TenderStatus.DRAFT && (
+              <Button
+                color="primary"
+                caption={t(`tendersPages.viewTender.publishCta`)}
+                onClick={() => null}
+              />
+            )}
         </FlexRow>
       </FlexRow>
       <Panel cx={styles.alertsWrapper}>
-        {/* {proposals?.length === 0 && ( */}
-        <WarningAlert
-          cx={styles.alert}
-          actions={[
-            {
-              name: t(`tendersPages.viewTender.prolongDateCta`),
-              action: () =>
-                uuiModals
-                  .show<string>((props) => (
-                    <TenderDialogModals
-                      modalProps={props}
-                      modalType="prolong"
-                      tender={tenderDetails}
-                    />
-                  ))
-                  .catch(() => null),
-            },
-          ]}
-        >
-          <Text size="30">
-            {t(`tendersPages.viewTender.noProposalsAlertMessage`)}
-          </Text>
-        </WarningAlert>
-        {/* )} */}
+        {proposals?.length === 0 && (
+          <WarningAlert
+            cx={styles.alert}
+            actions={[
+              {
+                name: t(`tendersPages.viewTender.prolongDateCta`),
+                action: () =>
+                  uuiModals
+                    .show<string>((props) => (
+                      <TenderDialogModals
+                        modalProps={props}
+                        modalType="prolong"
+                        tender={tenderDetails}
+                      />
+                    ))
+                    .catch(() => null),
+              },
+            ]}
+          >
+            <Text size="30">
+              {t(`tendersPages.viewTender.noProposalsAlertMessage`)}
+            </Text>
+          </WarningAlert>
+        )}
 
-        {/* {proposals?.length === 1 && ( */}
-        <WarningAlert
-          cx={styles.alert}
-          actions={[
-            {
-              name: t(`tendersPages.viewTender.selectWinnerCta`),
-              action: () => null,
-            },
-            {
-              name: t(`tendersPages.viewTender.prolongDateCta`),
-              action: () =>
-                uuiModals
-                  .show<string>((props) => (
-                    <TenderDialogModals
-                      modalProps={props}
-                      modalType="prolong"
-                      tender={tenderDetails}
-                    />
-                  ))
-                  .catch(() => null),
-            },
-          ]}
-        >
-          <Text size="30">
-            {t(`tendersPages.viewTender.singleProposalAlertMessage`)}
-          </Text>
-        </WarningAlert>
-        {/* )} */}
+        {proposals?.length === 1 && (
+          <WarningAlert
+            cx={styles.alert}
+            actions={[
+              {
+                name: t(`tendersPages.viewTender.selectWinnerCta`),
+                action: () => null,
+              },
+              {
+                name: t(`tendersPages.viewTender.prolongDateCta`),
+                action: () =>
+                  uuiModals
+                    .show<string>((props) => (
+                      <TenderDialogModals
+                        modalProps={props}
+                        modalType="prolong"
+                        tender={tenderDetails}
+                      />
+                    ))
+                    .catch(() => null),
+              },
+            ]}
+          >
+            <Text size="30">
+              {t(`tendersPages.viewTender.singleProposalAlertMessage`)}
+            </Text>
+          </WarningAlert>
+        )}
 
-        {/* {proposals && proposals?.length >= 2 && ( */}
-        <WarningAlert
-          cx={styles.alert}
-          actions={[
-            {
-              name: t(`tendersPages.viewTender.prolongDateCta`),
-              action: () =>
-                uuiModals
-                  .show<string>((props) => (
-                    <TenderDialogModals
-                      modalProps={props}
-                      modalType="prolong"
-                      tender={tenderDetails}
-                    />
-                  ))
-                  .catch(() => null),
-            },
-          ]}
-        >
-          <Text size="30">
-            {t(`tendersPages.viewTender.selectWinnerAlertMessage`)}
-          </Text>
-        </WarningAlert>
-        {/* )} */}
+        {proposals && proposals?.length >= 2 && (
+          <WarningAlert
+            cx={styles.alert}
+            actions={[
+              {
+                name: t(`tendersPages.viewTender.prolongDateCta`),
+                action: () =>
+                  uuiModals
+                    .show<string>((props) => (
+                      <TenderDialogModals
+                        modalProps={props}
+                        modalType="prolong"
+                        tender={tenderDetails}
+                      />
+                    ))
+                    .catch(() => null),
+              },
+            ]}
+          >
+            <Text size="30">
+              {t(`tendersPages.viewTender.selectWinnerAlertMessage`)}
+            </Text>
+          </WarningAlert>
+        )}
       </Panel>
       {tab === 'tender' ? (
         <Panel cx={styles.contentWrapper}>
