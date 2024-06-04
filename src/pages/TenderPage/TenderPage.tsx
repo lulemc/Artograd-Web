@@ -69,7 +69,7 @@ export const TenderPage = () => {
         <FlexCell width="100%">
           <Text cx={styles.pageTitle}>
             {isLoading ? (
-              <TextPlaceholder>Text</TextPlaceholder>
+              <TextPlaceholder wordsCount={3}>Text</TextPlaceholder>
             ) : (
               tenderDetails?.title
             )}
