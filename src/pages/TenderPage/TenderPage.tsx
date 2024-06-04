@@ -63,6 +63,15 @@ export const TenderPage = () => {
     return url.split(/[#?]/)[0].split('.').pop()?.trim();
   };
 
+  const sortProposalsByLikes = (proposals ? [...proposals] : proposals)?.sort(
+    (x, y) => y?.likedByUsers.length - x.likedByUsers.length,
+  );
+  const getTop3LikedProposal = sortProposalsByLikes?.splice(0, 3);
+
+  const isMostLiked = (proposalId: string) => {
+    return getTop3LikedProposal?.some((proposal) => proposal.id === proposalId);
+  };
+
   return (
     <Panel cx={styles.wrapper}>
       <FlexRow>
@@ -530,7 +539,11 @@ export const TenderPage = () => {
             ) : (
               proposals?.map((proposal) => (
                 <Panel cx={styles.proposalCardWrapper}>
-                  <ProposalCard proposal={proposal} />
+                  <ProposalCard
+                    key={proposal.id}
+                    proposal={proposal}
+                    mostLiked={isMostLiked(proposal.id)}
+                  />
                 </Panel>
               ))
             )}
