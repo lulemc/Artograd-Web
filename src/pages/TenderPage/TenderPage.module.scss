@@ -58,8 +58,20 @@
   padding-top: 36px;
 }
 
+.fileCardWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .fileCard {
   text-decoration: none;
+  flex-basis: calc(33.33333% - 16px);
+  margin-right: 24px;
+  margin-bottom: 12px;
+}
+
+.fileCard:nth-child(3n) {
+  margin-right: 0;
 }
 
 .column {

@@ -510,7 +510,7 @@ export const TenderPage = () => {
               {t(`tendersPages.viewTender.additionalInformationLabel`)}
             </Text>
           </FlexRow>
-          <FlexRow>
+          <FlexRow cx={styles.fileCardWrapper}>
             {tenderDetails?.files &&
               tenderDetails.files.map((file, index) => (
                 <a href={file.path} className={styles.fileCard} key={index}>
