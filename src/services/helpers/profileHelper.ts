@@ -6,6 +6,7 @@ import {
   ProfileResponse,
   ProfileResponseItem,
   SocialMedia,
+  LanguagePrefered,
 } from '../../pages/Profile/profile.interfaces';
 
 const socialMediaPayload = [
@@ -29,7 +30,11 @@ enum checkboxes {
 }
 
 export const createProfilePayload = (
-  data: ProfileInformationItems | ProfileFundraisingItems | AvatarImage,
+  data:
+    | ProfileInformationItems
+    | ProfileFundraisingItems
+    | AvatarImage
+    | LanguagePrefered,
 ) => {
   let payload: ProfilePayloadItem[] = [];
   const params = Object.keys(data);

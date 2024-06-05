@@ -5,6 +5,7 @@ export type UserData = {
   'cognito:groups': string[];
   'custom:organization': string;
   'custom:jobtitle': string;
+  'custom:lang_iso2': string;
   email: string;
   email_verified: boolean;
   family_name: string;
@@ -26,6 +27,7 @@ const userData = {
   'cognito:groups': [''],
   'custom:organization': '',
   'custom:jobtitle': '',
+  'custom:lang_iso2': 'en',
   email: '',
   email_verified: false,
   family_name: '',

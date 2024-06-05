@@ -13,6 +13,8 @@ import {
 import { profileAvatarChanged } from '../../store/slices/profileInformationSlice';
 import { updateProfileFundraising } from '../../store/slices/profileFundrasingSlice';
 import { ProfileResponse } from '../Profile/profile.interfaces';
+import { useTranslation } from 'react-i18next';
+import { saveLanguagePreferences } from '../../components/LanguageSelector/LanguageSelector';
 
 const requestOptions = {
   method: 'POST',
@@ -23,6 +25,8 @@ export const CallbackPage = () => {
   const query = useQuery();
   const history = useHistory();
   const dispatch = useDispatch();
+  const { i18n } = useTranslation();
+
   // TODO: REPLACE WITH AXIOS
   fetch(
     `${process.env.REACT_APP_TOKEN_URL}&redirect_uri=${
@@ -42,6 +46,13 @@ export const CallbackPage = () => {
         localStorage.setItem('expires_in', data.expires_in);
 
         dispatch(setUserData(decoded));
+
+        // Set language preferences
+        decoded['custom:lang_iso2']
+          ? i18n.changeLanguage(decoded['custom:lang_iso2'])
+          : saveLanguagePreferences(decoded['cognito:username'], {
+              lang_iso2: i18n.language,
+            });
 
         //TODO probably need to move into middleware. RxJS combineLatest?
         userApi
