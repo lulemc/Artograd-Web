@@ -340,13 +340,7 @@ export const TendersPage = () => {
           dataLength={tendersList?.length}
           next={() => loadMoreTenders(page)}
           hasMore={tendersList?.length === (page + 1) * 10}
-          loader={
-            isLoading && (
-              <FlexRow justifyContent="center">
-                <Spinner />
-              </FlexRow>
-            )
-          }
+          loader={''}
           endMessage={null}
         >
           {tendersList?.length >= 1 &&
@@ -357,6 +351,11 @@ export const TendersPage = () => {
                 onTenderDelete={() => deleteTender(tender)}
               />
             ))}
+          {isLoading && (
+            <FlexRow justifyContent="center">
+              <Spinner />
+            </FlexRow>
+          )}
         </InfiniteScroll>
         {tendersList?.length === 0 && isOfficer && !isLoading && (
           <EmptyContent

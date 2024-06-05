@@ -4,13 +4,15 @@ export const DotIndicator = ({ status }: { status?: TenderStatus }) => {
   const determineColor = () => {
     switch (status) {
       case TenderStatus.IDEATION:
-        return '#006FE5';
+        return 'var(--cobalt-60)';
       case TenderStatus.VOTING:
-        return '#B114D1';
+        return 'var(--purple-50)';
       case TenderStatus.SELECTION:
-        return '#AAEEEE';
+        return 'var(--cyan-20)';
       case TenderStatus.CLOSED:
-        return '#068745';
+        return 'var(--emerald-70)';
+      case TenderStatus.PUBLISHED:
+        return 'var(--sun-50)';
       case TenderStatus.DRAFT:
       case TenderStatus.CANCELLED:
       default:
