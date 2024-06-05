@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { CustomFileCardItem } from '../../components/FileUpload/CustomFileCardItem';
 import {
   CategoryItemType,
   CityItemType,
@@ -8,6 +7,7 @@ import {
   TenderStatus,
 } from '../../types';
 import api from '../axiosConfig';
+import { CustomFileCardItem } from '../../components/FileUpload/CustomFileCardItem';
 
 type TenderApiPostPayload = {
   formData: NewTenderFormType;
@@ -81,8 +81,14 @@ export const tendersApi = {
       ownerId: username,
       organization: formData?.ownerOrganization,
       showEmail: formData?.emailSharingAgreement,
-      files: tenderAttachments?.map((attachment) => attachment.path),
-      snapFiles: tenderAttachments?.map((attachment) => attachment.snapPath),
+      files: tenderAttachments?.map((attachment) => ({
+        extension: attachment.extension,
+        name: attachment.name,
+        path: attachment.path,
+        size: attachment.size,
+        snapPath: attachment.snapPath,
+        type: attachment.type,
+      })),
       status: tenderStatus,
       filesDirectoryId,
     });
