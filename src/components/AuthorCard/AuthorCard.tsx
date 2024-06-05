@@ -117,7 +117,12 @@ export const AuthorCard = ({
     <Panel>
       <Text cx={styles.proposalAuthor}>
         {authorPicture && authorPicture !== '' && (
-          <img className={styles.smallProposalAvatar} src={authorPicture} />
+          <Avatar
+            size="36"
+            alt="avatar"
+            img={authorPicture}
+            cx={styles.smallProposalAvatar}
+          />
         )}
         {namePrefix && <span>{namePrefix}</span>}
         <Dropdown

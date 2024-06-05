@@ -59,10 +59,6 @@ export const TenderPage = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const getFileExtension = (url: string) => {
-    return url.split(/[#?]/)[0].split('.').pop()?.trim();
-  };
-
   const sortProposalsByLikes = (proposals ? [...proposals] : proposals)?.sort(
     (x, y) => y?.likedByUsers.length - x.likedByUsers.length,
   );
@@ -515,16 +511,17 @@ export const TenderPage = () => {
           </FlexRow>
           <FlexRow>
             {tenderDetails?.files &&
-              tenderDetails.files.map((file) => (
-                <FileCard
-                  cx={styles.fileCard}
-                  file={{
-                    id: 1,
-                    name: 'file',
-                    size: 1111,
-                    extension: getFileExtension(file),
-                  }}
-                />
+              tenderDetails.files.map((file, index) => (
+                <a href={file.path} className={styles.fileCard} key={index}>
+                  <FileCard
+                    file={{
+                      id: file.id,
+                      name: file.name,
+                      size: file.size,
+                      extension: file.extension,
+                    }}
+                  />
+                </a>
               ))}
           </FlexRow>
         </Panel>

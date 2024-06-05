@@ -1,3 +1,4 @@
+import { FileCardItem } from '@epam/uui';
 import { LatLngLiteral } from 'leaflet';
 
 export type Author = {
@@ -49,7 +50,7 @@ export type Tender = {
   location: LocationType;
   ownerEmail: string;
   showEmail: boolean;
-  files: string[];
+  files?: FileCardItem[];
   snapFiles: string[];
   status: TenderStatus;
   ownerName: string;

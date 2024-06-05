@@ -17,6 +17,7 @@ import {
   Text,
   SuccessNotification,
   WarningNotification,
+  FileCardItem,
 } from '@epam/uui';
 import dayjs from 'dayjs';
 import styles from './TenderCard.module.scss';
@@ -43,7 +44,7 @@ type TenderCardProps = {
   id: string;
   submissionStart?: string | null;
   submissionEnd?: string | null;
-  files?: string[];
+  files?: FileCardItem[];
   status?: TenderStatus;
   category?: string[];
   location?: LocationType;
