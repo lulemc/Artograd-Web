@@ -40,14 +40,14 @@ export const TenderPage = () => {
   const { uuiModals } = useUuiContext();
   const { tenderId } = useParams<TenderRouteParams>();
   const [tenderDetails, setTenderDetails] = useState<Tender | undefined>();
+  const username = useSelector(
+    (state: RootState) => state.identity.userData['cognito:username'],
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [tab, setTab] = useState('tender');
   const proposals = tenderDetails?.proposals;
   const tenderStatus = tenderDetails?.status;
-
-  const username = useSelector(
-    (state: RootState) => state.identity.userData['cognito:username'],
-  );
+  const tenderOwner = username === tenderDetails?.ownerId;
 
   useEffect(() => {
     setIsLoading(true);
@@ -118,7 +118,7 @@ export const TenderPage = () => {
             />
           )}
           {tenderDetails &&
-            username === tenderDetails.ownerId &&
+            tenderOwner &&
             tenderStatus !== TenderStatus.CANCELLED &&
             tenderStatus !== TenderStatus.CLOSED && (
               <Button
@@ -139,7 +139,7 @@ export const TenderPage = () => {
               />
             )}
           {tenderDetails &&
-            username === tenderDetails.ownerId &&
+            tenderOwner &&
             tenderStatus === TenderStatus.CANCELLED && (
               <Button
                 fill="ghost"
@@ -158,7 +158,7 @@ export const TenderPage = () => {
               />
             )}
           {tenderDetails &&
-            username === tenderDetails.ownerId &&
+            tenderOwner &&
             tenderStatus === TenderStatus.CANCELLED && (
               <Button
                 fill="outline"
@@ -168,7 +168,7 @@ export const TenderPage = () => {
               />
             )}
           {tenderDetails &&
-            username === tenderDetails.ownerId &&
+            tenderOwner &&
             tenderStatus === TenderStatus.IDEATION && (
               <Button
                 fill="outline"
@@ -188,7 +188,7 @@ export const TenderPage = () => {
               />
             )}
           {tenderDetails &&
-            username === tenderDetails.ownerId &&
+            tenderOwner &&
             tenderDetails?.status === TenderStatus.CANCELLED && (
               <Button
                 fill="outline"
@@ -208,7 +208,7 @@ export const TenderPage = () => {
               />
             )}
           {tenderDetails &&
-            username === tenderDetails.ownerId &&
+            tenderOwner &&
             tenderDetails?.status === TenderStatus.DRAFT && (
               <Button
                 color="primary"
@@ -219,7 +219,7 @@ export const TenderPage = () => {
         </FlexRow>
       </FlexRow>
       <Panel cx={styles.alertsWrapper}>
-        {proposals?.length === 0 && (
+        {proposals?.length === 0 && tenderOwner && (
           <WarningAlert
             cx={styles.alert}
             actions={[
@@ -244,7 +244,7 @@ export const TenderPage = () => {
           </WarningAlert>
         )}
 
-        {proposals?.length === 1 && (
+        {proposals?.length === 1 && tenderOwner && (
           <WarningAlert
             cx={styles.alert}
             actions={[
@@ -273,7 +273,7 @@ export const TenderPage = () => {
           </WarningAlert>
         )}
 
-        {proposals && proposals?.length >= 2 && (
+        {proposals && tenderOwner && proposals?.length >= 2 && (
           <WarningAlert
             cx={styles.alert}
             actions={[
@@ -404,11 +404,12 @@ export const TenderPage = () => {
                   <Text fontSize="16" fontWeight="400">
                     {isLoading ? (
                       <TextPlaceholder>Text</TextPlaceholder>
-                    ) : (
-                      tenderDetails?.expectedDelivery &&
+                    ) : tenderDetails?.expectedDelivery ? (
                       dayjs(tenderDetails?.expectedDelivery).format(
                         'D MMM YYYY',
                       )
+                    ) : (
+                      t(`tendersPages.viewTender.notSpecified`)
                     )}
                   </Text>
                 </FlexCell>

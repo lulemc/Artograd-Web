@@ -256,6 +256,7 @@
       "submissionPeriodLabel": "Срок подачи предложений",
       "categoryLabel": "Категория",
       "expectedReadinessLabel": "Ожидаемая готовность",
+      "notSpecified": "Не указано",
       "objectLocationLabel": "Расположение арт-объекта",
       "addressLineLabel": "Адрес",
       "addressCommentLabel": "Комментарии",

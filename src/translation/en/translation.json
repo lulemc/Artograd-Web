@@ -254,6 +254,7 @@
       "submissionPeriodLabel": "Proposals submission period",
       "categoryLabel": "Category",
       "expectedReadinessLabel": "Expected readiness",
+      "notSpecified": "Not specified",
       "objectLocationLabel": "Art Object Location",
       "addressLineLabel": "Address line",
       "addressCommentLabel": "Comments",
