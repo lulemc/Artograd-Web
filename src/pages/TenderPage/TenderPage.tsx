@@ -4,6 +4,7 @@ import {
   FlexCell,
   FlexRow,
   FlexSpacer,
+  HintAlert,
   Panel,
   TabButton,
   Text,
@@ -297,6 +298,18 @@ export const TenderPage = () => {
             </Text>
           </WarningAlert>
         )}
+        {/* TODO: */}
+        <Text>
+          1 Days left for proposals submission. Proposals voting process is
+          ready to start.
+        </Text>
+        {/* TODO: */}
+        <HintAlert onClose={() => alert('close action')}>
+          <Text size="30">
+            Proposals submission is completed. Please start proposals voting
+            process.
+          </Text>
+        </HintAlert>
       </Panel>
       {tab === 'tender' ? (
         <Panel cx={styles.contentWrapper}>

@@ -38,12 +38,19 @@
   margin-top: 6px;
 }
 
-
-
 .mostLikedBadge {
   margin-left: 12px;
 }
 
 .thumbnail {
   display: contents;
+}
+
+.liked {
+  background-color: var(--night300);
+}
+
+.likeButton {
+  margin-top: 18px;
+  width: max-content;
 }

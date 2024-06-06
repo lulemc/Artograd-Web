@@ -1,4 +1,4 @@
-import { Badge, Button, FlexCell, FlexRow, Text } from '@epam/uui';
+import { Badge, Button, FlexCell, FlexRow, Panel, Text } from '@epam/uui';
 import dayjs from 'dayjs';
 import Thumb from '../../images/proposalThumb.png';
 import styles from './ProposalCard.module.scss';
@@ -25,7 +25,9 @@ export const ProposalCard = ({
   const { t } = useTranslation();
   const isMobile = useMediaQuery(DeviceType.mobile);
   const userId = useSelector((state: RootState) => state.identity.userData.sub);
+  const { isLoggedIn } = useSelector((state: RootState) => state.identity);
   const likedByUser = proposal.likedByUsers.some((user) => user === userId);
+  console.log(':::proposals', proposal);
   return (
     <FlexRow>
       {!isMobile && (
@@ -63,16 +65,18 @@ export const ProposalCard = ({
           authorName={proposal.ownerName}
           authorPicture={proposal.ownerPicture}
         />
-        {likesEnabled && tenderStatus === TenderStatus.VOTING && (
-          <Button
-            isDisabled={likedByUser}
-            icon={LikeIcon}
-            color="secondary"
-            fill="outline"
-            caption={proposal.likedByUsers.length}
-            size="24"
-            onClick={() => null}
-          />
+        {likesEnabled && isLoggedIn && tenderStatus === TenderStatus.VOTING && (
+          <Panel cx={styles.likeButton}>
+            <Button
+              icon={LikeIcon}
+              color="secondary"
+              fill="outline"
+              caption={proposal.likedByUsers.length}
+              size="24"
+              onClick={() => null}
+              cx={likedByUser ? styles.liked : ''}
+            />
+          </Panel>
         )}
       </FlexCell>
     </FlexRow>
