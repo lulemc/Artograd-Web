@@ -541,6 +541,8 @@ export const TenderPage = () => {
                     key={proposal.id}
                     proposal={proposal}
                     mostLiked={isMostLiked(proposal.id)}
+                    tenderStatus={tenderDetails.status}
+                    likesEnabled
                   />
                 </Panel>
               ))

@@ -1,22 +1,31 @@
-import { Badge, FlexCell, FlexRow, Text } from '@epam/uui';
+import { Badge, Button, FlexCell, FlexRow, Text } from '@epam/uui';
 import dayjs from 'dayjs';
 import Thumb from '../../images/proposalThumb.png';
 import styles from './ProposalCard.module.scss';
-import { Proposals } from '../../types';
+import { Proposals, TenderStatus } from '../../types';
 import { ReactComponent as ThumbUpIcon } from '@epam/assets/icons/common/social-thumb-up-12.svg';
 import { useTranslation } from 'react-i18next';
 import { DeviceType, useMediaQuery } from '../../utils/useMediaQuery';
 import { AuthorCard } from '../AuthorCard/AuthorCard';
+import { ReactComponent as LikeIcon } from '@epam/assets/icons/communication-thumb_up-fill.svg';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 export const ProposalCard = ({
   proposal,
+  tenderStatus,
   mostLiked,
+  likesEnabled = false,
 }: {
   proposal: Proposals;
+  tenderStatus?: TenderStatus;
   mostLiked?: boolean;
+  likesEnabled?: boolean;
 }) => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery(DeviceType.mobile);
+  const userId = useSelector((state: RootState) => state.identity.userData.sub);
+  const likedByUser = proposal.likedByUsers.some((user) => user === userId);
   return (
     <FlexRow>
       {!isMobile && (
@@ -54,6 +63,17 @@ export const ProposalCard = ({
           authorName={proposal.ownerName}
           authorPicture={proposal.ownerPicture}
         />
+        {likesEnabled && tenderStatus === TenderStatus.VOTING && (
+          <Button
+            isDisabled={likedByUser}
+            icon={LikeIcon}
+            color="secondary"
+            fill="outline"
+            caption={proposal.likedByUsers.length}
+            size="24"
+            onClick={() => null}
+          />
+        )}
       </FlexCell>
     </FlexRow>
   );
