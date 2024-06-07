@@ -146,7 +146,7 @@ export const ProfileOverview = () => {
             cx={styles.overviewSectionItem}
             rawProps={{ 'data-testid': `active-id` }}
             onClick={() =>
-              history.push({ pathname: '/tenders', state: ACTIVE_TENDERS })
+              history.push({ pathname: '/tenders?statuses=PUBLISHED,IDEATION,VOTING,SELECTION', state: ACTIVE_TENDERS })
             }
             caption={t('profilePage.Active tenders')}
           />
@@ -161,7 +161,7 @@ export const ProfileOverview = () => {
             cx={styles.overviewSectionItem}
             rawProps={{ 'data-testid': `others-id` }}
             onClick={() =>
-              history.push({ pathname: '/tenders', state: OTHER_TENDERS })
+              history.push({ pathname: '/tenders?statuses=DRAFT,CANCELLED,CLOSED', state: OTHER_TENDERS })
             }
             caption={t('profilePage.Others')}
           />

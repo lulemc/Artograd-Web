@@ -17,31 +17,31 @@ export const HomePage = () => {
   const steps = [
     {
       id: 1,
-      linkUrl: '/tenders',
+      linkUrl: '/tenders?statuses=PUBLISHED,IDEATION,VOTING,SELECTION',
       icon: undefined,
       iconOnTop: false,
     },
     {
       id: 2,
-      linkUrl: '/submit',
+      linkUrl: '/tenders?statuses=IDEATION',
       icon: DragAndDropIcon,
       iconOnTop: true,
     },
     {
       id: 3,
-      linkUrl: '/projects',
+      linkUrl: '/tenders?statuses=VOTING',
       icon: LaptopIcon,
       iconOnTop: false,
     },
     {
       id: 4,
-      linkUrl: '/invest',
+      linkUrl: '/artobjects?statuses=FUNDRAISING,IMPLEMENTATION',
       icon: EmptyIcon,
       iconOnTop: false,
     },
     {
       id: 5,
-      linkUrl: '/donate',
+      linkUrl: '/artobjects?statuses=COMPLETED',
       icon: undefined,
       iconOnTop: false,
     },

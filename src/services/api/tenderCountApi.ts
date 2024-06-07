@@ -11,7 +11,6 @@ export const OTHER_TENDERS = [
   TenderStatus.DRAFT,
   TenderStatus.CANCELLED,
   TenderStatus.CLOSED,
-  TenderStatus.DELETED,
 ];
 export const tenderCountApi = {
   get: async (username: string, params?: string[]) => {
