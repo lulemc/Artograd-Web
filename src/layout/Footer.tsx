@@ -32,6 +32,10 @@ export const Footer = () => {
         caption={t('global.layout.footer.cookiePolicyCta')}
         onClick={() => visitPage(props, '/cookie')}
       />
+      <BurgerButton
+        caption={t('global.layout.footer.team')}
+        onClick={() => visitPage(props, '/team')}
+      />
     </>
   );
 
@@ -81,6 +85,18 @@ export const Footer = () => {
         id: 'flexSpacer2',
         priority: 100,
         render: (p) => <FlexSpacer key={p.id} />,
+      },
+      {
+        id: 'team',
+        priority: 3,
+        render: (p) => (
+          <MainMenuButton
+            key={p.id}
+            onClick={() => history.push('/team')}
+            caption={t('global.layout.footer.team')}
+            cx={styles.footerLink}
+          />
+        ),
       },
       {
         id: 'privacyPolicy',

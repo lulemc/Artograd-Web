@@ -16,7 +16,8 @@
       "footer": {
         "copyright": "© 1993—2024 EPAM Systems. All Rights Reserved.",
         "privatePolicyCta": "Privacy policy",
-        "cookiePolicyCta": "Cookies policy"
+        "cookiePolicyCta": "Cookies policy",
+        "team": "Meet the team"
       }
     },
     "fileUpload": {

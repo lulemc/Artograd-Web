@@ -13,31 +13,31 @@ Object {
           style="min-width: 0; flex-basis: 0px;"
         >
           <nav
-            class="oWtJtA uui-main_menu uui-mainmenu-container yvgPcw"
+            class="cnoL3W uui-main_menu uui-mainmenu-container XHDzBR"
           >
             <div
-              class="wxJmc8 _7zh34y"
+              class="jR0uTv _3W15HW"
             >
               <div
-                class="uui-flex-row _5Jq2IB RkwqFu"
+                class="uui-flex-row XTYWVA iqWEr6"
               >
                 <div
                   data-testid="header-logo-image"
                 >
                   <a
                     aria-disabled="true"
-                    class="uui-button-box uui-disabled -clickable uui-anchor WiTwhP z3KHzf"
+                    class="uui-button-box uui-disabled -clickable uui-anchor wCHoFl VmWL2z"
                     tabindex="-1"
                   >
                     <img
                       alt="Main Menu Logo"
-                      class="PCaaX2"
+                      class="gL4W-Y"
                       src="/artograd.logo.svg"
                     />
                   </a>
                 </div>
                 <button
-                  class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 menuPageLink"
+                  class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH menuPageLink"
                   role="menuitem"
                   tabindex="0"
                   type="button"
@@ -49,7 +49,7 @@ Object {
                   </div>
                 </button>
                 <button
-                  class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 menuPageLink"
+                  class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH menuPageLink"
                   role="menuitem"
                   tabindex="0"
                   type="button"
@@ -61,7 +61,7 @@ Object {
                   </div>
                 </button>
                 <button
-                  class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 menuPageLink"
+                  class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH menuPageLink"
                   role="menuitem"
                   tabindex="0"
                   type="button"
@@ -73,15 +73,16 @@ Object {
                   </div>
                 </button>
                 <div
-                  class="CcZAjD"
+                  class="_6SHr2j"
                 />
                 <div
-                  class="uui-flex-row kfXZUl _7f-LqE aqsq6e kxaOed BRv7OH _5Jq2IB RkwqFu"
+                  class="uui-flex-row _4IvXA9 HrBGpo xxwsO1 Vd9t75 XTYWVA iqWEr6"
+                  style="column-gap: 12px;"
                 >
                   <button
                     aria-expanded="false"
                     aria-haspopup="true"
-                    class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 languageSelector"
+                    class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH languageSelector"
                     role="menuitem"
                     tabindex="0"
                     type="button"
@@ -92,7 +93,7 @@ Object {
                       en
                     </div>
                     <div
-                      class="Prmk3w uui-icon uui-enabled"
+                      class="S0eIfh uui-icon uui-enabled"
                     >
                       <svg
                         class=""
@@ -102,18 +103,18 @@ Object {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                          fill-rule="evenodd"
+                          d="m12 16.4-6-6L7.4 9l4.6 4.6L16.6 9l1.4 1.4-6 6z"
                         />
                       </svg>
                     </div>
                   </button>
                 </div>
                 <div
-                  class="uui-flex-row kfXZUl _7f-LqE aqsq6e kxaOed BRv7OH _5Jq2IB RkwqFu"
+                  class="uui-flex-row _4IvXA9 HrBGpo xxwsO1 Vd9t75 XTYWVA iqWEr6"
+                  style="column-gap: 12px;"
                 >
                   <a
-                    class="uui-button-box uui-enabled -clickable uui-anchor VFUd6V y6sOzI uui-button uui-fill-none uui-color-primary uui-size-36 signInButton"
+                    class="uui-button-box uui-enabled -clickable uui-anchor QPwdZA JIKmkz uui-button uui-fill-none uui-color-primary uui-size-36 signInButton"
                     href="https://artograd-dev2.auth.eu-central-1.amazoncognito.com/login?client_id=5c2gu1dvnte5qcvb60rb87llm8&response_type=code&scope=email+openid+phone+profile&redirect_uri=http%3A%2F%2Flocalhost%2Fcallback"
                     tabindex="0"
                   >
@@ -125,10 +126,11 @@ Object {
                   </a>
                 </div>
                 <div
-                  class="uui-flex-row kfXZUl _7f-LqE aqsq6e kxaOed BRv7OH _5Jq2IB RkwqFu"
+                  class="uui-flex-row _4IvXA9 HrBGpo xxwsO1 Vd9t75 XTYWVA iqWEr6"
+                  style="column-gap: 12px;"
                 >
                   <a
-                    class="uui-button-box uui-enabled -clickable uui-anchor VFUd6V y6sOzI uui-button uui-fill-solid uui-color-primary uui-size-36 signUpButton"
+                    class="uui-button-box uui-enabled -clickable uui-anchor QPwdZA JIKmkz uui-button uui-fill-solid uui-color-primary uui-size-36 signUpButton"
                     href="https://artograd-dev2.auth.eu-central-1.amazoncognito.com/signup?client_id=5c2gu1dvnte5qcvb60rb87llm8&response_type=code&scope=email+openid+phone+profile&redirect_uri=http%3A%2F%2Flocalhost%2Fcallback"
                     tabindex="0"
                   >
@@ -153,34 +155,34 @@ Object {
           style="min-width: 0; flex-basis: 0px;"
         >
           <nav
-            class="oWtJtA uui-main_menu uui-mainmenu-container yvgPcw"
+            class="cnoL3W uui-main_menu uui-mainmenu-container XHDzBR"
           >
             <div
-              class="wxJmc8 _7zh34y"
+              class="jR0uTv _3W15HW"
             >
               <div
-                class="uui-flex-row _5Jq2IB RkwqFu"
+                class="uui-flex-row XTYWVA iqWEr6"
               >
                 <div
                   data-testid="footer-logo-image"
                 >
                   <a
                     aria-disabled="true"
-                    class="uui-button-box uui-disabled -clickable uui-anchor WiTwhP z3KHzf"
+                    class="uui-button-box uui-disabled -clickable uui-anchor wCHoFl VmWL2z"
                     tabindex="-1"
                   >
                     <img
                       alt="Main Menu Logo"
-                      class="PCaaX2"
+                      class="gL4W-Y"
                       src="/artograd.logo.svg"
                     />
                   </a>
                 </div>
                 <div
-                  class="CcZAjD"
+                  class="_6SHr2j"
                 />
                 <span
-                  class="uui-button-box uui-enabled YhOZc4 w-FQr6"
+                  class="uui-button-box uui-enabled l7dxYC _0RZWZH"
                   role="menuitem"
                   tabindex="-1"
                 >
@@ -191,10 +193,22 @@ Object {
                   </div>
                 </span>
                 <div
-                  class="CcZAjD"
+                  class="_6SHr2j"
                 />
                 <button
-                  class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 footerLink"
+                  class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH footerLink"
+                  role="menuitem"
+                  tabindex="0"
+                  type="button"
+                >
+                  <div
+                    class="uui-caption"
+                  >
+                    Meet the team
+                  </div>
+                </button>
+                <button
+                  class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH footerLink"
                   role="menuitem"
                   tabindex="0"
                   type="button"
@@ -206,7 +220,7 @@ Object {
                   </div>
                 </button>
                 <button
-                  class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 footerLink"
+                  class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH footerLink"
                   role="menuitem"
                   tabindex="0"
                   type="button"
@@ -233,31 +247,31 @@ Object {
         style="min-width: 0; flex-basis: 0px;"
       >
         <nav
-          class="oWtJtA uui-main_menu uui-mainmenu-container yvgPcw"
+          class="cnoL3W uui-main_menu uui-mainmenu-container XHDzBR"
         >
           <div
-            class="wxJmc8 _7zh34y"
+            class="jR0uTv _3W15HW"
           >
             <div
-              class="uui-flex-row _5Jq2IB RkwqFu"
+              class="uui-flex-row XTYWVA iqWEr6"
             >
               <div
                 data-testid="header-logo-image"
               >
                 <a
                   aria-disabled="true"
-                  class="uui-button-box uui-disabled -clickable uui-anchor WiTwhP z3KHzf"
+                  class="uui-button-box uui-disabled -clickable uui-anchor wCHoFl VmWL2z"
                   tabindex="-1"
                 >
                   <img
                     alt="Main Menu Logo"
-                    class="PCaaX2"
+                    class="gL4W-Y"
                     src="/artograd.logo.svg"
                   />
                 </a>
               </div>
               <button
-                class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 menuPageLink"
+                class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH menuPageLink"
                 role="menuitem"
                 tabindex="0"
                 type="button"
@@ -269,7 +283,7 @@ Object {
                 </div>
               </button>
               <button
-                class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 menuPageLink"
+                class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH menuPageLink"
                 role="menuitem"
                 tabindex="0"
                 type="button"
@@ -281,7 +295,7 @@ Object {
                 </div>
               </button>
               <button
-                class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 menuPageLink"
+                class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH menuPageLink"
                 role="menuitem"
                 tabindex="0"
                 type="button"
@@ -293,15 +307,16 @@ Object {
                 </div>
               </button>
               <div
-                class="CcZAjD"
+                class="_6SHr2j"
               />
               <div
-                class="uui-flex-row kfXZUl _7f-LqE aqsq6e kxaOed BRv7OH _5Jq2IB RkwqFu"
+                class="uui-flex-row _4IvXA9 HrBGpo xxwsO1 Vd9t75 XTYWVA iqWEr6"
+                style="column-gap: 12px;"
               >
                 <button
                   aria-expanded="false"
                   aria-haspopup="true"
-                  class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 languageSelector"
+                  class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH languageSelector"
                   role="menuitem"
                   tabindex="0"
                   type="button"
@@ -312,7 +327,7 @@ Object {
                     en
                   </div>
                   <div
-                    class="Prmk3w uui-icon uui-enabled"
+                    class="S0eIfh uui-icon uui-enabled"
                   >
                     <svg
                       class=""
@@ -322,18 +337,18 @@ Object {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                        fill-rule="evenodd"
+                        d="m12 16.4-6-6L7.4 9l4.6 4.6L16.6 9l1.4 1.4-6 6z"
                       />
                     </svg>
                   </div>
                 </button>
               </div>
               <div
-                class="uui-flex-row kfXZUl _7f-LqE aqsq6e kxaOed BRv7OH _5Jq2IB RkwqFu"
+                class="uui-flex-row _4IvXA9 HrBGpo xxwsO1 Vd9t75 XTYWVA iqWEr6"
+                style="column-gap: 12px;"
               >
                 <a
-                  class="uui-button-box uui-enabled -clickable uui-anchor VFUd6V y6sOzI uui-button uui-fill-none uui-color-primary uui-size-36 signInButton"
+                  class="uui-button-box uui-enabled -clickable uui-anchor QPwdZA JIKmkz uui-button uui-fill-none uui-color-primary uui-size-36 signInButton"
                   href="https://artograd-dev2.auth.eu-central-1.amazoncognito.com/login?client_id=5c2gu1dvnte5qcvb60rb87llm8&response_type=code&scope=email+openid+phone+profile&redirect_uri=http%3A%2F%2Flocalhost%2Fcallback"
                   tabindex="0"
                 >
@@ -345,10 +360,11 @@ Object {
                 </a>
               </div>
               <div
-                class="uui-flex-row kfXZUl _7f-LqE aqsq6e kxaOed BRv7OH _5Jq2IB RkwqFu"
+                class="uui-flex-row _4IvXA9 HrBGpo xxwsO1 Vd9t75 XTYWVA iqWEr6"
+                style="column-gap: 12px;"
               >
                 <a
-                  class="uui-button-box uui-enabled -clickable uui-anchor VFUd6V y6sOzI uui-button uui-fill-solid uui-color-primary uui-size-36 signUpButton"
+                  class="uui-button-box uui-enabled -clickable uui-anchor QPwdZA JIKmkz uui-button uui-fill-solid uui-color-primary uui-size-36 signUpButton"
                   href="https://artograd-dev2.auth.eu-central-1.amazoncognito.com/signup?client_id=5c2gu1dvnte5qcvb60rb87llm8&response_type=code&scope=email+openid+phone+profile&redirect_uri=http%3A%2F%2Flocalhost%2Fcallback"
                   tabindex="0"
                 >
@@ -373,34 +389,34 @@ Object {
         style="min-width: 0; flex-basis: 0px;"
       >
         <nav
-          class="oWtJtA uui-main_menu uui-mainmenu-container yvgPcw"
+          class="cnoL3W uui-main_menu uui-mainmenu-container XHDzBR"
         >
           <div
-            class="wxJmc8 _7zh34y"
+            class="jR0uTv _3W15HW"
           >
             <div
-              class="uui-flex-row _5Jq2IB RkwqFu"
+              class="uui-flex-row XTYWVA iqWEr6"
             >
               <div
                 data-testid="footer-logo-image"
               >
                 <a
                   aria-disabled="true"
-                  class="uui-button-box uui-disabled -clickable uui-anchor WiTwhP z3KHzf"
+                  class="uui-button-box uui-disabled -clickable uui-anchor wCHoFl VmWL2z"
                   tabindex="-1"
                 >
                   <img
                     alt="Main Menu Logo"
-                    class="PCaaX2"
+                    class="gL4W-Y"
                     src="/artograd.logo.svg"
                   />
                 </a>
               </div>
               <div
-                class="CcZAjD"
+                class="_6SHr2j"
               />
               <span
-                class="uui-button-box uui-enabled YhOZc4 w-FQr6"
+                class="uui-button-box uui-enabled l7dxYC _0RZWZH"
                 role="menuitem"
                 tabindex="-1"
               >
@@ -411,10 +427,22 @@ Object {
                 </div>
               </span>
               <div
-                class="CcZAjD"
+                class="_6SHr2j"
               />
               <button
-                class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 footerLink"
+                class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH footerLink"
+                role="menuitem"
+                tabindex="0"
+                type="button"
+              >
+                <div
+                  class="uui-caption"
+                >
+                  Meet the team
+                </div>
+              </button>
+              <button
+                class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH footerLink"
                 role="menuitem"
                 tabindex="0"
                 type="button"
@@ -426,7 +454,7 @@ Object {
                 </div>
               </button>
               <button
-                class="uui-button-box uui-enabled -clickable YhOZc4 w-FQr6 footerLink"
+                class="uui-button-box uui-enabled -clickable l7dxYC _0RZWZH footerLink"
                 role="menuitem"
                 tabindex="0"
                 type="button"

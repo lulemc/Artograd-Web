@@ -35,6 +35,7 @@ import { Modals, Snackbar } from '@epam/uui-components';
 import { ProfilePage } from './pages/Profile/ProfilePage';
 import { overrideUUILocalisation } from './translation/i18nUUI';
 import { useTranslation } from 'react-i18next';
+import { TeamPage } from './pages/TeamPage/TeamPage';
 
 const history = createBrowserHistory();
 const router = new HistoryAdaptedRouter(history);
@@ -109,6 +110,7 @@ const UuiEnhancedApp = () => {
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/callback" component={CallbackPage} />
                   <Route exact path="/tenders" component={TendersPage} />
+                  <Route exact path="/team" component={TeamPage} />
                   <Route path="/tender/:tenderId" component={TenderPage} />
                   <Route exact path="/profile">
                     <ProfileRoute>
